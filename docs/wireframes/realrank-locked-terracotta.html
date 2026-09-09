@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RealRank — Locked Terracotta Wireframe</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #faf9f6;
+      --surface: #ffffff;
+      --text: #20201e;
+      --muted: #6e6a65;
+      --line: #dddad5;
+      --accent: #c4512d;
+      --accent-dark: #a54122;
+      --tint: #f7e3dc;
+      --quiet: #efede9;
+      --shadow: 0 18px 50px rgba(64, 51, 44, .09);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--text); background: var(--page); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .rr-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .rr-container { width: min(100% - 40px, 1120px); margin-inline: auto; }
+    .rr-icon { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .rr-site-header { border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, .72); backdrop-filter: blur(12px); }
+    .rr-nav { display: flex; align-items: center; justify-content: space-between; min-height: 74px; gap: 24px; }
+    .rr-wordmark { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-size: 18px; font-weight: 650; letter-spacing: -.04em; }
+    .rr-mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; color: #fff; background: var(--accent); font-size: 13px; }
+    .rr-nav-links { display: flex; align-items: center; gap: 24px; }
+    .rr-nav-links a { color: var(--muted); text-decoration: none; font-size: 12px; }
+    .rr-nav-links a:hover { color: var(--text); }
+    .rr-city-picker { position: relative; }
+    .rr-city-button { display: inline-flex; align-items: center; gap: 7px; min-height: 38px; padding: 0 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); background: var(--surface); font-size: 11px; font-weight: 600; cursor: pointer; }
+    .rr-city-button .rr-icon { width: 14px; height: 14px; color: var(--muted); pointer-events: none; }
+    .rr-city-button .rr-city-chevron { width: 13px; height: 13px; transition: transform .18s ease; }
+    .rr-city-button[aria-expanded="true"] .rr-city-chevron { transform: rotate(180deg); }
+    .rr-city-menu { position: absolute; z-index: 20; top: calc(100% + 7px); right: 0; width: 220px; padding: 6px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); }
+    .rr-city-option { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 40px; padding: 0 10px; border: 0; border-radius: 9px; color: var(--text); background: transparent; font-size: 11px; text-align: left; cursor: pointer; }
+    .rr-city-option:hover:not(:disabled) { background: var(--quiet); }
+    .rr-city-option:disabled { color: var(--muted); cursor: default; }
+    .rr-city-option .rr-icon { width: 14px; height: 14px; color: var(--accent); }
+    .rr-coming-soon { padding: 4px 7px; border-radius: 999px; color: var(--accent-dark); background: var(--tint); font-size: 8px; font-weight: 650; white-space: nowrap; }
+
+    .rr-hero { padding: 54px 0 48px; }
+    .rr-live-wrap { display: flex; justify-content: center; }
+    .rr-live { display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--surface); font-size: 11px; }
+    .rr-live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--tint); }
+    .rr-hero-copy { max-width: 980px; margin: 25px auto 0; text-align: center; }
+    h1 { margin: 0; font-size: clamp(42px, 6vw, 64px); font-weight: 520; line-height: 1; letter-spacing: -.035em; text-wrap: balance; }
+    h1 span { color: var(--accent-dark); }
+    .rr-lead { max-width: 790px; margin: 21px auto 0; color: var(--muted); font-size: 15px; line-height: 1.62; }
+
+    .rr-entry { max-width: 1080px; margin: 30px auto 0; }
+    .rr-entry-row { display: grid; grid-template-columns: minmax(180px, 1.1fr) minmax(190px, .9fr) minmax(210px, .8fr) auto; gap: 8px; padding: 7px; border: 1px solid var(--line); border-radius: 24px; background: var(--surface); box-shadow: var(--shadow); }
+    .rr-field-group { min-width: 0; padding: 5px 13px 4px; border-right: 1px solid var(--line); }
+    .rr-field { width: 100%; min-height: 46px; padding: 0; border: 0; color: var(--text); background: transparent; outline: 0; font-size: 13px; }
+    .rr-field::placeholder { color: #918c86; }
+    .rr-bid-group { position: relative; padding-right: 8px; }
+    .rr-bid-controls { display: grid; grid-template-columns: 32px minmax(0, 1fr) 32px; align-items: center; min-height: 46px; }
+    .rr-bid-button { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: var(--text); background: var(--quiet); cursor: pointer; font-size: 18px; }
+    .rr-bid-button:hover { background: #e7e3de; }
+    .rr-bid-value { position: relative; min-width: 0; }
+    .rr-rupee { position: absolute; left: 10px; top: 50%; color: var(--muted); font-size: 12px; transform: translateY(-50%); }
+    .rr-bid-input { width: 100%; height: 34px; padding: 0 5px 0 25px; border: 0; color: var(--text); background: transparent; outline: 0; font-weight: 700; text-align: center; appearance: textfield; }
+    .rr-bid-input::-webkit-inner-spin-button { appearance: none; }
+    .rr-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 54px; padding: 0 22px; border: 0; border-radius: 17px; color: #fff; background: var(--accent); font-weight: 650; white-space: nowrap; cursor: pointer; }
+    .rr-primary:hover { background: var(--accent-dark); }
+    .rr-entry-row > .rr-primary { align-self: end; }
+
+    .rr-claim-rank { position: absolute; z-index: 2; left: 52%; top: -34px; display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0; color: var(--accent-dark); background: transparent; font-size: 10px; font-weight: 650; white-space: nowrap; cursor: pointer; }
+    .rr-claim-rank strong { font-size: 11px; }
+    .rr-claim-arrow { width: 34px; height: 24px; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transform: translateY(10px); }
+    .rr-claim-rank:hover span { text-decoration: underline; text-underline-offset: 3px; }
+    .rr-entry-note { margin: 8px 0 0; color: var(--muted); font-size: 9px; text-align: center; }
+    .rr-entry-note a { color: var(--text); text-decoration: none; font-weight: 600; }
+
+    .rr-index { padding: 0 0 64px; }
+    .rr-ranking-toolbar { position: sticky; z-index: 12; top: 0; padding: 28px 0 15px; background: rgba(250, 249, 246, .94); backdrop-filter: blur(14px); }
+    .rr-section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; }
+    .rr-section-head h2 { margin: 0; font-size: 30px; font-weight: 600; letter-spacing: -.05em; }
+    .rr-section-head p { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
+    .rr-section-disclosure { max-width: 320px; margin: 0 !important; color: var(--muted); font-size: 10px !important; line-height: 1.45; text-align: right; }
+    .rr-ranking-controls { position: relative; margin-top: 18px; }
+    .rr-category-rail { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+    .rr-filters { display: flex; gap: 7px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: inline proximity; scrollbar-width: none; }
+    .rr-filters::-webkit-scrollbar { display: none; }
+    .rr-filter { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; min-height: 38px; padding: 0 13px; border: 1px solid transparent; border-radius: 999px; color: var(--muted); background: var(--quiet); font-size: 11px; scroll-snap-align: start; cursor: pointer; }
+    .rr-filter:hover { color: var(--text); border-color: var(--line); }
+    .rr-filter[aria-pressed="true"] { color: #fff; border-color: var(--accent); background: var(--accent); }
+    .rr-more-categories { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 38px; padding: 0 13px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); background: var(--surface); font-size: 11px; font-weight: 650; cursor: pointer; box-shadow: -12px 0 20px var(--page); }
+    .rr-more-categories:hover, .rr-more-categories[aria-expanded="true"] { color: var(--accent-dark); border-color: var(--accent); }
+    .rr-more-categories .rr-icon { width: 15px; height: 15px; }
+    .rr-category-island { position: absolute; z-index: 24; top: calc(100% + 10px); right: 0; width: min(100%, 500px); padding: 16px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); }
+    .rr-island-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+    .rr-island-head strong { font-size: 13px; }
+    .rr-island-close { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; color: var(--muted); background: var(--quiet); cursor: pointer; }
+    .rr-island-close .rr-icon { width: 14px; height: 14px; }
+    .rr-category-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+    .rr-island-category { display: flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 10px; border: 1px solid var(--line); border-radius: 12px; color: var(--text); background: var(--surface); font-size: 10px; text-align: left; cursor: pointer; }
+    .rr-island-category:hover, .rr-island-category[aria-pressed="true"] { color: var(--accent-dark); border-color: #d9b6a9; background: #fff8f5; }
+    .rr-island-category .rr-icon { flex: 0 0 auto; width: 15px; height: 15px; color: var(--accent); }
+    .rr-rankings { display: grid; gap: 10px; margin-top: 22px; }
+    .rr-rank-group { display: flex; align-items: center; gap: 12px; min-height: 30px; margin-top: 8px; color: var(--muted); }
+    .rr-rank-group:first-child { margin-top: 0; }
+    .rr-rank-group strong { color: var(--text); font-size: 11px; font-weight: 700; }
+    .rr-rank-group span { font-size: 9px; white-space: nowrap; }
+    .rr-rank-group::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+    .rr-company { position: relative; display: grid; grid-template-columns: 46px 54px minmax(0, 1fr); align-items: center; gap: 14px; min-height: 112px; padding: 16px 142px 16px 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+    .rr-company:hover { border-color: #cbc6c0; box-shadow: 0 10px 32px rgba(64, 51, 44, .06); transform: translateY(-1px); }
+    .rr-company.rr-top-ten { min-height: 112px; }
+    .rr-company.rr-top-three { min-height: 124px; border-color: #d98366; background: var(--surface); }
+    .rr-company.rr-rank-one { min-height: 132px; border: 1.5px solid var(--accent); background: var(--surface); box-shadow: 0 14px 38px rgba(164, 65, 34, .07); }
+    .rr-rank { display: grid; place-items: center; width: 46px; height: 36px; border-radius: 999px; color: var(--accent-dark); background: var(--tint); font-size: 12px; font-weight: 750; }
+    .rr-top-ten .rr-rank, .rr-top-three .rr-rank { color: #fff; background: var(--accent); }
+    .rr-rank-one .rr-rank { height: 46px; color: #fff; background: var(--text); }
+    .rr-logo { display: grid; place-items: center; width: 54px; height: 54px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); font-size: 13px; font-weight: 700; }
+    .rr-rank-one .rr-logo { width: 58px; height: 58px; }
+    .rr-company-main { min-width: 0; }
+    .rr-company-title-row { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+    .rr-company-link { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 680; letter-spacing: -.025em; }
+    .rr-top-three .rr-company-link { font-size: 17px; }
+    .rr-company-link:hover { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
+    .rr-description { display: -webkit-box; margin: 6px 0 0; overflow: hidden; color: var(--muted); font-size: 11px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+    .rr-company.rr-compact .rr-description { -webkit-line-clamp: 1; }
+    .rr-entity-categories { margin: 6px 0 0; color: var(--accent-dark); font-size: 9px; font-weight: 650; }
+    .rr-company-side { position: absolute; top: 16px; right: 16px; }
+    .rr-rank-competition { display: grid; justify-items: end; gap: 6px; }
+    .rr-rank-total { display: flex; flex-direction: column; align-items: flex-end; color: var(--muted); font-size: 9px; line-height: 1.25; white-space: nowrap; text-align: right; }
+    .rr-rank-total strong { color: var(--text); font-size: 14px; font-weight: 680; }
+    .rr-contact, .rr-claim-position { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 38px; padding: 0 11px; border-radius: 999px; font-size: 10px; font-weight: 680; cursor: pointer; }
+    .rr-contact { width: auto; min-height: 32px; margin-top: 9px; border: 1px solid var(--quiet); color: var(--text); background: var(--quiet); font-weight: 400; }
+    .rr-contact:hover { border-color: var(--line); background: #e7e3de; }
+    .rr-claim-position { min-height: 28px; padding: 0 10px; border: 1px solid #d9b6a9; color: var(--accent-dark); background: #fff8f5; font-size: 9px; }
+    .rr-claim-position:hover { border-color: var(--accent); background: var(--tint); }
+
+    .rr-pagination-wrap { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 24px; }
+    .rr-pagination-summary { color: var(--muted); font-size: 10px; }
+    .rr-pagination { display: flex; align-items: center; gap: 6px; }
+    .rr-page-button { display: grid; place-items: center; min-width: 36px; height: 36px; padding: 0 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); background: var(--surface); font-size: 10px; cursor: pointer; }
+    .rr-page-button:hover:not(:disabled), .rr-page-button[aria-current="page"] { color: #fff; border-color: var(--accent); background: var(--accent); }
+    .rr-page-button:disabled { opacity: .42; cursor: default; }
+    .rr-empty-state { display: grid; place-items: center; gap: 6px; min-height: 180px; padding: 24px; border: 1px dashed var(--line); border-radius: 18px; color: var(--muted); text-align: center; }
+    .rr-empty-state strong { color: var(--text); font-size: 14px; }
+    .rr-empty-state span { font-size: 10px; }
+    .rr-disclosure { display: flex; align-items: flex-start; gap: 8px; margin: 20px 2px 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .rr-disclosure .rr-icon { flex: 0 0 auto; width: 14px; height: 14px; }
+
+    .rr-site-footer { border-top: 1px solid var(--line); background: var(--page); }
+    .rr-footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 88px; padding-block: 20px; }
+    .rr-footer-brand { display: flex; align-items: baseline; flex-wrap: wrap; gap: 7px; color: var(--muted); font-size: 10px; }
+    .rr-footer-brand strong { color: var(--text); font-size: 12px; font-weight: 650; }
+    .rr-footer-links { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 7px 18px; }
+    .rr-footer-links a { color: var(--muted); font-size: 10px; text-decoration: none; }
+    .rr-footer-links a:hover { color: var(--text); }
+
+    .rr-claim-dialog { width: min(100% - 28px, 460px); padding: 0; border: 1px solid var(--line); border-radius: 22px; color: var(--text); background: var(--surface); box-shadow: var(--shadow); }
+    .rr-claim-dialog::backdrop { background: rgba(32, 32, 30, .38); backdrop-filter: blur(3px); }
+    .rr-dialog-inner { padding: 24px; }
+    .rr-dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .rr-dialog-kicker { margin: 0 0 6px; color: var(--accent-dark); font-size: 9px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+    .rr-claim-dialog h3 { margin: 0; font-size: 23px; letter-spacing: -.04em; }
+    .rr-dialog-close { display: grid; place-items: center; width: 34px; height: 34px; padding: 0; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); background: var(--surface); cursor: pointer; }
+    .rr-claim-breakdown { display: grid; gap: 0; margin-top: 20px; border: 1px solid var(--line); border-radius: 15px; overflow: hidden; }
+    .rr-claim-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 10px; }
+    .rr-claim-row:last-child { border-bottom: 0; background: var(--tint); }
+    .rr-claim-row span { color: var(--muted); }
+    .rr-claim-row strong { text-align: right; }
+    .rr-dialog-note { margin: 14px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
+    .rr-dialog-action { width: 100%; margin-top: 18px; }
+    .rr-toast { position: fixed; z-index: 40; right: 20px; bottom: 20px; max-width: min(360px, calc(100% - 40px)); padding: 12px 15px; border-radius: 13px; color: #fff; background: var(--text); box-shadow: var(--shadow); font-size: 11px; }
+
+    @media (max-width: 980px) {
+      .rr-entry-row { grid-template-columns: 1fr 1fr; border-radius: 22px; }
+      .rr-field-group { border-right: 0; border-bottom: 1px solid var(--line); }
+      .rr-bid-group { margin-top: 28px; }
+      .rr-primary { width: 100%; }
+      .rr-company { grid-template-columns: 46px 54px minmax(0, 1fr); padding-right: 142px; }
+    }
+    @media (max-width: 680px) {
+      .rr-container { width: min(100% - 28px, 1120px); }
+      .rr-nav { min-height: 66px; }
+      .rr-nav-links > a { display: none; }
+      .rr-hero { padding-top: 38px; }
+      h1 { font-size: clamp(38px, 11vw, 50px); line-height: 1.02; letter-spacing: -.025em; }
+      .rr-lead { font-size: 14px; }
+      .rr-entry-row { grid-template-columns: 1fr; padding: 8px; border-radius: 20px; }
+      .rr-field-group { padding: 8px 11px; }
+      .rr-bid-group { margin-top: 30px; }
+      .rr-claim-rank { top: -31px; left: 50%; }
+      .rr-primary { border-radius: 14px; }
+      .rr-ranking-toolbar { padding: 22px 0 12px; }
+      .rr-section-head { align-items: flex-start; }
+      .rr-section-head h2 { font-size: 25px; }
+      .rr-section-head p { max-width: 270px; line-height: 1.45; }
+      .rr-section-disclosure { display: none; }
+      .rr-ranking-controls { margin-top: 14px; }
+      .rr-category-rail { gap: 6px; }
+      .rr-filters { margin-right: -4px; }
+      .rr-filter { min-height: 36px; padding-inline: 12px; }
+      .rr-filter .rr-icon { width: 15px; height: 15px; }
+      .rr-more-categories { width: 38px; min-height: 36px; padding: 0; box-shadow: -10px 0 18px var(--page); }
+      .rr-more-categories span { display: none; }
+      .rr-category-island { position: fixed; top: auto; right: 14px; bottom: 14px; left: 14px; width: auto; border-radius: 20px; }
+      .rr-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .rr-rankings { gap: 9px; margin-top: 16px; }
+      .rr-rank-group { margin-top: 6px; }
+      .rr-company, .rr-company.rr-top-ten, .rr-company.rr-top-three, .rr-company.rr-rank-one { grid-template-columns: 42px minmax(0, 1fr) auto; gap: 10px 12px; min-height: 0; padding: 14px; border-radius: 17px; }
+      .rr-company.rr-rank-one { padding-block: 16px; }
+      .rr-rank { grid-column: 1; grid-row: 1; width: 42px; height: 34px; }
+      .rr-rank-one .rr-rank { height: 42px; }
+      .rr-logo { display: none; }
+      .rr-company-main { grid-column: 2; grid-row: 1; }
+      .rr-company-link { font-size: 14px; }
+      .rr-top-three .rr-company-link { font-size: 15px; }
+      .rr-description { margin-top: 5px; font-size: 10px; -webkit-line-clamp: 2; }
+      .rr-entity-categories { margin-top: 5px; }
+      .rr-company-side { position: static; display: contents; width: auto; }
+      .rr-rank-competition { grid-column: 3; grid-row: 1; align-self: start; margin-top: 1px; }
+      .rr-contact { width: auto; min-height: 32px; padding-inline: 10px; }
+      .rr-claim-position { width: auto; min-height: 26px; padding-inline: 9px; }
+      .rr-pagination-wrap { align-items: flex-start; flex-direction: column-reverse; gap: 11px; }
+      .rr-pagination { width: 100%; }
+      .rr-page-button:first-child, .rr-page-button:last-child { flex: 1; }
+      .rr-page-button { height: 38px; }
+      .rr-footer-inner { align-items: flex-start; flex-direction: column; gap: 14px; min-height: 0; padding-block: 24px; }
+      .rr-footer-brand { display: grid; gap: 4px; }
+      .rr-footer-links { justify-content: flex-start; gap: 5px 16px; }
+      .rr-footer-links a { display: inline-flex; align-items: center; min-height: 32px; }
+      .rr-dialog-inner { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="rr-site-header">
+    <nav class="rr-container rr-nav" aria-label="Primary navigation">
+      <a class="rr-wordmark" href="#"><span class="rr-mark">RR</span>RealRank</a>
+      <div class="rr-nav-links">
+        <a href="#rankings">Categories</a><a href="#how-it-works">How it works</a><a href="#">Login</a>
+        <div class="rr-city-picker">
+          <button class="rr-city-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="rr-city-menu">
+            <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span>Indore</span>
+            <svg class="rr-icon rr-city-chevron" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg>
+          </button>
+          <div class="rr-city-menu" id="rr-city-menu" role="menu" hidden>
+            <button class="rr-city-option" type="button" role="menuitem" aria-current="true"><span>Indore</span><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></button>
+            <button class="rr-city-option" type="button" role="menuitem" disabled><span>Other cities</span><span class="rr-coming-soon">Coming soon</span></button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="rr-container rr-hero">
+      <div class="rr-live-wrap"><div class="rr-live"><span class="rr-live-dot"></span>Now live in Indore · Rankings update instantly</div></div>
+      <div class="rr-hero-copy">
+        <h1>The Real Estate <span>Discovery&nbsp;Index</span> of Companies &amp; Marketers.</h1>
+        <p class="rr-lead">Where real estate companies and marketers claim prime digital visibility across leading property categories. Bid transparently, showcase live portfolios, and connect directly with high-intent property buyers—zero commission fees, zero middleman algorithms.</p>
+      </div>
+
+      <form class="rr-entry" id="entry-form" novalidate>
+        <div class="rr-entry-row">
+          <label class="rr-field-group"><span class="rr-sr-only">Entity name</span><input class="rr-field" id="entity-name" name="entityName" autocomplete="organization" placeholder="Entity Name" required></label>
+          <label class="rr-field-group"><span class="rr-sr-only">Contact or WhatsApp number</span><input class="rr-field" id="contact-number" name="rr-contact" type="tel" inputmode="tel" autocomplete="tel" placeholder="Contact or WhatsApp Number" required></label>
+          <div class="rr-field-group rr-bid-group">
+            <label class="rr-sr-only" for="bid-amount">Ranking amount, minimum 10 rupees</label>
+            <button class="rr-claim-rank" type="button" data-top-bid aria-label="Set ranking amount to 1,260 rupees to claim rank 1"><svg class="rr-claim-arrow" aria-hidden="true" viewBox="0 0 34 24"><path d="M31 2C20 3 12 8 7 19M7 19l1-7M7 19l7-3"/></svg><span><strong>₹1,260</strong> to claim rank #1</span></button>
+            <div class="rr-bid-controls"><button class="rr-bid-button" type="button" data-bid-action="decrease" aria-label="Decrease ranking amount by 10 rupees">−</button><div class="rr-bid-value"><span class="rr-rupee">₹</span><input class="rr-bid-input" id="bid-amount" name="bidAmount" type="number" inputmode="numeric" min="10" step="10" value="10"></div><button class="rr-bid-button" type="button" data-bid-action="increase" aria-label="Increase ranking amount by 10 rupees">+</button></div>
+          </div>
+          <button class="rr-primary" type="submit">List your Entity <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+        <p class="rr-entry-note">By continuing, you agree to the <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and transparent <a href="#">Ranking Policy</a>.</p>
+      </form>
+
+    </section>
+
+    <section class="rr-index" id="rr-rankings">
+      <div class="rr-ranking-toolbar">
+        <div class="rr-container">
+          <div class="rr-section-head">
+            <div><h2>RealRank Index</h2><p>Compare companies and marketers, explore portfolios, and connect directly.</p></div>
+            <p class="rr-section-disclosure">Sponsored ranking · not a quality score or recommendation</p>
+          </div>
+          <div class="rr-ranking-controls">
+            <div class="rr-category-rail">
+              <div class="rr-filters" aria-label="Filter rankings by category">
+                <button class="rr-filter" type="button" data-filter="All" aria-pressed="true"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>All</button>
+                <button class="rr-filter" type="button" data-filter="Residential" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20H6v-8"/><path d="M9 20v-6h6v6"/></svg>Residential</button>
+                <button class="rr-filter" type="button" data-filter="Commercial" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V5h10v16M15 9h4v12M8 9h4M8 13h4M8 17h4"/></svg>Commercial</button>
+                <button class="rr-filter" type="button" data-filter="Plots &amp; Land" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2Z"/><path d="M9 4v14M15 6v14"/></svg>Plots &amp; Land</button>
+                <button class="rr-filter" type="button" data-filter="Rentals" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="8" cy="15" r="3"/><path d="m10.5 13.5 8-8M15 7l2 2M17 5l2 2"/></svg>Rentals</button>
+                <button class="rr-filter" type="button" data-filter="New Projects" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20V8l8-4 8 4v12M8 11h2M14 11h2M8 15h2M14 15h2"/></svg>New Projects</button>
+                <button class="rr-filter" type="button" data-filter="Luxury" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 9 4-5h8l4 5-8 11Z"/><path d="m4 9 8 3 8-3M8 4l4 8 4-8"/></svg>Luxury</button>
+                <button class="rr-filter" type="button" data-filter="Industrial" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 21V10l6 3V9l6 4V6l6 4v11Z"/><path d="M7 17h2M13 17h2M18 17h1"/></svg>Industrial</button>
+              </div>
+              <button class="rr-more-categories" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="rr-category-island"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg><span>More</span></button>
+            </div>
+            <div class="rr-category-island" id="rr-category-island" role="dialog" aria-label="All categories" hidden>
+              <div class="rr-island-head"><strong>Browse all categories</strong><button class="rr-island-close" type="button" aria-label="Close categories"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+              <div class="rr-category-grid">
+                <button class="rr-island-category" type="button" data-filter="Residential" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20H6v-8"/></svg>Residential</button>
+                <button class="rr-island-category" type="button" data-filter="Commercial" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V5h10v16M15 9h4v12"/></svg>Commercial</button>
+                <button class="rr-island-category" type="button" data-filter="Plots &amp; Land" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2Z"/></svg>Plots &amp; Land</button>
+                <button class="rr-island-category" type="button" data-filter="Rentals" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="8" cy="15" r="3"/><path d="m10.5 13.5 8-8"/></svg>Rentals</button>
+                <button class="rr-island-category" type="button" data-filter="New Projects" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20V8l8-4 8 4v12M8 11h2M14 11h2"/></svg>New Projects</button>
+                <button class="rr-island-category" type="button" data-filter="Luxury" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 9 4-5h8l4 5-8 11Z"/></svg>Luxury</button>
+                <button class="rr-island-category" type="button" data-filter="Industrial" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 21V10l6 3V9l6 4V6l6 4v11Z"/></svg>Industrial</button>
+                <button class="rr-island-category" type="button" data-filter="Warehouses" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m3 10 9-6 9 6v10H3Z"/><path d="M8 20v-6h8v6"/></svg>Warehouses</button>
+                <button class="rr-island-category" type="button" data-filter="Co-working" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="8" cy="7" r="3"/><circle cx="17" cy="8" r="2"/><path d="M3 20v-3a5 5 0 0 1 10 0v3M14 20v-2a4 4 0 0 1 7-2.5"/></svg>Co-working</button>
+                <button class="rr-island-category" type="button" data-filter="Agricultural" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21V9M12 13c-5 0-7-3-7-7 5 0 7 3 7 7ZM12 17c5 0 7-3 7-7-5 0-7 3-7 7Z"/></svg>Agricultural</button>
+                <button class="rr-island-category" type="button" data-filter="PG &amp; Hostels" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M4 20V5h16v15M8 9h2M14 9h2M8 13h2M14 13h2M9 20v-3h6v3"/></svg>PG &amp; Hostels</button>
+                <button class="rr-island-category" type="button" data-filter="Farmhouses" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m3 11 9-7 9 7M5 10v10h14V10M9 20v-6h6v6"/><path d="M18 6c2 0 3-1 3-3-2 0-3 1-3 3Z"/></svg>Farmhouses</button>
+                <button class="rr-island-category" type="button" data-filter="Auction Properties" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m13 5 6 6M11 7l6 6M4 20h9M5 16l8-8M14 5l2-2 6 6-2 2M3 17l4 4"/></svg>Auction Properties</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rr-container">
+        <div class="rr-rankings" aria-label="Entity rankings" aria-live="polite"></div>
+        <div class="rr-pagination-wrap"><span class="rr-pagination-summary" data-pagination-summary></span><nav class="rr-pagination" aria-label="Rankings pages"></nav></div>
+        <p class="rr-disclosure"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>Positions are sponsored and ordered by rank total—not by quality, reviews, recommendation or business verification.</span></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rr-site-footer">
+    <div class="rr-container rr-footer-inner">
+      <div class="rr-footer-brand"><strong>RealRank © 2026</strong><span>Transparent sponsored discovery for real estate.</span></div>
+      <nav class="rr-footer-links" aria-label="Footer navigation">
+        <a href="#how-it-works">How it works</a>
+        <a href="#">Ranking Policy</a>
+        <a href="#">FAQ</a>
+        <a href="#">Terms</a>
+        <a href="#">Privacy</a>
+        <a href="#">Refund Policy</a>
+        <a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <dialog class="rr-claim-dialog" aria-labelledby="claim-dialog-title">
+    <div class="rr-dialog-inner">
+      <div class="rr-dialog-head"><div><p class="rr-dialog-kicker">Transparent rank cost</p><h3 id="claim-dialog-title">Claim rank <span data-dialog-rank>#1</span></h3></div><button class="rr-dialog-close" type="button" aria-label="Close"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <div class="rr-claim-breakdown">
+        <div class="rr-claim-row"><span>Business to move ahead of</span><strong data-dialog-entity>Apollo Realty</strong></div>
+        <div class="rr-claim-row"><span>Current rank total</span><strong data-dialog-current>₹1,250</strong></div>
+        <div class="rr-claim-row"><span>Total required</span><strong data-dialog-required>₹1,260</strong></div>
+      </div>
+      <p class="rr-dialog-note">Existing entities pay only the difference between their current total and the required total. The amount is checked again before payment, and only completed payments affect the ranking.</p>
+      <button class="rr-primary rr-dialog-action" type="button">Continue to list your Entity <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </dialog>
+  <div class="rr-toast" role="status" aria-live="polite" hidden></div>
+
+  <script>
+    (() => {
+      const bidInput = document.querySelector('#bid-amount');
+      const topBidButton = document.querySelector('[data-top-bid]');
+      const topBid = 1260;
+
+      const normaliseBid = (value) => Math.max(10, Math.round((Number(value) || 10) / 10) * 10);
+      const updateRank = () => {
+        const bid = normaliseBid(bidInput.value);
+        bidInput.value = bid;
+      };
+      document.querySelectorAll('[data-bid-action]').forEach((button) => button.addEventListener('click', () => {
+        const direction = button.dataset.bidAction === 'increase' ? 10 : -10;
+        bidInput.value = Math.max(10, normaliseBid(bidInput.value) + direction);
+        updateRank();
+      }));
+      bidInput.addEventListener('input', updateRank);
+      bidInput.addEventListener('blur', updateRank);
+      topBidButton.addEventListener('click', () => { bidInput.value = topBid; updateRank(); });
+
+      const featuredEntities = [
+        { name: 'Apollo Realty', categories: ['Residential', 'Commercial', 'New Projects'], total: 1250, summary: 'Residential and commercial property marketing with a curated portfolio of current opportunities.', contact: 'WhatsApp', portfolioItems: 12 },
+        { name: 'Indore Spaces', categories: ['Plots & Land', 'Residential', 'New Projects'], total: 840, summary: 'Curated plots and residential opportunities routed directly to the company’s enquiry team.', contact: 'WhatsApp', portfolioItems: 8 },
+        { name: 'MP Property Hub', categories: ['Commercial', 'Rentals', 'Co-working'], total: 510, summary: 'Commercial spaces and managed rentals for businesses looking for flexible options.', contact: 'Call', portfolioItems: 4 },
+        { name: 'Indore Habitat', categories: ['Residential', 'Rentals'], total: 390, summary: 'Residential opportunities supported by market knowledge and direct assistance.', contact: 'Call', portfolioItems: 0 },
+        { name: 'PlotNest Indore', categories: ['Plots & Land', 'Agricultural'], total: 260, summary: 'Land and plotted development opportunities for buyers, businesses and investors.', contact: 'WhatsApp', portfolioItems: 6 },
+        { name: 'Corridor Homes', categories: ['Residential', 'Plots & Land', 'New Projects'], total: 220, summary: 'New homes and plotted developments from a focused property marketing team.', contact: 'WhatsApp', portfolioItems: 3 },
+        { name: 'Bypass Road Warehousing Co.', categories: ['Commercial', 'Industrial', 'Warehouses'], total: 200, summary: 'Industrial sheds, warehousing opportunities and logistics-ready commercial land.', contact: 'Call', portfolioItems: 0 },
+        { name: 'Bengali Square Commercial Hub', categories: ['Commercial', 'Co-working'], total: 180, summary: 'Office, retail and flexible workspace opportunities for growing businesses.', contact: 'Call', portfolioItems: 2 },
+        { name: 'Sapphire Realty Indore', categories: ['Residential', 'Luxury'], total: 160, summary: 'Premium homes and selected commercial opportunities for direct buyer enquiries.', contact: 'WhatsApp', portfolioItems: 5 },
+        { name: 'Central Key Rentals', categories: ['Rentals', 'PG & Hostels'], total: 140, summary: 'Managed rental and accommodation options with direct call-based assistance.', contact: 'Call', portfolioItems: 0 },
+        { name: 'Urban Acre Indore', categories: ['Plots & Land', 'Farmhouses'], total: 130, summary: 'Plotted land and farmhouse opportunities for investment and long-term use.', contact: 'WhatsApp', portfolioItems: 2 },
+        { name: 'Prime Nest Marketing', categories: ['Residential', 'Luxury', 'New Projects'], total: 120, summary: 'Residential marketing for selected new, resale and premium homes.', contact: 'WhatsApp', portfolioItems: 0 }
+      ];
+
+      const prefixes = ['Amber', 'Avenue', 'BlueStone', 'Cedar', 'Crown', 'Dwell', 'EastGate', 'Fortune', 'GreenField', 'Horizon', 'Landmark', 'Metro'];
+      const suffixes = ['Assets', 'Estates', 'Habitat', 'Homes', 'Land Co.', 'Living', 'Properties', 'Realty', 'Spaces', 'Ventures'];
+      const categorySets = [
+        ['Residential'], ['Commercial'], ['Plots & Land'], ['Rentals'], ['New Projects'], ['Luxury'], ['Industrial'], ['Warehouses'], ['Co-working'], ['Agricultural'], ['PG & Hostels'], ['Farmhouses'], ['Auction Properties'], ['Residential', 'New Projects'], ['Commercial', 'Rentals']
+      ];
+      const generatedEntities = Array.from({ length: 114 }, (_, index) => {
+        const categories = categorySets[index % categorySets.length];
+        return {
+          name: `${prefixes[index % prefixes.length]} ${suffixes[Math.floor(index / prefixes.length) % suffixes.length]}`,
+          categories,
+          total: Math.max(10, 110 - (Math.floor(index / 10) * 10)),
+          summary: `${categories.join(' and ')} opportunities with direct enquiries handled by the entity’s team.`,
+          contact: index % 3 === 0 ? 'Call' : 'WhatsApp',
+          portfolioItems: index % 4 === 0 ? 0 : (index % 9) + 1
+        };
+      });
+      const entities = [...featuredEntities, ...generatedEntities].map((entity, index) => ({ ...entity, id: index + 1 }));
+      const state = { category: 'All', page: 1 };
+      const pageSize = 50;
+      const rankings = document.querySelector('.rr-rankings');
+      const pagination = document.querySelector('.rr-pagination');
+      const paginationSummary = document.querySelector('[data-pagination-summary]');
+      const formatRupees = (value) => `₹${Number(value).toLocaleString('en-IN')}`;
+      const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
+      const groupForRank = (rank, total) => {
+        if (rank <= 3) return { key: 'leaders', label: 'Top 3', range: 'Highest sponsored positions' };
+        if (rank <= 10) return { key: 'top-10', label: 'Top 10', range: '#4–10' };
+        if (rank <= 20) return { key: 'top-20', label: 'Top 20', range: '#11–20' };
+        return { key: 'more', label: 'All listings', range: `#21–${total}` };
+      };
+      const getFilteredEntities = () => entities
+        .filter((entity) => state.category === 'All' || entity.categories.includes(state.category))
+        .sort((a, b) => b.total - a.total || a.id - b.id);
+
+      const cardTemplate = (entity, rank) => {
+        const classes = ['rr-company'];
+        if (rank === 1) classes.push('rr-rank-one');
+        if (rank <= 3) classes.push('rr-top-three');
+        if (rank <= 10) classes.push('rr-top-ten');
+        if (rank > 20) classes.push('rr-compact');
+        const contactIcon = entity.contact === 'Call'
+          ? '<path d="M6.6 3h3l1.5 4.1-2 1.6a14 14 0 0 0 6.2 6.2l1.6-2L21 14.4v3A3.6 3.6 0 0 1 17.4 21C9.4 21 3 14.6 3 6.6A3.6 3.6 0 0 1 6.6 3Z"/>'
+          : '<path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.5-4A8 8 0 1 1 20 11.5Z"/><path d="M8.5 9.5c1 2 2 3 4 4"/>';
+        return `
+          <article class="${classes.join(' ')}" data-rank="${rank}">
+            <span class="rr-rank" aria-label="Rank ${rank}">#${rank}</span>
+            <span class="rr-logo" aria-hidden="true">${initials(entity.name)}</span>
+            <div class="rr-company-main">
+              <div class="rr-company-title-row"><a class="rr-company-link" href="#profile-${entity.id}" data-profile-id="${entity.id}">${entity.name}</a></div>
+              <p class="rr-description">${entity.summary}</p>
+              <p class="rr-entity-categories">${entity.categories.join(' · ')}</p>
+              <button class="rr-contact" type="button" data-contact-id="${entity.id}" aria-label="Contact ${entity.name} by ${entity.contact}"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24">${contactIcon}</svg>Contact</button>
+            </div>
+            <div class="rr-company-side">
+              <div class="rr-rank-competition">
+                <span class="rr-rank-total"><strong>${formatRupees(entity.total)}</strong><span>rank total</span></span>
+                <button class="rr-claim-position" type="button" data-claim-id="${entity.id}" data-claim-rank="${rank}" aria-label="Claim rank ${rank}">Claim #${rank}</button>
+              </div>
+            </div>
+          </article>`;
+      };
+
+      const renderPagination = (pageCount) => {
+        const pageButtons = Array.from({ length: pageCount }, (_, index) => `<button class="rr-page-button" type="button" data-page="${index + 1}" ${state.page === index + 1 ? 'aria-current="page"' : ''}>${index + 1}</button>`).join('');
+        pagination.innerHTML = `<button class="rr-page-button" type="button" data-page="${state.page - 1}" ${state.page === 1 ? 'disabled' : ''}>Previous</button>${pageButtons}<button class="rr-page-button" type="button" data-page="${state.page + 1}" ${state.page === pageCount ? 'disabled' : ''}>Next</button>`;
+      };
+
+      const renderRankings = () => {
+        const filtered = getFilteredEntities();
+        const pageCount = Math.max(1, Math.ceil(filtered.length / pageSize));
+        state.page = Math.min(state.page, pageCount);
+        const start = (state.page - 1) * pageSize;
+        const pageEntities = filtered.slice(start, start + pageSize);
+        let previousGroup = '';
+        rankings.innerHTML = pageEntities.map((entity, index) => {
+          const rank = start + index + 1;
+          const group = groupForRank(rank, filtered.length);
+          const groupHeader = group.key !== previousGroup ? `<div class="rr-rank-group"><strong>${group.label}</strong><span>${group.range}</span></div>` : '';
+          previousGroup = group.key;
+          return groupHeader + cardTemplate(entity, rank);
+        }).join('') || '<div class="rr-empty-state"><strong>No matching entities yet</strong><span>Try another category.</span></div>';
+        const end = Math.min(start + pageSize, filtered.length);
+        paginationSummary.textContent = filtered.length ? `${start + 1}–${end} of ${filtered.length} entities` : '0 entities';
+        renderPagination(pageCount);
+      };
+
+      const moreCategoriesButton = document.querySelector('.rr-more-categories');
+      const categoryIsland = document.querySelector('.rr-category-island');
+      const closeCategoryIsland = () => {
+        categoryIsland.hidden = true;
+        moreCategoriesButton.setAttribute('aria-expanded', 'false');
+      };
+      const chooseCategory = (category) => {
+        document.querySelectorAll('[data-filter]').forEach((item) => item.setAttribute('aria-pressed', String(item.dataset.filter === category)));
+        state.category = category;
+        state.page = 1;
+        closeCategoryIsland();
+        renderRankings();
+      };
+      document.querySelectorAll('[data-filter]').forEach((filter) => filter.addEventListener('click', () => chooseCategory(filter.dataset.filter)));
+      moreCategoriesButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const willOpen = categoryIsland.hidden;
+        closeCityMenu();
+        categoryIsland.hidden = !willOpen;
+        moreCategoriesButton.setAttribute('aria-expanded', String(willOpen));
+      });
+      categoryIsland.addEventListener('click', (event) => event.stopPropagation());
+      document.querySelector('.rr-island-close').addEventListener('click', closeCategoryIsland);
+
+      const cityButton = document.querySelector('.rr-city-button');
+      const cityMenu = document.querySelector('.rr-city-menu');
+      const closeCityMenu = () => {
+        cityMenu.hidden = true;
+        cityButton.setAttribute('aria-expanded', 'false');
+      };
+      cityButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const willOpen = cityMenu.hidden;
+        closeCategoryIsland();
+        cityMenu.hidden = !willOpen;
+        cityButton.setAttribute('aria-expanded', String(willOpen));
+      });
+      cityMenu.querySelectorAll('.rr-city-option:not(:disabled)').forEach((option) => option.addEventListener('click', closeCityMenu));
+
+      const toast = document.querySelector('.rr-toast');
+      let toastTimer;
+      const showToast = (message) => {
+        window.clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.hidden = false;
+        toastTimer = window.setTimeout(() => { toast.hidden = true; }, 2600);
+      };
+      const claimDialog = document.querySelector('.rr-claim-dialog');
+      rankings.addEventListener('click', (event) => {
+        const contactButton = event.target.closest('[data-contact-id]');
+        const claimButton = event.target.closest('[data-claim-id]');
+        const profileLink = event.target.closest('[data-profile-id]');
+        if (contactButton) {
+          const entity = entities.find((item) => item.id === Number(contactButton.dataset.contactId));
+          showToast(`Opening ${entity.contact} for ${entity.name}…`);
+        }
+        if (claimButton) {
+          const entity = entities.find((item) => item.id === Number(claimButton.dataset.claimId));
+          const rank = Number(claimButton.dataset.claimRank);
+          document.querySelector('[data-dialog-rank]').textContent = `#${rank}`;
+          document.querySelector('[data-dialog-entity]').textContent = entity.name;
+          document.querySelector('[data-dialog-current]').textContent = formatRupees(entity.total);
+          document.querySelector('[data-dialog-required]').textContent = formatRupees(entity.total + 10);
+          claimDialog.showModal();
+        }
+        if (profileLink) {
+          event.preventDefault();
+          const entity = entities.find((item) => item.id === Number(profileLink.dataset.profileId));
+          showToast(`Profile preview for ${entity.name}`);
+        }
+      });
+      pagination.addEventListener('click', (event) => {
+        const button = event.target.closest('[data-page]');
+        if (!button || button.disabled) return;
+        state.page = Number(button.dataset.page);
+        renderRankings();
+        document.querySelector('.rr-ranking-toolbar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      document.querySelector('.rr-dialog-close').addEventListener('click', () => claimDialog.close());
+      document.querySelector('.rr-dialog-action').addEventListener('click', () => {
+        claimDialog.close();
+        document.querySelector('.rr-entry').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.querySelector('#entity-name').focus({ preventScroll: true });
+      });
+      document.addEventListener('click', () => { closeCityMenu(); closeCategoryIsland(); });
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeCityMenu(); closeCategoryIsland(); } });
+      document.querySelector('#entry-form').addEventListener('submit', (event) => event.preventDefault());
+      updateRank();
+      renderRankings();
+    })();
+  </script>
+</body>
+</html>

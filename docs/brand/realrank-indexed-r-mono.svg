@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">RealRank indexed property R monochrome</title>
+  <desc id="desc">A one-color structural R whose negative-space floors form an ordered index.</desc>
+  <defs>
+    <mask id="index-cuts-mono">
+      <rect width="64" height="64" fill="white"/>
+      <circle cx="18" cy="17" r="3.2" fill="black"/>
+      <rect x="25" y="13.8" width="21" height="6.4" rx="3.2" fill="black"/>
+      <circle cx="18" cy="28" r="3.2" fill="black"/>
+      <rect x="25" y="24.8" width="17" height="6.4" rx="3.2" fill="black"/>
+      <circle cx="18" cy="39" r="3.2" fill="black"/>
+      <rect x="25" y="35.8" width="12" height="6.4" rx="3.2" fill="black"/>
+    </mask>
+  </defs>
+  <path
+    fill="currentColor"
+    mask="url(#index-cuts-mono)"
+    d="M7 8a5 5 0 0 1 5-5h24c14.3 0 23 8.2 23 21.3 0 9.4-4.5 16-12.6 19.2L60 61H43.2L31.8 46H22v15H7V8Z"
+  />
+</svg>

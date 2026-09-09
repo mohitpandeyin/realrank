@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">RealRank minimal property index lens system</title>
+  <desc id="desc">A responsive logo system combining a rounded index frame, a first-place highlight, and a property search lens.</desc>
+  <defs>
+    <g id="index-lens">
+      <rect x="4.5" y="4.5" width="46" height="46" rx="8" fill="none" stroke="currentColor" stroke-width="5"/>
+      <rect x="11" y="11" width="8" height="8" rx="2.2" fill="#C65D2E"/>
+      <path d="M24 15h19M11 26h8M24 26h15M11 37h8M24 37h10" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="46" cy="40" r="17" fill="#F7F5F0" stroke="currentColor" stroke-width="5"/>
+      <path d="m58 52 10 9" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+      <path fill="currentColor" d="M35 48V39h7v-7h8v9h7v7H35Z"/>
+      <path fill="#F7F5F0" d="M40 48v-5l4.5-3.5L49 43v5h-9Z"/>
+    </g>
+    <g id="micro">
+      <rect x="4.5" y="4.5" width="46" height="46" rx="8" fill="none" stroke="currentColor" stroke-width="6"/>
+      <rect x="11" y="11" width="8" height="8" rx="2" fill="#C65D2E"/>
+      <path d="M24 15h19M11 27h8M24 27h14" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="46" cy="40" r="17" fill="#F7F5F0" stroke="currentColor" stroke-width="6"/>
+      <path d="m58 52 10 9" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+      <path fill="currentColor" d="M35 48V39h7v-7h8v9h7v7H35Z"/>
+    </g>
+  </defs>
+  <rect width="1280" height="760" fill="#F7F5F0"/>
+  <text x="72" y="82" fill="#14110F" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="750">RealRank — Index Lens</text>
+  <text x="72" y="124" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="20">The stronger original composition, standardized into a minimal geometric mark.</text>
+
+  <g transform="translate(72 176)">
+    <rect width="440" height="350" rx="28" fill="#FFFFFF" stroke="#E5E0D5" stroke-width="2"/>
+    <text x="28" y="45" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="2">PRIMARY MARK</text>
+    <g transform="translate(92 70) scale(3.6)" color="#0F3D2E"><use href="#index-lens"/></g>
+    <text x="28" y="318" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="16">Index frame · highlighted #1 · property discovery</text>
+  </g>
+
+  <g transform="translate(544 176)">
+    <rect width="664" height="158" rx="28" fill="#FFFFFF" stroke="#E5E0D5" stroke-width="2"/>
+    <text x="28" y="42" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="700" letter-spacing="2">RESPONSIVE SYSTEM</text>
+    <g transform="translate(38 68) scale(1.05)" color="#0F3D2E"><use href="#index-lens"/></g>
+    <text x="116" y="107" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="14">64</text>
+    <g transform="translate(172 79) scale(.75)" color="#0F3D2E"><use href="#index-lens"/></g>
+    <text x="232" y="107" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="14">48</text>
+    <g transform="translate(298 87) scale(.5)" color="#0F3D2E"><use href="#index-lens"/></g>
+    <text x="341" y="107" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="14">32</text>
+    <g transform="translate(408 91) scale(.375)" color="#0F3D2E"><use href="#micro"/></g>
+    <text x="444" y="107" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="14">24</text>
+    <g transform="translate(514 95) scale(.25)" color="#0F3D2E"><use href="#micro"/></g>
+    <text x="541" y="107" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="14">16 px micro</text>
+  </g>
+
+  <g transform="translate(544 366)">
+    <rect width="664" height="160" rx="28" fill="#0F3D2E"/>
+    <g transform="translate(32 41) scale(1.05)" color="#F7F5F0">
+      <rect x="4.5" y="4.5" width="46" height="46" rx="8" fill="none" stroke="currentColor" stroke-width="5"/>
+      <rect x="11" y="11" width="8" height="8" rx="2.2" fill="#C65D2E"/>
+      <path d="M24 15h19M11 26h8M24 26h15M11 37h8M24 37h10" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="46" cy="40" r="17" fill="#0F3D2E" stroke="currentColor" stroke-width="5"/>
+      <path d="m58 52 10 9" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round"/>
+      <path fill="currentColor" d="M35 48V39h7v-7h8v9h7v7H35Z"/>
+      <path fill="#0F3D2E" d="M40 48v-5l4.5-3.5L49 43v5h-9Z"/>
+    </g>
+    <text x="126" y="99" fill="#F7F5F0" font-family="Inter, Arial, sans-serif" font-size="47" font-weight="700" letter-spacing="-1.5">RealRank</text>
+    <text x="344" y="96" fill="#D8E4DF" font-family="Inter, Arial, sans-serif" font-size="18">The transparent real estate index.</text>
+  </g>
+
+  <g transform="translate(72 570)">
+    <rect width="1136" height="120" rx="24" fill="#FFFFFF" stroke="#E5E0D5" stroke-width="2"/>
+    <g transform="translate(28 29) scale(.95)" color="#0F3D2E"><use href="#index-lens"/></g>
+    <text x="112" y="75" fill="#0F3D2E" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="-1">RealRank</text>
+    <line x1="298" y1="27" x2="298" y2="93" stroke="#E5E0D5" stroke-width="2"/>
+    <text x="330" y="53" fill="#14110F" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="650">Navbar lockup</text>
+    <text x="330" y="79" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="15">A wider symbol, balanced by tighter scale and wordmark spacing.</text>
+    <g transform="translate(1028 30)">
+      <rect width="58" height="58" rx="13" fill="#F7F5F0"/>
+      <g transform="translate(4 5) scale(.68)" color="#0F3D2E"><use href="#micro"/></g>
+    </g>
+  </g>
+  <text x="72" y="730" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="14">Primary: three rows and property cutout · Micro: two rows and solid skyline · Two colors · 72 × 64 master grid</text>
+</svg>

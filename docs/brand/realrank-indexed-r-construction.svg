@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-labelledby="title desc">
+  <title id="title">RealRank Indexed R logo construction</title>
+  <desc id="desc">A design board showing an ordered index and structural property form merging into the RealRank Indexed R.</desc>
+  <defs>
+    <mask id="board-cuts">
+      <rect width="64" height="64" fill="white"/>
+      <circle cx="18" cy="17" r="3.2" fill="black"/>
+      <rect x="25" y="13.8" width="21" height="6.4" rx="3.2" fill="black"/>
+      <circle cx="18" cy="28" r="3.2" fill="black"/>
+      <rect x="25" y="24.8" width="17" height="6.4" rx="3.2" fill="black"/>
+      <circle cx="18" cy="39" r="3.2" fill="black"/>
+      <rect x="25" y="35.8" width="12" height="6.4" rx="3.2" fill="black"/>
+    </mask>
+    <g id="indexed-r">
+      <path fill="#0F3D2E" mask="url(#board-cuts)" d="M7 8a5 5 0 0 1 5-5h24c14.3 0 23 8.2 23 21.3 0 9.4-4.5 16-12.6 19.2L60 61H43.2L31.8 46H22v15H7V8Z"/>
+      <circle cx="18" cy="17" r="3.2" fill="#C65D2E"/>
+    </g>
+  </defs>
+  <rect width="1400" height="900" fill="#F7F5F0"/>
+  <text x="80" y="92" fill="#14110F" font-family="Inter, Arial, sans-serif" font-size="46" font-weight="750">RealRank — compound icon study</text>
+  <text x="80" y="140" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="22">One shared silhouette: index rows become architectural floors inside the letter R.</text>
+
+  <g transform="translate(80 220)">
+    <rect width="360" height="350" rx="30" fill="#FFFFFF" stroke="#E5E0D5" stroke-width="2"/>
+    <text x="28" y="46" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2">CONCEPT 01</text>
+    <text x="28" y="84" fill="#14110F" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700">Ordered index</text>
+    <g transform="translate(68 126) scale(3.45)">
+      <circle cx="12" cy="10" r="3.2" fill="#C65D2E"/>
+      <rect x="20" y="6.8" width="34" height="6.4" rx="3.2" fill="#0F3D2E"/>
+      <circle cx="12" cy="25" r="3.2" fill="#0F3D2E"/>
+      <rect x="20" y="21.8" width="27" height="6.4" rx="3.2" fill="#0F3D2E"/>
+      <circle cx="12" cy="40" r="3.2" fill="#0F3D2E"/>
+      <rect x="20" y="36.8" width="19" height="6.4" rx="3.2" fill="#0F3D2E"/>
+    </g>
+    <text x="28" y="318" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="17">Descending rows signal visible rank order.</text>
+  </g>
+
+  <text x="468" y="405" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="600">+</text>
+
+  <g transform="translate(520 220)">
+    <rect width="360" height="350" rx="30" fill="#FFFFFF" stroke="#E5E0D5" stroke-width="2"/>
+    <text x="28" y="46" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2">CONCEPT 02</text>
+    <text x="28" y="84" fill="#14110F" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700">Property structure</text>
+    <g transform="translate(78 106) scale(3.15)">
+      <path fill="#0F3D2E" d="M7 8a5 5 0 0 1 5-5h24c14.3 0 23 8.2 23 21.3 0 9.4-4.5 16-12.6 19.2L60 61H43.2L31.8 46H22v15H7V8Z"/>
+    </g>
+    <text x="28" y="318" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="17">A structural R reads like a compact building.</text>
+  </g>
+
+  <text x="908" y="405" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="54" font-weight="600">=</text>
+
+  <g transform="translate(960 190)">
+    <rect width="360" height="410" rx="30" fill="#FFFFFF" stroke="#C65D2E" stroke-width="3"/>
+    <text x="28" y="46" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2">REALRANK MARK</text>
+    <g transform="translate(68 78) scale(3.45)">
+      <use href="#indexed-r"/>
+    </g>
+    <text x="28" y="322" fill="#14110F" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="750">Indexed R</text>
+    <text x="28" y="356" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="17">Index · property · ranking · initial</text>
+    <text x="28" y="384" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="15">One form, no pasted-on symbols.</text>
+  </g>
+
+  <g transform="translate(80 640)">
+    <rect width="1240" height="174" rx="28" fill="#0F3D2E"/>
+    <g transform="translate(44 34) scale(1.65)">
+      <path fill="#F7F5F0" mask="url(#board-cuts)" d="M7 8a5 5 0 0 1 5-5h24c14.3 0 23 8.2 23 21.3 0 9.4-4.5 16-12.6 19.2L60 61H43.2L31.8 46H22v15H7V8Z"/>
+      <circle cx="18" cy="17" r="3.2" fill="#C65D2E"/>
+    </g>
+    <text x="174" y="106" fill="#F7F5F0" font-family="Inter, Arial, sans-serif" font-size="62" font-weight="750" letter-spacing="-2">RealRank</text>
+    <text x="470" y="103" fill="#D8E4DF" font-family="Inter, Arial, sans-serif" font-size="21">The transparent real estate index.</text>
+    <g transform="translate(1100 43)">
+      <rect width="88" height="88" rx="20" fill="#F7F5F0"/>
+      <g transform="translate(20 20) scale(.75)">
+        <use href="#indexed-r"/>
+      </g>
+    </g>
+  </g>
+  <text x="80" y="866" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="15">Master mark is vector, flat-color, and designed to remain identifiable in monochrome.</text>
+</svg>

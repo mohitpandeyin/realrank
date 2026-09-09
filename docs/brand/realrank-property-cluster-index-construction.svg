@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 820" role="img" aria-labelledby="title desc">
+  <title id="title">RealRank property cluster index construction</title>
+  <desc id="desc">A concept board showing a simplified house and tower cluster combined with an ordered index.</desc>
+  <rect width="1300" height="820" fill="#F7F5F0"/>
+  <text x="72" y="86" fill="#14110F" font-family="Inter, Arial, sans-serif" font-size="44" font-weight="750">RealRank — property index fusion</text>
+  <text x="72" y="132" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="21">The house remains recognizable; its windows become the ranked directory.</text>
+
+  <g transform="translate(72 190)">
+    <rect width="342" height="338" rx="28" fill="#FFFFFF" stroke="#E5E0D5" stroke-width="2"/>
+    <text x="26" y="45" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2">REAL ESTATE</text>
+    <g transform="translate(63 88) scale(3.4)">
+      <path fill="#0F3D2E" d="M11 14a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v18H11V14Zm15-8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v26H26V6Zm16 11a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v19H42V17Z"/>
+      <path fill="#0F3D2E" d="M2 37.5 32 20l30 17.5-4 7L54 42.2V61H10V42.2L6 44.5l-4-7Z"/>
+    </g>
+    <text x="26" y="306" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="16">House + residential and commercial towers</text>
+  </g>
+
+  <text x="438" y="370" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="650">+</text>
+
+  <g transform="translate(480 190)">
+    <rect width="342" height="338" rx="28" fill="#FFFFFF" stroke="#E5E0D5" stroke-width="2"/>
+    <text x="26" y="45" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2">INDEX</text>
+    <g transform="translate(58 112) scale(3.55)">
+      <circle cx="10" cy="8" r="3" fill="#C65D2E"/>
+      <circle cx="10" cy="22" r="3" fill="#0F3D2E"/>
+      <circle cx="10" cy="36" r="3" fill="#0F3D2E"/>
+      <rect x="18" y="5" width="42" height="6" rx="3" fill="#0F3D2E"/>
+      <rect x="18" y="19" width="32" height="6" rx="3" fill="#0F3D2E"/>
+      <rect x="18" y="33" width="23" height="6" rx="3" fill="#0F3D2E"/>
+    </g>
+    <text x="26" y="306" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="16">Three ordered entries with #1 highlighted</text>
+  </g>
+
+  <text x="844" y="370" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="52" font-weight="650">=</text>
+
+  <g transform="translate(888 166)">
+    <rect width="340" height="386" rx="28" fill="#FFFFFF" stroke="#C65D2E" stroke-width="3"/>
+    <text x="26" y="45" fill="#C65D2E" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" letter-spacing="2">REALRANK ICON</text>
+    <g transform="translate(62 75) scale(3.4)">
+      <path fill="#0F3D2E" d="M11 14a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v18H11V14Zm15-8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v26H26V6Zm16 11a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v19H42V17Z"/>
+      <path fill="#0F3D2E" d="M2 37.5 32 20l30 17.5-4 7L54 42.2V61H10V42.2L6 44.5l-4-7Z"/>
+      <path fill="#F7F5F0" d="M15 17h5v3h-5zm0 6h5v3h-5zm15-14h6v3h-6zm0 6h6v3h-6zm0 6h6v3h-6zm16 0h4v3h-4zm0 6h4v3h-4z"/>
+      <circle cx="18" cy="41" r="2.8" fill="#C65D2E"/>
+      <circle cx="18" cy="49" r="2.8" fill="#F7F5F0"/>
+      <circle cx="18" cy="57" r="2.8" fill="#F7F5F0"/>
+      <path fill="#F7F5F0" d="M24 38.2h23a2.8 2.8 0 1 1 0 5.6H24a2.8 2.8 0 1 1 0-5.6Zm0 8h18a2.8 2.8 0 1 1 0 5.6H24a2.8 2.8 0 1 1 0-5.6Zm0 8h13a2.8 2.8 0 1 1 0 5.6H24a2.8 2.8 0 1 1 0-5.6Z"/>
+    </g>
+    <text x="26" y="340" fill="#14110F" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="750">Property Index</text>
+    <text x="26" y="370" fill="#5C574E" font-family="Inter, Arial, sans-serif" font-size="15">The directory rows double as house windows.</text>
+  </g>
+
+  <g transform="translate(72 610)">
+    <rect width="1156" height="140" rx="26" fill="#0F3D2E"/>
+    <g transform="translate(38 22) scale(1.5)">
+      <path fill="#F7F5F0" d="M11 14a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v18H11V14Zm15-8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v26H26V6Zm16 11a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v19H42V17Z"/>
+      <path fill="#F7F5F0" d="M2 37.5 32 20l30 17.5-4 7L54 42.2V61H10V42.2L6 44.5l-4-7Z"/>
+      <circle cx="18" cy="41" r="2.8" fill="#C65D2E"/>
+      <circle cx="18" cy="49" r="2.8" fill="#0F3D2E"/>
+      <circle cx="18" cy="57" r="2.8" fill="#0F3D2E"/>
+      <path fill="#0F3D2E" d="M24 38.2h23a2.8 2.8 0 1 1 0 5.6H24a2.8 2.8 0 1 1 0-5.6Zm0 8h18a2.8 2.8 0 1 1 0 5.6H24a2.8 2.8 0 1 1 0-5.6Zm0 8h13a2.8 2.8 0 1 1 0 5.6H24a2.8 2.8 0 1 1 0-5.6Z"/>
+    </g>
+    <text x="156" y="91" fill="#F7F5F0" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="750" letter-spacing="-2">RealRank</text>
+    <text x="446" y="89" fill="#D8E4DF" font-family="Inter, Arial, sans-serif" font-size="20">The transparent real estate index.</text>
+  </g>
+</svg>

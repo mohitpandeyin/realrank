@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RealRank — Original Index Wireframe</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #faf9f6;
+      --surface: #ffffff;
+      --text: #20201e;
+      --muted: #6e6a65;
+      --line: #dddad5;
+      --accent: #c4512d;
+      --accent-dark: #a54122;
+      --tint: #f7e3dc;
+      --quiet: #efede9;
+      --shadow: 0 16px 40px rgba(64, 51, 44, .10);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--page);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    [hidden] { display: none !important; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .container { width: min(100% - 40px, 1080px); margin-inline: auto; }
+    .icon { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+    .site-header { background: var(--page); }
+    .nav { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 24px; }
+    .brand { color: var(--text); text-decoration: none; font-size: 20px; font-weight: 650; letter-spacing: -.05em; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; }
+    .nav-links a:hover { color: var(--text); }
+    .city-picker { position: relative; }
+    .city-button { display: inline-flex; align-items: center; gap: 7px; min-height: 38px; padding: 0 11px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); background: var(--surface); font-size: 11px; font-weight: 600; cursor: pointer; }
+    .city-button .icon { width: 14px; height: 14px; color: var(--muted); pointer-events: none; }
+    .city-button .city-chevron { width: 13px; height: 13px; transition: transform .18s ease; }
+    .city-button[aria-expanded="true"] .city-chevron { transform: rotate(180deg); }
+    .city-menu { position: absolute; z-index: 20; top: calc(100% + 7px); right: 0; width: 220px; padding: 6px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); }
+    .city-option { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 40px; padding: 0 10px; border: 0; border-radius: 8px; color: var(--text); background: transparent; font-size: 11px; text-align: left; cursor: pointer; }
+    .city-option:hover:not(:disabled) { background: var(--quiet); }
+    .city-option:disabled { color: var(--muted); cursor: default; }
+    .city-option .icon { width: 14px; height: 14px; color: var(--accent); }
+    .coming-soon { padding: 4px 7px; border-radius: 999px; color: var(--accent-dark); background: var(--tint); font-size: 8px; font-weight: 650; white-space: nowrap; }
+
+    .hero { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(310px, .75fr); gap: clamp(38px, 7vw, 88px); align-items: center; padding: 64px 0 88px; }
+    .eyebrow { display: flex; align-items: center; gap: 11px; margin: 0 0 17px; color: var(--accent-dark); font-size: 11px; font-weight: 650; letter-spacing: .09em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--accent); }
+    h1 { max-width: 690px; margin: 0; font-size: clamp(40px, 5.2vw, 60px); font-weight: 520; line-height: 1; letter-spacing: -.045em; text-wrap: balance; }
+    h1 span { color: var(--accent-dark); }
+    .lead { max-width: 680px; margin: 24px 0 0; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .lead strong { color: var(--text); font-weight: 600; }
+
+    .entry-card { overflow: visible; padding: 24px 22px 21px; border-left: 4px solid var(--accent); background: var(--surface); box-shadow: var(--shadow); }
+    .entry-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+    .entry-head h2 { margin: 0; font-size: 18px; font-weight: 650; line-height: 1.25; letter-spacing: -.035em; }
+    .entry-head span { color: var(--accent-dark); font-size: 11px; white-space: nowrap; }
+    .fields { display: grid; gap: 10px; }
+    .field { width: 100%; min-height: 48px; padding: 0 13px; border: 1px solid var(--line); border-radius: 8px; color: var(--text); background: var(--surface); }
+    .field::placeholder { color: #8a8580; }
+
+    .bid-field { position: relative; padding-top: 27px; }
+    .bid-shell { display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; min-height: 48px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+    .bid-button { display: grid; place-items: center; border: 0; color: var(--text); background: var(--quiet); cursor: pointer; font-size: 20px; }
+    .bid-button:hover { background: #e8e5e0; }
+    .bid-input-wrap { position: relative; display: flex; align-items: center; }
+    .rupee { position: absolute; left: 13px; color: var(--muted); }
+    .bid-input { width: 100%; height: 46px; padding: 0 8px 0 30px; border: 0; color: var(--text); background: transparent; font-weight: 650; text-align: center; outline: 0; appearance: textfield; }
+    .bid-input::-webkit-inner-spin-button { appearance: none; }
+    .claim-rank { position: absolute; top: 0; left: 52%; display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0; color: var(--accent-dark); background: transparent; font-size: 10px; font-weight: 650; white-space: nowrap; cursor: pointer; }
+    .claim-rank strong { font-size: 11px; }
+    .claim-arrow { width: 32px; height: 22px; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transform: translateY(8px); }
+    .claim-rank:hover span { text-decoration: underline; text-underline-offset: 3px; }
+
+    .primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin-top: 11px; border: 0; border-radius: 8px; color: #fff; background: var(--accent); font-weight: 650; cursor: pointer; }
+    .primary:hover { background: var(--accent-dark); }
+    .terms { margin: 12px 0 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
+    .terms a { color: var(--text); font-weight: 600; text-decoration: none; }
+
+    .index { padding-bottom: 64px; }
+    .filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+    .filters::-webkit-scrollbar { display: none; }
+    .filter { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; color: var(--muted); background: var(--quiet); font-size: 12px; cursor: pointer; }
+    .filter[aria-pressed="true"] { color: #fff; background: var(--accent); }
+
+    .listings { display: grid; gap: 12px; margin-top: 18px; }
+    .listing { position: relative; display: grid; grid-template-columns: 48px 56px minmax(0, 1fr) auto; gap: 14px; align-items: start; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+    .listing:first-child { border-color: #dc8f75; background: #fcf1ed; }
+    .rank-badge { display: grid; place-items: center; width: 48px; height: 40px; border-radius: 999px; color: #fff; background: var(--accent); font-size: 13px; font-weight: 700; }
+    .company-logo { display: grid; place-items: center; width: 56px; height: 56px; border: 1px solid var(--line); border-radius: 13px; background: var(--page); font-weight: 650; }
+    .listing-main { min-width: 0; }
+    .listing h3 { margin: 1px 0 0; font-size: 18px; font-weight: 650; letter-spacing: -.025em; }
+    .meta { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .description { max-width: 650px; margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .amount { align-self: start; padding: 6px 10px; border-radius: 999px; color: var(--accent-dark); background: var(--tint); font-size: 12px; white-space: nowrap; }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .contact-wrap { position: relative; }
+    .contact, .profile { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 0 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .contact { border: 0; color: #fff; background: var(--accent); }
+    .profile { border: 1px solid var(--line); color: var(--text); background: var(--surface); }
+    .contact-menu { position: absolute; z-index: 10; top: calc(100% + 6px); left: 0; width: 170px; padding: 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); box-shadow: var(--shadow); }
+    .contact-option { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 38px; padding: 0 9px; border: 0; border-radius: 7px; color: var(--text); background: transparent; font-size: 12px; cursor: pointer; }
+    .contact-option:hover { background: var(--quiet); }
+    .disclosure { display: flex; align-items: flex-start; gap: 8px; margin: 18px 0 0; color: var(--muted); font-size: 10px; line-height: 1.45; }
+    .disclosure .icon { flex: 0 0 auto; width: 14px; height: 14px; }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; padding-top: 42px; }
+      .entry-card { max-width: 560px; }
+      .listing { grid-template-columns: 46px 52px minmax(0, 1fr); }
+      .amount { grid-column: 3; justify-self: start; }
+    }
+    @media (max-width: 620px) {
+      .container { width: min(100% - 28px, 1080px); }
+      .nav { min-height: 66px; }
+      .nav-links a:not(:last-child) { display: none; }
+      h1 { font-size: clamp(38px, 11vw, 48px); line-height: 1.02; letter-spacing: -.035em; }
+      .hero { gap: 34px; padding-bottom: 60px; }
+      .entry-card { padding: 20px 17px 18px; }
+      .listing { grid-template-columns: 42px minmax(0, 1fr); padding: 14px; }
+      .rank-badge { width: 42px; height: 36px; }
+      .company-logo { grid-column: 2; width: 48px; height: 48px; }
+      .listing-main, .amount { grid-column: 2; }
+      .actions, .contact-wrap, .contact, .profile { width: 100%; }
+      .contact-menu { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Primary navigation">
+      <a class="brand" href="#">RealRank</a>
+      <div class="nav-links">
+        <a href="#rankings">Categories</a><a href="#how-it-works">How it works</a><a href="#">Login</a>
+        <div class="city-picker">
+          <button class="city-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="city-menu">
+            <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <span>Indore</span>
+            <svg class="icon city-chevron" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg>
+          </button>
+          <div class="city-menu" id="city-menu" role="menu" hidden>
+            <button class="city-option" type="button" role="menuitem" aria-current="true"><span>Indore</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></button>
+            <button class="city-option" type="button" role="menuitem" disabled><span>Other cities</span><span class="coming-soon">Coming soon</span></button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div>
+        <p class="eyebrow">Visibility, openly ranked</p>
+        <h1>The <span>Pay-to-Rank</span> Real Estate Index for Companies &amp; Marketers.</h1>
+        <p class="lead"><strong>Claim prime digital visibility across Indore’s top real estate pools.</strong> Bid transparently, showcase your company’s live portfolio, and route high-intent property buyers directly to your WhatsApp—zero commission fees, zero middleman algorithms.</p>
+      </div>
+
+      <form class="entry-card" id="entry-form" novalidate>
+        <div class="entry-head"><h2>Put your entity on the index</h2><span>Starts at ₹10</span></div>
+        <div class="fields">
+          <label><span class="sr-only">Entity name</span><input class="field" id="entity-name" name="entityName" autocomplete="organization" placeholder="Entity Name" required></label>
+          <label><span class="sr-only">Contact or WhatsApp number</span><input class="field" id="contact-number" name="contact" type="tel" inputmode="tel" autocomplete="tel" placeholder="Contact or WhatsApp Number" required></label>
+          <div class="bid-field">
+            <label class="sr-only" for="bid-amount">Bid amount, minimum 10 rupees</label>
+            <button class="claim-rank" type="button" data-top-bid aria-label="Set bid to 1,260 rupees to claim rank 1"><svg class="claim-arrow" aria-hidden="true" viewBox="0 0 34 24"><path d="M31 2C20 3 12 8 7 19M7 19l1-7M7 19l7-3"/></svg><span><strong>₹1,260</strong> to claim rank #1</span></button>
+            <div class="bid-shell">
+              <button class="bid-button" type="button" data-bid-action="decrease" aria-label="Decrease bid by 10 rupees">−</button>
+              <div class="bid-input-wrap"><span class="rupee">₹</span><input class="bid-input" id="bid-amount" name="bidAmount" type="number" inputmode="numeric" min="10" step="10" value="10"></div>
+              <button class="bid-button" type="button" data-bid-action="increase" aria-label="Increase bid by 10 rupees">+</button>
+            </div>
+          </div>
+        </div>
+        <button class="primary" type="submit">List your Entity <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="terms">By continuing, you confirm that you have read the <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a href="#">Ranking Policy</a>.</p>
+      </form>
+    </section>
+
+    <section class="container index" id="rankings">
+      <div class="filters" aria-label="Filter rankings">
+        <button class="filter" type="button" data-filter="All" aria-pressed="true"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>All</button>
+        <button class="filter" type="button" data-filter="Residential" aria-pressed="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20H6v-8"/><path d="M9 20v-6h6v6"/></svg>Residential</button>
+        <button class="filter" type="button" data-filter="Commercial" aria-pressed="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V5h10v16M15 9h4v12M8 9h4M8 13h4M8 17h4"/></svg>Commercial</button>
+        <button class="filter" type="button" data-filter="Plots" aria-pressed="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2Z"/><path d="M9 4v14M15 6v14"/></svg>Plots</button>
+        <button class="filter" type="button" data-filter="Rentals" aria-pressed="false"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="8" cy="15" r="3"/><path d="m10.5 13.5 8-8M15 7l2 2M17 5l2 2"/></svg>Rentals</button>
+      </div>
+
+      <div class="listings" aria-label="Company rankings">
+        <article class="listing" data-pools="Residential Commercial"><span class="rank-badge">#1</span><span class="company-logo">AR</span><div class="listing-main"><h3>Apollo Realty</h3><p class="meta">Vijay Nagar · Residential, Commercial</p><p class="description">Residential and commercial property marketing with an active portfolio across prime Indore locations.</p><div class="actions"><div class="contact-wrap"><button class="contact" type="button" aria-expanded="false">Contact <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg></button><div class="contact-menu" hidden><button class="contact-option" type="button">Call company</button><button class="contact-option" type="button">WhatsApp</button></div></div><button class="profile" type="button">View profile</button></div></div><span class="amount">₹1,250 ranking amount</span></article>
+        <article class="listing" data-pools="Plots Residential"><span class="rank-badge">#2</span><span class="company-logo">IS</span><div class="listing-main"><h3>Indore Spaces</h3><p class="meta">Super Corridor · Plots, Residential</p><p class="description">Curated plots and new residential opportunities routed directly to the company’s WhatsApp team.</p><div class="actions"><div class="contact-wrap"><button class="contact" type="button" aria-expanded="false">Contact <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg></button><div class="contact-menu" hidden><button class="contact-option" type="button">WhatsApp</button></div></div><button class="profile" type="button">View profile</button></div></div><span class="amount">₹840 ranking amount</span></article>
+        <article class="listing" data-pools="Commercial Rentals"><span class="rank-badge">#3</span><span class="company-logo">MP</span><div class="listing-main"><h3>MP Property Hub</h3><p class="meta">Palasia · Commercial, Rentals</p><p class="description">Commercial spaces and managed rentals for businesses looking across central Indore.</p><div class="actions"><div class="contact-wrap"><button class="contact" type="button" aria-expanded="false">Contact <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg></button><div class="contact-menu" hidden><button class="contact-option" type="button">Call company</button><button class="contact-option" type="button">WhatsApp</button></div></div><button class="profile" type="button">View profile</button></div></div><span class="amount">₹510 ranking amount</span></article>
+        <article class="listing" data-pools="Residential"><span class="rank-badge">#4</span><span class="company-logo">IH</span><div class="listing-main"><h3>Indore Habitat</h3><p class="meta">Rau · Residential</p><p class="description">Residential opportunities supported by local market knowledge and a regularly updated portfolio.</p><div class="actions"><div class="contact-wrap"><button class="contact" type="button" aria-expanded="false">Contact <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg></button><div class="contact-menu" hidden><button class="contact-option" type="button">Call company</button></div></div><button class="profile" type="button">View profile</button></div></div><span class="amount">₹390 ranking amount</span></article>
+        <article class="listing" data-pools="Plots"><span class="rank-badge">#5</span><span class="company-logo">PN</span><div class="listing-main"><h3>PlotNest Indore</h3><p class="meta">AB Bypass · Plots</p><p class="description">Land and plotted development opportunities across emerging Indore growth corridors.</p><div class="actions"><div class="contact-wrap"><button class="contact" type="button" aria-expanded="false">Contact <svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg></button><div class="contact-menu" hidden><button class="contact-option" type="button">WhatsApp</button></div></div><button class="profile" type="button">View profile</button></div></div><span class="amount">₹260 ranking amount</span></article>
+      </div>
+
+      <p class="disclosure"><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>Positions are sponsored and ordered by total ranking amount—not by quality, reviews, recommendation or business verification.</span></p>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const bidInput = document.querySelector('#bid-amount');
+      const topBidButton = document.querySelector('[data-top-bid]');
+      const topBid = 1260;
+
+      const normaliseBid = (value) => Math.max(10, Math.round((Number(value) || 10) / 10) * 10);
+      const updateRank = () => {
+        const bid = normaliseBid(bidInput.value);
+        bidInput.value = bid;
+      };
+
+      document.querySelectorAll('[data-bid-action]').forEach((button) => button.addEventListener('click', () => {
+        const direction = button.dataset.bidAction === 'increase' ? 10 : -10;
+        bidInput.value = Math.max(10, normaliseBid(bidInput.value) + direction);
+        updateRank();
+      }));
+      bidInput.addEventListener('input', updateRank);
+      bidInput.addEventListener('blur', updateRank);
+      topBidButton.addEventListener('click', () => { bidInput.value = topBid; updateRank(); });
+
+      const filters = [...document.querySelectorAll('.filter')];
+      const listings = [...document.querySelectorAll('.listing')];
+      filters.forEach((filter) => filter.addEventListener('click', () => {
+        filters.forEach((item) => item.setAttribute('aria-pressed', String(item === filter)));
+        const pool = filter.dataset.filter;
+        listings.forEach((listing) => { listing.hidden = pool !== 'All' && !listing.dataset.pools.split(' ').includes(pool); });
+      }));
+
+      const contacts = [...document.querySelectorAll('.contact')];
+      const closeMenus = (except = null) => contacts.forEach((button) => {
+        if (button === except) return;
+        button.setAttribute('aria-expanded', 'false');
+        button.nextElementSibling.hidden = true;
+      });
+      contacts.forEach((button) => button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const menu = button.nextElementSibling;
+        const willOpen = menu.hidden;
+        closeMenus(button);
+        menu.hidden = !willOpen;
+        button.setAttribute('aria-expanded', String(willOpen));
+      }));
+
+      const cityButton = document.querySelector('.city-button');
+      const cityMenu = document.querySelector('.city-menu');
+      const closeCityMenu = () => {
+        cityMenu.hidden = true;
+        cityButton.setAttribute('aria-expanded', 'false');
+      };
+      cityButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const willOpen = cityMenu.hidden;
+        closeMenus();
+        cityMenu.hidden = !willOpen;
+        cityButton.setAttribute('aria-expanded', String(willOpen));
+      });
+      cityMenu.querySelectorAll('.city-option:not(:disabled)').forEach((option) => option.addEventListener('click', closeCityMenu));
+
+      document.addEventListener('click', () => { closeMenus(); closeCityMenu(); });
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeMenus(); closeCityMenu(); } });
+      document.querySelector('#entry-form').addEventListener('submit', (event) => event.preventDefault());
+      updateRank();
+    })();
+  </script>
+</body>
+</html>

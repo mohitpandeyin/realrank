@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">RealRank property cluster index monochrome</title>
+  <desc id="desc">A one-color house and high-rise cluster whose negative-space windows form an index.</desc>
+  <defs>
+    <mask id="cluster-cuts">
+      <rect width="64" height="64" fill="white"/>
+      <path fill="black" d="M15 17h5v3h-5zm0 6h5v3h-5zm15-14h6v3h-6zm0 6h6v3h-6zm0 6h6v3h-6zm16 0h4v3h-4zm0 6h4v3h-4z"/>
+      <circle cx="18" cy="41" r="2.8" fill="black"/>
+      <circle cx="18" cy="49" r="2.8" fill="black"/>
+      <circle cx="18" cy="57" r="2.8" fill="black"/>
+      <rect x="21.2" y="38.2" width="28.6" height="5.6" rx="2.8" fill="black"/>
+      <rect x="21.2" y="46.2" width="23.6" height="5.6" rx="2.8" fill="black"/>
+      <rect x="21.2" y="54.2" width="18.6" height="5.6" rx="2.8" fill="black"/>
+    </mask>
+  </defs>
+  <g fill="currentColor" mask="url(#cluster-cuts)">
+    <path d="M11 14a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v18H11V14Zm15-8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v26H26V6Zm16 11a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v19H42V17Z"/>
+    <path d="M2 37.5 32 20l30 17.5-4 7L54 42.2V61H10V42.2L6 44.5l-4-7Z"/>
+  </g>
+</svg>
