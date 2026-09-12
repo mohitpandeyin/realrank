@@ -13,9 +13,11 @@ The current locked implementation reference is the [Terracotta landing wireframe
 - The public section is called **RealRank Index** and is introduced with **“Discover real estate companies and marketers, explore portfolios, and connect directly.”** Indore is not repeated in the section heading because the city selector and launch-status pill already establish the location.
 - The launch index is city-wide and category-filtered. It does not use sub-locality pools or a locality filter.
 - Categories appear in a horizontally scrollable icon-chip rail with a persistent More category island.
+- The selected category uses a white surface with a thin terracotta outline and terracotta icon and text instead of a solid orange or black fill.
 - **Auction Properties** is included as a secondary category inside More. It describes entities that handle auction opportunities; RealRank does not conduct property auctions or accept property-auction bids.
 - Results are grouped as Top 3, Top 10, Top 20 and All listings.
 - The balanced card keeps the description and categories below the entity name, places a compact light-grey Contact action inside the company-information area, and places **Rank total** in the top-right.
+- Rank numbers use clear 13px unboxed terracotta ordinal labels in a narrow fixed-width column across every position, including #1. Keep approximately 10px to the adjacent logo or company content. Pills, circles and other button-like containers are avoided; card borders and Rank total carry the hierarchy.
 - **Claim #N** is a small badge below Rank total. It does not repeat an arrow, icon or required amount; those details belong in the payment dialog.
 - Cards do not show verification/profile-claimed badges, email-confirmation signals, property counts, portfolio counts, price ranges or sub-locality labels.
 - The launch page does not include a recent-activity feed or a ranking-rules strip above the cards. A concise sponsored-ranking disclosure remains part of the page and policy.

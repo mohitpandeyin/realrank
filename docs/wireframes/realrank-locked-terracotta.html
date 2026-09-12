@@ -98,7 +98,7 @@
     .rr-filters::-webkit-scrollbar { display: none; }
     .rr-filter { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; min-height: 38px; padding: 0 13px; border: 1px solid transparent; border-radius: 999px; color: var(--muted); background: var(--quiet); font-size: 11px; scroll-snap-align: start; cursor: pointer; }
     .rr-filter:hover { color: var(--text); border-color: var(--line); }
-    .rr-filter[aria-pressed="true"] { color: #fff; border-color: var(--accent); background: var(--accent); }
+    .rr-filter[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--surface); font-weight: 600; }
     .rr-more-categories { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 38px; padding: 0 13px; border: 1px solid var(--line); border-radius: 999px; color: var(--text); background: var(--surface); font-size: 11px; font-weight: 650; cursor: pointer; box-shadow: -12px 0 20px var(--page); }
     .rr-more-categories:hover, .rr-more-categories[aria-expanded="true"] { color: var(--accent-dark); border-color: var(--accent); }
     .rr-more-categories .rr-icon { width: 15px; height: 15px; }
@@ -109,7 +109,9 @@
     .rr-island-close .rr-icon { width: 14px; height: 14px; }
     .rr-category-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
     .rr-island-category { display: flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 10px; border: 1px solid var(--line); border-radius: 12px; color: var(--text); background: var(--surface); font-size: 10px; text-align: left; cursor: pointer; }
-    .rr-island-category:hover, .rr-island-category[aria-pressed="true"] { color: var(--accent-dark); border-color: #d9b6a9; background: #fff8f5; }
+    .rr-island-category:hover { border-color: #cbc6c0; background: var(--page); }
+    .rr-island-category[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--surface); font-weight: 600; }
+    .rr-island-category[aria-pressed="true"] .rr-icon { color: var(--accent); }
     .rr-island-category .rr-icon { flex: 0 0 auto; width: 15px; height: 15px; color: var(--accent); }
     .rr-rankings { display: grid; gap: 10px; margin-top: 22px; }
     .rr-rank-group { display: flex; align-items: center; gap: 12px; min-height: 30px; margin-top: 8px; color: var(--muted); }
@@ -117,14 +119,12 @@
     .rr-rank-group strong { color: var(--text); font-size: 11px; font-weight: 700; }
     .rr-rank-group span { font-size: 9px; white-space: nowrap; }
     .rr-rank-group::after { content: ""; flex: 1; height: 1px; background: var(--line); }
-    .rr-company { position: relative; display: grid; grid-template-columns: 46px 54px minmax(0, 1fr); align-items: center; gap: 14px; min-height: 112px; padding: 16px 142px 16px 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+    .rr-company { position: relative; display: grid; grid-template-columns: 34px 54px minmax(0, 1fr); align-items: center; gap: 10px; min-height: 112px; padding: 16px 142px 16px 16px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
     .rr-company:hover { border-color: #cbc6c0; box-shadow: 0 10px 32px rgba(64, 51, 44, .06); transform: translateY(-1px); }
     .rr-company.rr-top-ten { min-height: 112px; }
     .rr-company.rr-top-three { min-height: 124px; border-color: #d98366; background: var(--surface); }
     .rr-company.rr-rank-one { min-height: 132px; border: 1.5px solid var(--accent); background: var(--surface); box-shadow: 0 14px 38px rgba(164, 65, 34, .07); }
-    .rr-rank { display: grid; place-items: center; width: 46px; height: 36px; border-radius: 999px; color: var(--accent-dark); background: var(--tint); font-size: 12px; font-weight: 750; }
-    .rr-top-ten .rr-rank, .rr-top-three .rr-rank { color: #fff; background: var(--accent); }
-    .rr-rank-one .rr-rank { height: 46px; color: #fff; background: var(--text); }
+    .rr-rank { display: block; width: 34px; color: var(--accent-dark); background: transparent; font-size: 13px; font-weight: 650; line-height: 1.2; letter-spacing: .01em; text-align: center; font-variant-numeric: tabular-nums; }
     .rr-logo { display: grid; place-items: center; width: 54px; height: 54px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); font-size: 13px; font-weight: 700; }
     .rr-rank-one .rr-logo { width: 58px; height: 58px; }
     .rr-company-main { min-width: 0; }
@@ -216,10 +216,9 @@
       .rr-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .rr-rankings { gap: 9px; margin-top: 16px; }
       .rr-rank-group { margin-top: 6px; }
-      .rr-company, .rr-company.rr-top-ten, .rr-company.rr-top-three, .rr-company.rr-rank-one { grid-template-columns: 42px minmax(0, 1fr) auto; gap: 10px 12px; min-height: 0; padding: 14px; border-radius: 17px; }
+      .rr-company, .rr-company.rr-top-ten, .rr-company.rr-top-three, .rr-company.rr-rank-one { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; min-height: 0; padding: 14px; border-radius: 17px; }
       .rr-company.rr-rank-one { padding-block: 16px; }
-      .rr-rank { grid-column: 1; grid-row: 1; width: 42px; height: 34px; }
-      .rr-rank-one .rr-rank { height: 42px; }
+      .rr-rank { grid-column: 1; grid-row: 1; width: 34px; }
       .rr-logo { display: none; }
       .rr-company-main { grid-column: 2; grid-row: 1; }
       .rr-company-link { font-size: 14px; }

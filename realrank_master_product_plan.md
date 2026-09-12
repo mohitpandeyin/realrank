@@ -195,7 +195,7 @@ Do not describe an entity as the “best” because it holds a paid position.
 
 ### Locked landing-page direction
 
-The locked visual direction is the **Terracotta** wireframe. Keep the palette minimal: warm off-white page background, white listing surfaces, dark neutral text, quiet grey secondary controls and terracotta reserved for brand emphasis, active filters, ranking accents and the primary listing action.
+The locked visual direction is the **Terracotta** wireframe. Keep the palette minimal: warm off-white page background, white listing surfaces, dark neutral text, quiet grey secondary controls, white active category filters outlined and labelled in terracotta, and terracotta reserved for brand emphasis, ranking accents and the primary listing action.
 
 The landing page has four parts only:
 
@@ -250,6 +250,7 @@ Desktop may show the quiet disclosure **Sponsored ranking · not a quality score
 - Provide a persistent **More** action.
 - More opens a compact floating category island on desktop and a bottom-positioned island on mobile.
 - Selecting a category from either surface updates the same filter state.
+- Show the selected category on a white surface with a thin terracotta outline and terracotta icon and text rather than a solid high-contrast fill. It must remain identifiable without competing with listing and conversion actions.
 
 ### Ranking groups
 
@@ -261,6 +262,8 @@ Use restrained milestone groups:
 - All listings — #21 onward
 
 Top-three cards remain white with terracotta borders. Rank #1 may use a slightly stronger border and restrained shadow. Do not use a continuously animated border; permanent motion competes with content and weakens the premium, trustworthy presentation.
+
+Rank numbers are unboxed ordinal labels in a narrow fixed-width left column, using clear 13px semibold terracotta text and tabular numerals with the same treatment at every position, including #1. Keep approximately 10px between the rank and the adjacent logo or company content so they read as one identity group without visually merging. Do not place rank numbers inside pills, circles or button-like containers. They are scannable metadata, not an action or the dominant card element; the top-card border and public Rank total communicate the ranking hierarchy.
 
 ### Entity card hierarchy
 
