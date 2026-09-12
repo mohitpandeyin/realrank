@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RealRank payment success and email account setup wireframe.">
+  <title>RealRank — Payment Success and Email OTP Wireframe</title>
+  <link rel="stylesheet" href="./realrank-flow.css">
+</head>
+<body>
+  <header class="rr-site-header">
+    <nav class="rr-container rr-nav" aria-label="Account setup navigation">
+      <a class="rr-wordmark" href="./realrank-locked-terracotta.html"><span class="rr-mark">RR</span>RealRank</a>
+      <div class="rr-nav-actions">
+        <span class="rr-city-pill">
+          <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Indore
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <main class="rr-page">
+    <div class="rr-narrow">
+      <div class="rr-prototype-bar">
+        <span>Wireframe states — continue through the account setup.</span>
+        <div class="rr-state-tabs" aria-label="Choose success state">
+          <button class="rr-state-tab" type="button" aria-pressed="true" data-rr-state="email">Email</button>
+          <button class="rr-state-tab" type="button" aria-pressed="false" data-rr-state="otp">OTP</button>
+          <button class="rr-state-tab" type="button" aria-pressed="false" data-rr-state="complete">Complete</button>
+        </div>
+      </div>
+
+      <ol class="rr-progress" aria-label="Listing setup progress">
+        <li class="rr-progress-item rr-complete"><span class="rr-progress-dot">✓</span><span>Payment captured</span></li>
+        <li class="rr-progress-item rr-current" data-rr-progress-account><span class="rr-progress-dot">2</span><span>Secure account</span></li>
+        <li class="rr-progress-item" data-rr-progress-profile><span class="rr-progress-dot">3</span><span>Complete profile</span></li>
+      </ol>
+
+      <div class="rr-success-summary">
+        <div class="rr-status-icon rr-success">
+          <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.6 2.6L16.5 9"/></svg>
+        </div>
+        <div><strong>Aarambh Realty is now listed</strong><span>₹1,260 captured · Payment RR-PAY-849214</span></div>
+        <div class="rr-success-rank">#1</div>
+      </div>
+
+      <section class="rr-card rr-content-card" data-rr-panel="email">
+        <div class="rr-card-head">
+          <div>
+            <span class="rr-badge rr-badge-success">Listing is active</span>
+            <h1 class="rr-section-title rr-status-heading">Secure your profile</h1>
+            <p class="rr-section-copy">Add an email to edit the listing, choose categories, add portfolio items, and top up the rank later.</p>
+          </div>
+        </div>
+        <form class="rr-card-body rr-stack" data-rr-email-form>
+          <div>
+            <label class="rr-label" for="rr-owner-email">Owner email</label>
+            <input class="rr-input" id="rr-owner-email" type="email" placeholder="you@company.com" value="mohit@aarambhrealty.in" required>
+            <div class="rr-field-help"><span>Used for sign-in, receipts, and outbid notifications.</span><span>No password required</span></div>
+          </div>
+          <button class="rr-button rr-button-primary rr-button-block" type="submit">Send verification code</button>
+          <div class="rr-skip-box">Your paid listing stays active if you skip this step, but you cannot edit the profile, add portfolio items, or manage the rank until an email is verified.</div>
+          <a class="rr-text-button" href="./realrank-entity-profile.html">Skip for now and view the listing</a>
+        </form>
+      </section>
+
+      <section class="rr-card rr-content-card" data-rr-panel="otp" hidden>
+        <div class="rr-card-head">
+          <div>
+            <span class="rr-badge rr-badge-warning">Code sent</span>
+            <h1 class="rr-section-title rr-status-heading">Check your email</h1>
+            <p class="rr-section-copy">Enter the six-digit code sent to <strong data-rr-email-label>mohit@aarambhrealty.in</strong>. It expires in 10 minutes.</p>
+          </div>
+          <button class="rr-text-button" type="button" data-rr-change-email>Change email</button>
+        </div>
+        <form class="rr-card-body" data-rr-otp-form>
+          <label class="rr-label" for="rr-otp-1">Verification code</label>
+          <div class="rr-otp-inputs" data-rr-otp-inputs>
+            <input class="rr-otp-input" id="rr-otp-1" inputmode="numeric" maxlength="1" aria-label="Digit 1" value="1">
+            <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 2" value="8">
+            <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 3" value="4">
+            <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 4" value="2">
+            <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 5" value="6">
+            <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 6" value="9">
+          </div>
+          <div class="rr-button-row">
+            <button class="rr-button rr-button-primary" type="submit">Verify and continue</button>
+            <button class="rr-button rr-button-quiet" type="button" data-rr-resend>Resend code</button>
+          </div>
+          <p class="rr-section-copy">Never share this code. RealRank support will not ask for it.</p>
+        </form>
+      </section>
+
+      <section class="rr-card rr-content-card" data-rr-panel="complete" hidden>
+        <div class="rr-card-body rr-status-view">
+          <div class="rr-status-icon rr-success">
+            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <span class="rr-badge rr-badge-success">Email confirmed</span>
+          <h1 class="rr-status-title">Your profile is ready to manage</h1>
+          <p class="rr-status-copy">Choose the categories Aarambh Realty deals in, add a short description, and publish portfolio items from the dashboard.</p>
+          <div class="rr-status-actions">
+            <a class="rr-button rr-button-primary" href="./realrank-owner-dashboard.html">Complete profile</a>
+            <a class="rr-button rr-button-quiet" href="./realrank-entity-profile.html">View public listing</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="rr-site-footer">
+    <div class="rr-container rr-footer-inner">
+      <div class="rr-footer-brand"><strong>RealRank</strong> Transparent sponsored discovery.</div>
+      <nav class="rr-footer-links" aria-label="Legal"><a href="#">Ranking Policy</a><a href="#">Refund Policy</a><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Support</a></nav>
+    </div>
+  </footer>
+
+  <div class="rr-toast" role="status" hidden></div>
+  <script>
+    const rrTabs = [...document.querySelectorAll('[data-rr-state]')];
+    const rrPanels = [...document.querySelectorAll('[data-rr-panel]')];
+    const rrToast = document.querySelector('.rr-toast');
+    const rrEmailInput = document.querySelector('#rr-owner-email');
+    const rrEmailLabel = document.querySelector('[data-rr-email-label]');
+    function rrShowState(rrState) {
+      rrTabs.forEach((rrTab) => rrTab.setAttribute('aria-pressed', String(rrTab.dataset.rrState === rrState)));
+      rrPanels.forEach((rrPanel) => { rrPanel.hidden = rrPanel.dataset.rrPanel !== rrState; });
+      const rrComplete = rrState === 'complete';
+      document.querySelector('[data-rr-progress-account]').className = `rr-progress-item ${rrComplete ? 'rr-complete' : 'rr-current'}`;
+      document.querySelector('[data-rr-progress-account] .rr-progress-dot').textContent = rrComplete ? '✓' : '2';
+      document.querySelector('[data-rr-progress-profile]').className = `rr-progress-item ${rrComplete ? 'rr-current' : ''}`;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function rrNotify(rrMessage) {
+      rrToast.textContent = rrMessage;
+      rrToast.hidden = false;
+      window.clearTimeout(window.rrToastTimer);
+      window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
+    }
+    rrTabs.forEach((rrTab) => rrTab.addEventListener('click', () => rrShowState(rrTab.dataset.rrState)));
+    document.querySelector('[data-rr-email-form]').addEventListener('submit', (rrEvent) => {
+      rrEvent.preventDefault();
+      if (!rrEmailInput.reportValidity()) return;
+      rrEmailLabel.textContent = rrEmailInput.value;
+      rrShowState('otp');
+    });
+    document.querySelector('[data-rr-otp-form]').addEventListener('submit', (rrEvent) => { rrEvent.preventDefault(); rrShowState('complete'); });
+    document.querySelector('[data-rr-change-email]').addEventListener('click', () => rrShowState('email'));
+    document.querySelector('[data-rr-resend]').addEventListener('click', () => rrNotify('A new verification code has been sent.'));
+    const rrOtpInputs = [...document.querySelectorAll('.rr-otp-input')];
+    rrOtpInputs.forEach((rrInput, rrIndex) => rrInput.addEventListener('input', () => {
+      rrInput.value = rrInput.value.replace(/\D/g, '').slice(0, 1);
+      if (rrInput.value && rrOtpInputs[rrIndex + 1]) rrOtpInputs[rrIndex + 1].focus();
+    }));
+  </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RealRank payment review and payment-state wireframe.">
+  <title>RealRank — Payment States Wireframe</title>
+  <link rel="stylesheet" href="./realrank-flow.css">
+</head>
+<body>
+  <header class="rr-site-header">
+    <nav class="rr-container rr-nav" aria-label="Checkout navigation">
+      <a class="rr-wordmark" href="./realrank-locked-terracotta.html"><span class="rr-mark">RR</span>RealRank</a>
+      <div class="rr-nav-actions">
+        <a class="rr-nav-link" href="./realrank-locked-terracotta.html">Back to index</a>
+        <span class="rr-city-pill">
+          <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Indore
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <main class="rr-page">
+    <div class="rr-narrow">
+      <div class="rr-prototype-bar">
+        <span>Wireframe states — use these controls to review payment outcomes.</span>
+        <div class="rr-state-tabs" aria-label="Choose payment state">
+          <button class="rr-state-tab" type="button" aria-pressed="true" data-rr-state="review">Review</button>
+          <button class="rr-state-tab" type="button" aria-pressed="false" data-rr-state="processing">Processing</button>
+          <button class="rr-state-tab" type="button" aria-pressed="false" data-rr-state="failed">Failed</button>
+        </div>
+      </div>
+
+      <section data-rr-panel="review">
+        <div class="rr-page-head">
+          <span class="rr-eyebrow">Secure ranking payment</span>
+          <h1 class="rr-page-title">Review your listing</h1>
+          <p class="rr-page-lead">Confirm the public contact details and rank amount. Payment is completed securely through Razorpay.</p>
+        </div>
+
+        <div class="rr-split">
+          <section class="rr-card" aria-labelledby="rr-listing-details-title">
+            <div class="rr-card-head">
+              <div>
+                <h2 class="rr-section-title" id="rr-listing-details-title">Listing details</h2>
+                <p class="rr-section-copy">These details will be visible after payment is confirmed.</p>
+              </div>
+              <span class="rr-badge rr-badge-accent">New listing</span>
+            </div>
+            <div class="rr-card-body rr-stack">
+              <div>
+                <label class="rr-label" for="rr-entity-name">Entity name</label>
+                <input class="rr-input" id="rr-entity-name" value="Aarambh Realty">
+              </div>
+              <div>
+                <label class="rr-label" for="rr-contact-number">Contact or WhatsApp number</label>
+                <input class="rr-input" id="rr-contact-number" inputmode="tel" value="+91 98765 43210">
+                <div class="rr-field-help"><span>WhatsApp will be the default contact action.</span><span>India +91</span></div>
+              </div>
+              <label class="rr-checkbox-row">
+                <input type="checkbox" checked>
+                <span>I agree that this number can appear publicly on RealRank and be used by visitors to contact this entity.</span>
+              </label>
+              <div class="rr-safe-note">
+                <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>You will be sent to Razorpay to choose UPI, card, net banking, or another available payment method. RealRank does not collect payment credentials.</span>
+              </div>
+            </div>
+          </section>
+
+          <aside class="rr-card-flat" aria-labelledby="rr-order-title">
+            <div class="rr-card-head">
+              <div>
+                <h2 class="rr-section-title" id="rr-order-title">Rank order</h2>
+                <p class="rr-section-copy">Position updates after captured payment.</p>
+              </div>
+            </div>
+            <div class="rr-card-body rr-stack">
+              <dl class="rr-summary-list">
+                <div class="rr-summary-row"><dt>City</dt><dd>Indore</dd></div>
+                <div class="rr-summary-row"><dt>Current target</dt><dd><span class="rr-badge rr-badge-accent">Rank #1</span></dd></div>
+                <div class="rr-summary-row"><dt>Rank amount</dt><dd class="rr-rank-total">₹1,260</dd></div>
+                <div class="rr-summary-row"><dt>Ranking rule</dt><dd>Higher total ranks higher</dd></div>
+              </dl>
+              <div class="rr-price-line"><span>Pay now</span><strong>₹1,260</strong></div>
+              <button class="rr-button rr-button-primary rr-button-block" type="button" data-rr-pay>
+                Continue to secure checkout
+                <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+              <p class="rr-section-copy">By continuing, you accept the Terms, Privacy Policy, Ranking Policy, and Refund Policy.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="rr-card rr-status-view" data-rr-panel="processing" hidden>
+        <div class="rr-card-body">
+          <div class="rr-status-icon rr-processing"><span class="rr-spinner" aria-hidden="true"></span></div>
+          <h1 class="rr-status-title">Confirming your payment</h1>
+          <p class="rr-status-copy">Your bank may have completed the payment, but RealRank is still waiting for secure confirmation. Keep this page open—we will update it automatically.</p>
+          <span class="rr-status-meta">Order RRL-IND-001284 · ₹1,260</span>
+          <div class="rr-status-actions">
+            <button class="rr-button rr-button-quiet" type="button" data-rr-check>Check status</button>
+            <a class="rr-button rr-button-secondary" href="./realrank-locked-terracotta.html">Return to index</a>
+          </div>
+          <p class="rr-section-copy">Do not pay again while confirmation is pending. Your rank changes only after payment is captured.</p>
+        </div>
+      </section>
+
+      <section class="rr-card rr-status-view" data-rr-panel="failed" hidden>
+        <div class="rr-card-body">
+          <div class="rr-status-icon rr-failed">
+            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/></svg>
+          </div>
+          <span class="rr-badge rr-badge-danger">No payment captured</span>
+          <h1 class="rr-status-title">Payment was not completed</h1>
+          <p class="rr-status-copy">No listing or ranking amount has been created. You can retry the same order without changing the entity details.</p>
+          <span class="rr-status-meta">Order RRL-IND-001284 · ₹1,260</span>
+          <div class="rr-status-actions">
+            <button class="rr-button rr-button-primary" type="button" data-rr-retry>Retry payment</button>
+            <button class="rr-button rr-button-quiet" type="button" data-rr-edit>Edit listing details</button>
+          </div>
+          <p class="rr-section-copy">If money was debited, do not retry immediately. Check payment status first or contact support with the order number.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="rr-site-footer">
+    <div class="rr-container rr-footer-inner">
+      <div class="rr-footer-brand"><strong>RealRank</strong> Transparent sponsored discovery.</div>
+      <nav class="rr-footer-links" aria-label="Legal"><a href="#">Ranking Policy</a><a href="#">Refund Policy</a><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Support</a></nav>
+    </div>
+  </footer>
+
+  <div class="rr-toast" role="status" hidden></div>
+  <script>
+    const rrTabs = [...document.querySelectorAll('[data-rr-state]')];
+    const rrPanels = [...document.querySelectorAll('[data-rr-panel]')];
+    const rrToast = document.querySelector('.rr-toast');
+    function rrShowState(rrState) {
+      rrTabs.forEach((rrTab) => rrTab.setAttribute('aria-pressed', String(rrTab.dataset.rrState === rrState)));
+      rrPanels.forEach((rrPanel) => { rrPanel.hidden = rrPanel.dataset.rrPanel !== rrState; });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function rrNotify(rrMessage) {
+      rrToast.textContent = rrMessage;
+      rrToast.hidden = false;
+      window.clearTimeout(window.rrToastTimer);
+      window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
+    }
+    rrTabs.forEach((rrTab) => rrTab.addEventListener('click', () => rrShowState(rrTab.dataset.rrState)));
+    document.querySelector('[data-rr-pay]').addEventListener('click', () => rrShowState('processing'));
+    document.querySelector('[data-rr-check]').addEventListener('click', () => rrNotify('Still waiting for secure payment confirmation.'));
+    document.querySelector('[data-rr-retry]').addEventListener('click', () => rrShowState('review'));
+    document.querySelector('[data-rr-edit]').addEventListener('click', () => rrShowState('review'));
+  </script>
+</body>
+</html>

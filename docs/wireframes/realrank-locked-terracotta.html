@@ -81,6 +81,10 @@
     .rr-claim-rank:hover span { text-decoration: underline; text-underline-offset: 3px; }
     .rr-entry-note { margin: 8px 0 0; color: var(--muted); font-size: 9px; text-align: center; }
     .rr-entry-note a { color: var(--text); text-decoration: none; font-weight: 600; }
+    .rr-floating-list-cta { position: fixed; z-index: 30; left: 50%; bottom: max(18px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 42px; padding: 0 17px; border: 1px solid var(--accent); border-radius: 999px; color: #fff; background: var(--accent); box-shadow: 0 14px 34px rgba(64, 51, 44, .22); font-size: 11px; font-weight: 650; white-space: nowrap; visibility: hidden; opacity: 0; pointer-events: none; transform: translate(-50%, calc(100% + 36px)); transition: opacity .2s ease, transform .2s ease, visibility .2s; cursor: pointer; }
+    .rr-floating-list-cta:hover { background: var(--accent-dark); }
+    .rr-floating-list-cta.rr-is-visible { visibility: visible; opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+    .rr-floating-list-cta .rr-icon { width: 15px; height: 15px; }
 
     .rr-index { padding: 0 0 64px; }
     .rr-ranking-toolbar { position: sticky; z-index: 12; top: 0; padding: 28px 0 15px; background: rgba(250, 249, 246, .94); backdrop-filter: blur(14px); }
@@ -234,7 +238,11 @@
       .rr-footer-brand { display: grid; gap: 4px; }
       .rr-footer-links { justify-content: flex-start; gap: 5px 16px; }
       .rr-footer-links a { display: inline-flex; align-items: center; min-height: 32px; }
+      .rr-floating-list-cta { bottom: max(14px, env(safe-area-inset-bottom)); min-height: 40px; padding-inline: 16px; }
       .rr-dialog-inner { padding: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rr-floating-list-cta { transition: none; }
     }
   </style>
 </head>
@@ -273,8 +281,9 @@
           <label class="rr-field-group"><span class="rr-sr-only">Contact or WhatsApp number</span><input class="rr-field" id="contact-number" name="rr-contact" type="tel" inputmode="tel" autocomplete="tel" placeholder="Contact or WhatsApp Number" required></label>
           <div class="rr-field-group rr-bid-group">
             <label class="rr-sr-only" for="bid-amount">Ranking amount, minimum 10 rupees</label>
-            <button class="rr-claim-rank" type="button" data-top-bid aria-label="Set ranking amount to 1,260 rupees to claim rank 1"><svg class="rr-claim-arrow" aria-hidden="true" viewBox="0 0 34 24"><path d="M31 2C20 3 12 8 7 19M7 19l1-7M7 19l7-3"/></svg><span><strong>₹1,260</strong> to claim rank #1</span></button>
-            <div class="rr-bid-controls"><button class="rr-bid-button" type="button" data-bid-action="decrease" aria-label="Decrease ranking amount by 10 rupees">−</button><div class="rr-bid-value"><span class="rr-rupee">₹</span><input class="rr-bid-input" id="bid-amount" name="bidAmount" type="number" inputmode="numeric" min="10" step="10" value="10"></div><button class="rr-bid-button" type="button" data-bid-action="increase" aria-label="Increase ranking amount by 10 rupees">+</button></div>
+            <button class="rr-claim-rank" type="button" data-top-bid aria-label="Set ranking amount to 1,251 rupees to claim rank 1"><svg class="rr-claim-arrow" aria-hidden="true" viewBox="0 0 34 24"><path d="M31 2C20 3 12 8 7 19M7 19l1-7M7 19l7-3"/></svg><span><strong>₹1,251</strong> to claim rank #1</span></button>
+            <span class="rr-sr-only" id="bid-amount-help">Enter any whole-rupee amount of at least 10 rupees. The minus and plus buttons move to the previous or next 10-rupee amount.</span>
+            <div class="rr-bid-controls"><button class="rr-bid-button" type="button" data-bid-action="decrease" aria-label="Move to the previous 10-rupee amount">−</button><div class="rr-bid-value"><span class="rr-rupee">₹</span><input class="rr-bid-input" id="bid-amount" name="bidAmount" type="number" inputmode="numeric" min="10" step="1" value="10" aria-describedby="bid-amount-help"></div><button class="rr-bid-button" type="button" data-bid-action="increase" aria-label="Move to the next 10-rupee amount">+</button></div>
           </div>
           <button class="rr-primary" type="submit">List your Entity <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
@@ -287,7 +296,7 @@
       <div class="rr-ranking-toolbar">
         <div class="rr-container">
           <div class="rr-section-head">
-            <div><h2>RealRank Index</h2><p>Compare companies and marketers, explore portfolios, and connect directly.</p></div>
+            <div><h2>RealRank Index</h2><p>Discover real estate companies and marketers, explore portfolios, and connect directly.</p></div>
             <p class="rr-section-disclosure">Sponsored ranking · not a quality score or recommendation</p>
           </div>
           <div class="rr-ranking-controls">
@@ -349,13 +358,15 @@
     </div>
   </footer>
 
+  <button class="rr-floating-list-cta" type="button" aria-label="Go to the listing form">List Your Entity <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+
   <dialog class="rr-claim-dialog" aria-labelledby="claim-dialog-title">
     <div class="rr-dialog-inner">
       <div class="rr-dialog-head"><div><p class="rr-dialog-kicker">Transparent rank cost</p><h3 id="claim-dialog-title">Claim rank <span data-dialog-rank>#1</span></h3></div><button class="rr-dialog-close" type="button" aria-label="Close"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
       <div class="rr-claim-breakdown">
         <div class="rr-claim-row"><span>Business to move ahead of</span><strong data-dialog-entity>Apollo Realty</strong></div>
         <div class="rr-claim-row"><span>Current rank total</span><strong data-dialog-current>₹1,250</strong></div>
-        <div class="rr-claim-row"><span>Total required</span><strong data-dialog-required>₹1,260</strong></div>
+        <div class="rr-claim-row"><span>Total required</span><strong data-dialog-required>₹1,251</strong></div>
       </div>
       <p class="rr-dialog-note">Existing entities pay only the difference between their current total and the required total. The amount is checked again before payment, and only completed payments affect the ranking.</p>
       <button class="rr-primary rr-dialog-action" type="button">Continue to list your Entity <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
@@ -367,21 +378,19 @@
     (() => {
       const bidInput = document.querySelector('#bid-amount');
       const topBidButton = document.querySelector('[data-top-bid]');
-      const topBid = 1260;
-
-      const normaliseBid = (value) => Math.max(10, Math.round((Number(value) || 10) / 10) * 10);
-      const updateRank = () => {
-        const bid = normaliseBid(bidInput.value);
-        bidInput.value = bid;
+      const topBid = 1251;
+      const getWholeBid = () => {
+        const bid = Number(bidInput.value);
+        return Number.isFinite(bid) ? Math.trunc(bid) : 0;
       };
       document.querySelectorAll('[data-bid-action]').forEach((button) => button.addEventListener('click', () => {
-        const direction = button.dataset.bidAction === 'increase' ? 10 : -10;
-        bidInput.value = Math.max(10, normaliseBid(bidInput.value) + direction);
-        updateRank();
+        const bid = getWholeBid();
+        const nextBid = button.dataset.bidAction === 'increase'
+          ? (bid < 10 ? 10 : Math.floor(bid / 10) * 10 + 10)
+          : (bid <= 10 ? 10 : Math.max(10, Math.ceil(bid / 10) * 10 - 10));
+        bidInput.value = nextBid;
       }));
-      bidInput.addEventListener('input', updateRank);
-      bidInput.addEventListener('blur', updateRank);
-      topBidButton.addEventListener('click', () => { bidInput.value = topBid; updateRank(); });
+      topBidButton.addEventListener('click', () => { bidInput.value = topBid; });
 
       const featuredEntities = [
         { name: 'Apollo Realty', categories: ['Residential', 'Commercial', 'New Projects'], total: 1250, summary: 'Residential and commercial property marketing with a curated portfolio of current opportunities.', contact: 'WhatsApp', portfolioItems: 12 },
@@ -546,7 +555,7 @@
           document.querySelector('[data-dialog-rank]').textContent = `#${rank}`;
           document.querySelector('[data-dialog-entity]').textContent = entity.name;
           document.querySelector('[data-dialog-current]').textContent = formatRupees(entity.total);
-          document.querySelector('[data-dialog-required]').textContent = formatRupees(entity.total + 10);
+          document.querySelector('[data-dialog-required]').textContent = formatRupees(entity.total + 1);
           claimDialog.showModal();
         }
         if (profileLink) {
@@ -570,8 +579,37 @@
       });
       document.addEventListener('click', () => { closeCityMenu(); closeCategoryIsland(); });
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeCityMenu(); closeCategoryIsland(); } });
-      document.querySelector('#entry-form').addEventListener('submit', (event) => event.preventDefault());
-      updateRank();
+      const entryForm = document.querySelector('#entry-form');
+      entryForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const bid = Number(bidInput.value);
+        if (!Number.isInteger(bid) || bid < 10) {
+          showToast('Enter a whole ranking amount of ₹10 or more.');
+          bidInput.focus();
+          return;
+        }
+        showToast(`Ready to list with a ₹${bid.toLocaleString('en-IN')} rank amount.`);
+      });
+
+      const floatingListCta = document.querySelector('.rr-floating-list-cta');
+      const hero = document.querySelector('.rr-hero');
+      const footer = document.querySelector('.rr-site-footer');
+      let floatingCtaFrame;
+      const updateFloatingCta = () => {
+        window.cancelAnimationFrame(floatingCtaFrame);
+        floatingCtaFrame = window.requestAnimationFrame(() => {
+          const heroPassed = hero.getBoundingClientRect().bottom <= 0;
+          const footerReached = footer.getBoundingClientRect().top < window.innerHeight;
+          floatingListCta.classList.toggle('rr-is-visible', heroPassed && !footerReached);
+        });
+      };
+      floatingListCta.addEventListener('click', () => {
+        entryForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.querySelector('#entity-name').focus({ preventScroll: true });
+      });
+      document.addEventListener('scroll', updateFloatingCta, { passive: true });
+      window.addEventListener('resize', updateFloatingCta);
+      updateFloatingCta();
       renderRankings();
     })();
   </script>

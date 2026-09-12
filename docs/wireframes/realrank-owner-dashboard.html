@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RealRank owner dashboard and profile editor wireframe.">
+  <title>RealRank — Owner Dashboard Wireframe</title>
+  <link rel="stylesheet" href="./realrank-flow.css">
+</head>
+<body>
+  <header class="rr-site-header">
+    <nav class="rr-container rr-nav" aria-label="Owner navigation">
+      <a class="rr-wordmark" href="./realrank-locked-terracotta.html"><span class="rr-mark">RR</span>RealRank</a>
+      <div class="rr-nav-actions">
+        <a class="rr-nav-link" href="./realrank-entity-profile.html">View public profile</a>
+        <span class="rr-account-pill">
+          <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+          <span>mohit@aarambhrealty.in</span>
+        </span>
+      </div>
+    </nav>
+  </header>
+
+  <main class="rr-page">
+    <div class="rr-container rr-dashboard">
+      <aside class="rr-sidebar" aria-label="Dashboard sections">
+        <div class="rr-entity-mini">
+          <span class="rr-entity-logo">AR</span>
+          <span><strong>Aarambh Realty</strong><span>Owner account</span></span>
+        </div>
+        <nav class="rr-sidebar-nav" role="tablist" aria-label="Dashboard">
+          <button class="rr-sidebar-link" type="button" role="tab" aria-selected="true" data-rr-tab="overview">
+            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Overview
+          </button>
+          <button class="rr-sidebar-link" type="button" role="tab" aria-selected="false" data-rr-tab="profile">
+            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+            Profile
+          </button>
+          <button class="rr-sidebar-link" type="button" role="tab" aria-selected="false" data-rr-tab="portfolio">
+            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 5V3h8v2M3 11h18"/></svg>
+            Portfolio
+          </button>
+          <button class="rr-sidebar-link" type="button" role="tab" aria-selected="false" data-rr-tab="ranking">
+            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7"/></svg>
+            Ranking
+          </button>
+        </nav>
+      </aside>
+
+      <div class="rr-dashboard-main">
+        <section data-rr-panel="overview">
+          <div class="rr-dashboard-head">
+            <div><h1>Good morning, Mohit</h1><p>Manage one entity, its public portfolio, and its RealRank position.</p></div>
+            <a class="rr-button rr-button-quiet" href="./realrank-entity-profile.html">View public profile</a>
+          </div>
+
+          <div class="rr-metric-grid">
+            <article class="rr-metric"><span class="rr-metric-label">Current position</span><strong class="rr-metric-value">#1</strong><span class="rr-metric-note">RealRank Index — Indore</span></article>
+            <article class="rr-metric"><span class="rr-metric-label">Rank total</span><strong class="rr-metric-value">₹1,260</strong><span class="rr-metric-note">Public and cumulative</span></article>
+            <article class="rr-metric"><span class="rr-metric-label">Profile readiness</span><strong class="rr-metric-value">70%</strong><span class="rr-metric-note">Add logo and one more item</span></article>
+          </div>
+
+          <section class="rr-card-flat rr-content-card">
+            <div class="rr-panel-head">
+              <div><h2 class="rr-section-title">Complete your public profile</h2><p class="rr-section-copy">Clearer profiles make contact decisions easier. This does not change rank.</p></div>
+              <span class="rr-badge rr-badge-warning">2 steps left</span>
+            </div>
+            <div class="rr-panel-body rr-stack">
+              <div class="rr-summary-row"><span>Add a company logo</span><button class="rr-text-button" type="button" data-rr-open-tab="profile">Add logo</button></div>
+              <div class="rr-summary-row"><span>Publish another portfolio item</span><button class="rr-text-button" type="button" data-rr-open-tab="portfolio">Add item</button></div>
+              <div class="rr-summary-row"><span>Public contact</span><strong>WhatsApp · +91 98765 43210</strong></div>
+            </div>
+          </section>
+
+          <section class="rr-card-flat rr-content-card">
+            <div class="rr-panel-head">
+              <div><h2 class="rr-section-title">Protect your position</h2><p class="rr-section-copy">₹1,270 would move another entity above your current total.</p></div>
+              <span class="rr-badge rr-badge-accent">Rank #1</span>
+            </div>
+            <div class="rr-panel-body rr-button-row">
+              <button class="rr-button rr-button-primary" type="button" data-rr-open-tab="ranking">Top up rank</button>
+              <a class="rr-button rr-button-quiet" href="./realrank-locked-terracotta.html#rankings">Compare index</a>
+            </div>
+          </section>
+        </section>
+
+        <section data-rr-panel="profile" hidden>
+          <div class="rr-dashboard-head"><div><h1>Edit profile</h1><p>Manage public entity details. Profile content does not affect ranking.</p></div></div>
+          <form class="rr-card-flat" data-rr-save-form>
+            <div class="rr-panel-head"><div><h2 class="rr-section-title">Entity information</h2><p class="rr-section-copy">Keep the description specific, current, and easy to scan.</p></div></div>
+            <div class="rr-panel-body rr-stack">
+              <div class="rr-upload">
+                <span class="rr-upload-preview">AR</span>
+                <span><strong>Company logo</strong><span>Square JPG, PNG, or WebP · up to 2 MB</span></span>
+                <button class="rr-button rr-button-quiet" type="button" data-rr-upload>Upload</button>
+              </div>
+              <div>
+                <label class="rr-label" for="rr-profile-name">Entity name</label>
+                <input class="rr-input" id="rr-profile-name" value="Aarambh Realty" required>
+              </div>
+              <div>
+                <label class="rr-label" for="rr-profile-description">Description <span class="rr-label-note">· 240 characters maximum</span></label>
+                <textarea class="rr-textarea" id="rr-profile-description" maxlength="240">Residential and commercial property marketing with a curated portfolio of current opportunities.</textarea>
+                <div class="rr-field-help"><span>Describe what the entity offers. Avoid unverifiable claims.</span><span data-rr-character-count>96 / 240</span></div>
+              </div>
+              <div class="rr-grid-two">
+                <div><label class="rr-label" for="rr-profile-phone">Public phone</label><input class="rr-input" id="rr-profile-phone" inputmode="tel" value="+91 98765 43210"></div>
+                <div><label class="rr-label" for="rr-profile-url">Website or social profile</label><input class="rr-input" id="rr-profile-url" type="url" value="https://aarambhrealty.in"></div>
+              </div>
+              <div>
+                <span class="rr-label">Default contact action</span>
+                <div class="rr-contact-options">
+                  <button class="rr-option-chip" type="button" aria-pressed="true" data-rr-exclusive="contact">
+                    <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9.5 9.5 0 0 1-4-.9L3 21l1.7-4.6A8.6 8.6 0 1 1 21 11.5Z"/><path d="M8.5 8.5c.6 3 2 4.4 5 5"/></svg>
+                    WhatsApp
+                  </button>
+                  <button class="rr-option-chip" type="button" aria-pressed="false" data-rr-exclusive="contact">
+                    <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.7 19.7 0 0 1-8.6-3.1 19.3 19.3 0 0 1-6-6A19.7 19.7 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+                    Call
+                  </button>
+                </div>
+              </div>
+              <div>
+                <span class="rr-label">Deals in <span class="rr-label-note">· choose all that apply</span></span>
+                <div class="rr-category-options">
+                  <button class="rr-option-chip" type="button" aria-pressed="true">Residential</button>
+                  <button class="rr-option-chip" type="button" aria-pressed="true">Commercial</button>
+                  <button class="rr-option-chip" type="button" aria-pressed="false">Plots &amp; Land</button>
+                  <button class="rr-option-chip" type="button" aria-pressed="false">Rentals</button>
+                  <button class="rr-option-chip" type="button" aria-pressed="true">New Projects</button>
+                  <button class="rr-option-chip" type="button" aria-pressed="false">Auction Properties</button>
+                </div>
+              </div>
+            </div>
+            <div class="rr-panel-body rr-form-actions"><button class="rr-button rr-button-quiet" type="reset">Discard</button><button class="rr-button rr-button-primary" type="submit">Save profile</button></div>
+          </form>
+        </section>
+
+        <section data-rr-panel="portfolio" hidden>
+          <div class="rr-dashboard-head"><div><h1>Portfolio</h1><p>Show current opportunities without turning RealRank into a project marketplace.</p></div><button class="rr-button rr-button-primary" type="button" data-rr-add-item>Add portfolio item</button></div>
+          <section class="rr-card-flat">
+            <div class="rr-panel-head"><div><h2 class="rr-section-title">Published items</h2><p class="rr-section-copy">Items appear on the public entity profile in this order.</p></div><span class="rr-badge">2 items</span></div>
+            <div class="rr-panel-body rr-portfolio-list" data-rr-portfolio-list>
+              <article class="rr-portfolio-row"><span class="rr-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg></span><span><strong>Vijay Nagar office collection</strong><span>Commercial · Published</span></span><button class="rr-icon-button" type="button" aria-label="Edit Vijay Nagar office collection"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button></article>
+              <article class="rr-portfolio-row"><span class="rr-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg></span><span><strong>Super Corridor launch opportunities</strong><span>New Projects · Published</span></span><button class="rr-icon-button" type="button" aria-label="Edit Super Corridor launch opportunities"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button></article>
+            </div>
+          </section>
+        </section>
+
+        <section data-rr-panel="ranking" hidden>
+          <div class="rr-dashboard-head"><div><h1>Manage ranking</h1><p>Top up the same entity. Your existing rank total is never charged again.</p></div></div>
+          <section class="rr-card-flat">
+            <div class="rr-panel-head"><div><h2 class="rr-section-title">Current position</h2><p class="rr-section-copy">Aarambh Realty is currently first in the Indore index.</p></div><span class="rr-badge rr-badge-accent">#1 · ₹1,260</span></div>
+            <div class="rr-panel-body rr-stack">
+              <div class="rr-safe-note"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7"/></svg><span>Rank totals are cumulative and public. Higher total ranks higher. Top-ups must be in multiples of ₹10.</span></div>
+              <div class="rr-topup">
+                <div><span class="rr-label">Top-up amount</span><div class="rr-amount-stepper"><button class="rr-step-button" type="button" data-rr-minus aria-label="Decrease amount">−</button><span class="rr-step-value" data-rr-topup-value>₹100</span><button class="rr-step-button" type="button" data-rr-plus aria-label="Increase amount">+</button></div></div>
+                <button class="rr-button rr-button-primary" type="button" data-rr-topup>Continue to payment</button>
+              </div>
+              <p class="rr-section-copy">New rank total after captured payment: <strong data-rr-new-total>₹1,360</strong>. Email alerts are sent if another entity moves above you.</p>
+            </div>
+          </section>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="rr-site-footer"><div class="rr-container rr-footer-inner"><div class="rr-footer-brand"><strong>RealRank</strong> Owner dashboard</div><nav class="rr-footer-links" aria-label="Support"><a href="#">Help</a><a href="#">Ranking Policy</a><a href="#">Sign out</a></nav></div></footer>
+  <div class="rr-toast" role="status" hidden></div>
+
+  <script>
+    const rrTabs = [...document.querySelectorAll('[data-rr-tab]')];
+    const rrPanels = [...document.querySelectorAll('[data-rr-panel]')];
+    const rrToast = document.querySelector('.rr-toast');
+    function rrOpenTab(rrName) {
+      rrTabs.forEach((rrTab) => rrTab.setAttribute('aria-selected', String(rrTab.dataset.rrTab === rrName)));
+      rrPanels.forEach((rrPanel) => { rrPanel.hidden = rrPanel.dataset.rrPanel !== rrName; });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function rrShowToast(rrMessage) {
+      rrToast.textContent = rrMessage;
+      rrToast.hidden = false;
+      window.clearTimeout(window.rrToastTimer);
+      window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
+    }
+    rrTabs.forEach((rrTab) => rrTab.addEventListener('click', () => rrOpenTab(rrTab.dataset.rrTab)));
+    document.querySelectorAll('[data-rr-open-tab]').forEach((rrButton) => rrButton.addEventListener('click', () => rrOpenTab(rrButton.dataset.rrOpenTab)));
+    document.querySelectorAll('.rr-option-chip:not([data-rr-exclusive])').forEach((rrChip) => rrChip.addEventListener('click', () => rrChip.setAttribute('aria-pressed', String(rrChip.getAttribute('aria-pressed') !== 'true'))));
+    document.querySelectorAll('[data-rr-exclusive]').forEach((rrChip) => rrChip.addEventListener('click', () => {
+      document.querySelectorAll(`[data-rr-exclusive="${rrChip.dataset.rrExclusive}"]`).forEach((rrOther) => rrOther.setAttribute('aria-pressed', String(rrOther === rrChip)));
+    }));
+    const rrDescription = document.querySelector('#rr-profile-description');
+    const rrCharacterCount = document.querySelector('[data-rr-character-count]');
+    function rrUpdateCount() { rrCharacterCount.textContent = `${rrDescription.value.length} / 240`; }
+    rrDescription.addEventListener('input', rrUpdateCount); rrUpdateCount();
+    document.querySelector('[data-rr-save-form]').addEventListener('submit', (rrEvent) => { rrEvent.preventDefault(); rrShowToast('Profile changes saved.'); });
+    document.querySelector('[data-rr-upload]').addEventListener('click', () => rrShowToast('Logo upload chooser would open here.'));
+    document.querySelector('[data-rr-add-item]').addEventListener('click', () => rrShowToast('Portfolio item editor would open here.'));
+    let rrTopupAmount = 100;
+    function rrRenderTopup() { document.querySelector('[data-rr-topup-value]').textContent = `₹${rrTopupAmount.toLocaleString('en-IN')}`; document.querySelector('[data-rr-new-total]').textContent = `₹${(1260 + rrTopupAmount).toLocaleString('en-IN')}`; }
+    document.querySelector('[data-rr-minus]').addEventListener('click', () => { rrTopupAmount = Math.max(10, rrTopupAmount - 10); rrRenderTopup(); });
+    document.querySelector('[data-rr-plus]').addEventListener('click', () => { rrTopupAmount += 10; rrRenderTopup(); });
+    document.querySelector('[data-rr-topup]').addEventListener('click', () => rrShowToast(`Continue to pay ₹${rrTopupAmount.toLocaleString('en-IN')}.`));
+  </script>
+</body>
+</html>

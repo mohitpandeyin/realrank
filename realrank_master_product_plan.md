@@ -1,10 +1,11 @@
 # RealRank — Master Product Plan & Technical Direction
 
 > **Status:** Current product source of truth
-> **Last updated:** 9 September 2026
+> **Last updated:** 13 September 2026
 > **Launch market:** Indore first, designed for expansion across India
 > **Public headline:** The Real Estate Discovery Index of Companies & Marketers.
-> **Locked wireframe:** [`docs/wireframes/realrank-locked-terracotta.html`](docs/wireframes/realrank-locked-terracotta.html)
+> **Locked landing wireframe:** [`docs/wireframes/realrank-locked-terracotta.html`](docs/wireframes/realrank-locked-terracotta.html)
+> **Draft flow wireframes for review:** [payment states](docs/wireframes/realrank-payment-states.html) · [payment success + email OTP](docs/wireframes/realrank-payment-success-otp.html) · [owner dashboard](docs/wireframes/realrank-owner-dashboard.html) · [public entity profile](docs/wireframes/realrank-entity-profile.html)
 
 ---
 
@@ -56,7 +57,8 @@ The public product should avoid using the word **broker** as the default audienc
 ### Revenue mechanism
 
 - Minimum initial ranking amount: **₹10**.
-- Ranking amounts and top-ups must be in **multiples of ₹10**.
+- Manually entered ranking amounts and top-ups may be any whole-rupee value of ₹10 or more.
+- The `+` and `−` controls are convenience steppers: `+` moves to the next higher ₹10 multiple and `−` moves to the next lower ₹10 multiple, never below ₹10. They do not restrict typed values to ₹10 multiples.
 - Every successfully captured ranking payment is platform revenue, subject to the published refund and dispute policy.
 - Existing entities pay only the difference needed to reach their intended total.
 - No subscription is required for the MVP.
@@ -74,7 +76,7 @@ The first screen contains exactly three inputs:
 
 1. **Entity Name**
 2. **Contact or WhatsApp Number**
-3. **Rank Amount** — minimum ₹10, adjusted in ₹10 steps
+3. **Rank Amount** — any whole-rupee value of ₹10 or more; the optional `+` and `−` controls move to adjacent ₹10 multiples
 
 Primary action: **List your Entity**
 
@@ -159,8 +161,8 @@ This model keeps onboarding and payment simple. A future version may introduce c
 - There is **no 30-day window, campaign expiry or automatic bid reset**.
 - An entity's ranking total remains active unless a refund, chargeback, moderation action or account closure changes it.
 - Higher total ranking amount means higher position.
-- The minimum amount to move ahead of another entity is the next ₹10 multiple above that entity's total.
-- Example: if rank #1 has ₹1,250, ₹1,260 is required to claim #1.
+- The minimum amount to move ahead of another entity is ₹1 above that entity's total.
+- Example: if rank #1 has ₹1,250, ₹1,251 is required to claim #1.
 - If two entities have the same total, the entity that reached that total first remains higher.
 - Only successfully captured payments or explicitly issued promotional credits affect rank.
 
@@ -172,9 +174,9 @@ Example:
 
 ```text
 Current entity total:          ₹840
-Amount required for rank #1: ₹1,260
-Top-up payable:                ₹420
-New entity total:            ₹1,260
+Amount required for rank #1: ₹1,251
+Top-up payable:                ₹411
+New entity total:            ₹1,251
 ```
 
 The server must recompute the required amount immediately before payment. A displayed position is predictive until payment is captured because another entity may pay first.
@@ -226,7 +228,9 @@ Locked hero paragraph:
 
 The full paragraph uses one neutral text style; do not emphasize its opening sentence with a separate bold or accent treatment.
 
-The hero form remains the dominant business-conversion action. Its visible placeholders are Entity Name and Contact or WhatsApp Number, followed by the ₹10-step Rank Amount control and **List your Entity** button. The floating rank prompt may show the current amount required to claim #1. Align the primary button to the end of its grid area so it remains anchored to the bottom edge of the adjacent form control at responsive breakpoints.
+The hero form remains the dominant business-conversion action. Its visible placeholders are Entity Name and Contact or WhatsApp Number, followed by the Rank Amount control and **List your Entity** button. Manual entry accepts any whole-rupee amount of ₹10 or more; the `+` and `−` buttons move to the next higher or lower ₹10 multiple. The floating rank prompt may show the current amount required to claim #1. Align the primary button to the end of its grid area so it remains anchored to the bottom edge of the adjacent form control at responsive breakpoints.
+
+After the entire hero has scrolled above the viewport, show a small bottom-centred **List Your Entity** floating CTA. It returns the user to the hero form, stays hidden while the hero is visible, and hides when the footer enters the viewport so it does not cover footer actions. Respect mobile safe-area spacing and reduced-motion preferences.
 
 ### Section title
 
@@ -234,7 +238,7 @@ Use **RealRank Index**. Do not append Indore to this section heading during the 
 
 Supporting explanation:
 
-> Compare companies and marketers, explore portfolios, and connect directly.
+> Discover real estate companies and marketers, explore portfolios, and connect directly.
 
 Desktop may show the quiet disclosure **Sponsored ranking · not a quality score or recommendation** opposite the heading. Do not show a listing-count label in the index header. Pagination may still communicate the current result range where necessary.
 
@@ -668,16 +672,69 @@ Payments, promotional credits and reversals should update the cached city-listin
 
 ## 12. Technical direction
 
+RealRank begins as a modular monolith: one web application, one transactional PostgreSQL database and one payment integration. Do not introduce microservices, a separate search service or multiple backend runtimes for the MVP.
+
+### Locked implementation stack
+
 | Layer | Direction |
 |---|---|
 | Web application | Supported stable Next.js App Router release selected at implementation time |
 | Language | TypeScript |
-| Styling | Tailwind CSS or equivalent token-based CSS; restrained motion only |
-| Database | PostgreSQL, with Supabase acceptable for managed hosting and authentication |
-| Payments | Razorpay orders, captured-payment webhooks and idempotent processing |
-| Account access | Email magic link or OTP after payment; one owner per entity |
-| Notifications | WhatsApp or SMS after explicit opt-in, with email available after account setup |
-| Hosting | One primary hosting/cache layer initially; measure Indian performance before adding complexity |
+| Styling | CSS Modules with CSS custom-property design tokens; restrained motion only |
+| Icons | Lucide React, using one consistent stroke weight and only the icons required by the interface |
+| Validation | Zod schemas shared by forms, route handlers and server-side business logic |
+| Database access | Drizzle ORM and version-controlled PostgreSQL migrations |
+| Database | Supabase PostgreSQL, created in the Mumbai region |
+| Authentication | Supabase Auth with email OTP after captured payment |
+| Media storage | Cloudflare R2 for entity logos and portfolio images |
+| Payments | Razorpay Orders, Checkout, captured-payment webhooks and idempotent processing |
+| Search | PostgreSQL full-text search and trigram matching when text search is introduced |
+| Bot protection | Cloudflare Turnstile on listing and checkout-initiation endpoints |
+| DNS and edge protection | Cloudflare DNS, CDN and appropriate WAF controls |
+| Product analytics | PostHog for explicitly defined product events and conversion funnels |
+| Aggregate traffic | Cloudflare Web Analytics may remain enabled as an infrastructure-level traffic view |
+| Error monitoring | Sentry or an equivalent error-monitoring service before public payment launch |
+| Transactional email | Supabase Auth through a production custom SMTP provider |
+| Unit and integration testing | Vitest for ranking, payment, validation and data-access rules |
+| Browser testing | Playwright for responsive discovery, listing, checkout-return and account-setup journeys |
+| Continuous integration | GitHub Actions running formatting, linting, type checks and tests before deployment |
+| Hosting during development | Vercel Hobby for personal, non-commercial development and previews only |
+| Hosting for paid public launch | Vercel Pro, with application compute located as close as practical to the Mumbai database |
+| Notifications | Email first; WhatsApp or SMS only after explicit opt-in and an approved provider integration |
+
+Vercel Hobby must not serve the commercial version of RealRank. Upgrade before enabling real ranking payments. Supabase Free and Cloudflare free allowances may be used during development and a controlled early launch, but payment data must always have a tested, recoverable backup. Supabase Free does not provide the production backup guarantees required for meaningful paid volume; upgrade or establish automated encrypted PostgreSQL backups before accepting material transaction volume.
+
+### Rendering and component boundaries
+
+- Render public landing, city, category, entity and portfolio content with Server Components by default.
+- Use Client Components only where browser state or event handlers are required, including category controls, amount controls, dialogs and interactive form steps.
+- Keep payment calculation, authorization, ranking updates and ownership checks exclusively on the server.
+- Do not turn the entire page into a Client Component for convenience; preserving server-rendered content reduces browser JavaScript and supports crawlability.
+
+### Analytics policy
+
+PostHog is the primary source for product and conversion-funnel analysis. Cloudflare Web Analytics may provide an independent aggregate traffic view, but it is not the source of truth for product behavior.
+
+Begin with an explicit event allowlist rather than automatic capture. Useful MVP events include category selection, entity-profile view, portfolio-item view, Contact click, Claim click, listing start, checkout start, captured payment, email-OTP completion and profile completion.
+
+- Never send phone numbers, email addresses, names, payment IDs, gateway payloads, contact messages or other sensitive fields to PostHog.
+- Use a random internal identifier only after an owner authenticates; keep public visitors anonymous.
+- Emit captured-payment and refund events from verified server-side processing, not from browser callbacks.
+- Keep session replay disabled at launch. If introduced later, mask all text inputs and verify that payment and authentication surfaces are excluded before enabling it for real traffic.
+- Do not expose PostHog or Cloudflare estimates as a public live-viewer count.
+- Analytics must never become the financial or ranking source of truth; PostgreSQL remains authoritative.
+
+### Cloudflare responsibilities
+
+- Store logos, portfolio images and encrypted database backup files in R2.
+- Generate short-lived R2 presigned upload URLs on the RealRank server so files upload directly from the browser without exposing R2 credentials.
+- Validate file type, size and ownership before issuing an upload URL; use unpredictable object keys.
+- Keep file metadata, ownership, moderation status and public URLs in PostgreSQL.
+- Publish only approved media through the configured public delivery domain.
+- Use Turnstile and rate limits to reduce automated pending-checkout and form abuse.
+- Use genuine analytics only; never turn estimated or sampled traffic into a live social-proof claim.
+
+Do not store payments, ranking totals, promotional credits, refunds, entity ownership, categories, contact details or webhook state in R2, KV or analytics systems. These records belong in PostgreSQL. Cloudflare D1 is not the MVP system of record because RealRank's ranking and financial ledger need one clearly authoritative transactional database.
 
 Prefix RealRank-owned CSS classes with `rr-` to avoid collisions when wireframe patterns are moved into the production application. IDs, data attributes and third-party classes follow their own conventions.
 
@@ -702,15 +759,17 @@ The server is authoritative for rank. Client-side optimistic movement must not i
 - location-neutral landing page served at `/`, with Indore as the explicit launch context;
 - city selector with future cities marked Coming soon;
 - three-field payment-first listing form;
-- ₹10 minimum and ₹10 increments;
+- ₹10 minimum, free whole-rupee entry and adjacent-₹10 stepper controls;
 - permanent cumulative ranking totals;
 - RealRank Index with category filters;
 - horizontal category rail and More category island;
 - Auction Properties as a secondary category inside More, with no auction conducted by RealRank;
 - balanced entity cards with name, description, categories, compact Contact action, rank, top-right Rank total and compact Claim badge;
 - entity profile with optional portfolio;
+- responsive payment review, delayed-confirmation and failure states, with Razorpay owning payment-method collection;
 - Razorpay captured-payment processing;
 - post-payment one-owner account setup;
+- owner dashboard for profile, contact preference, categories, portfolio and ranking top-ups;
 - transparent ranking policy and sponsored disclosure;
 - restrained legal and support footer;
 - pagination;
