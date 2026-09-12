@@ -17,6 +17,7 @@ The current locked implementation reference is the [Terracotta landing wireframe
 - **Auction Properties** is included as a secondary category inside More. It describes entities that handle auction opportunities; RealRank does not conduct property auctions or accept property-auction bids.
 - Results are grouped as Top 3, Top 10, Top 20 and All listings.
 - The balanced card keeps the description and categories below the entity name, places a compact light-grey Contact action inside the company-information area, and places **Rank total** in the top-right.
+- Categories inside entity cards use plain dark-neutral text at a small metadata size and medium weight rather than terracotta or separate chips.
 - Rank numbers use clear 13px unboxed terracotta ordinal labels in a narrow fixed-width column across every position, including #1. Keep approximately 10px to the adjacent logo or company content. Pills, circles and other button-like containers are avoided; card borders and Rank total carry the hierarchy.
 - **Claim #N** is a small badge below Rank total. It does not repeat an arrow, icon or required amount; those details belong in the payment dialog.
 - Cards do not show verification/profile-claimed badges, email-confirmation signals, property counts, portfolio counts, price ranges or sub-locality labels.

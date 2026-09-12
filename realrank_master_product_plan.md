@@ -280,6 +280,8 @@ The Contact action routes directly to the method configured by the entity: call 
 
 Contact uses a quiet light-grey background, normal text weight and content-width sizing at every breakpoint. It must not become full width on mobile or visually compete with the ranking action.
 
+Entity categories use plain dark-neutral text at a small readable metadata size and medium weight. Do not render them as terracotta text or individual chips: their typography keeps them secondary while making this important discovery information easy to scan.
+
 The Claim badge remains an actual button but is visually compact. Do not show an arrow icon or the required amount inside the badge; the payment dialog explains the current total and amount required after activation.
 
 Do not show email-confirmation, verification, property-count or portfolio-count signals on the index card.
