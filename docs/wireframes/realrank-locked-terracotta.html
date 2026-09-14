@@ -129,6 +129,7 @@
     .rr-rank-one .rr-logo { width: 58px; height: 58px; }
     .rr-company-main { min-width: 0; }
     .rr-company-title-row { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
+    .rr-mobile-logo { display: none; }
     .rr-company-link { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 680; letter-spacing: -.025em; }
     .rr-top-three .rr-company-link { font-size: 17px; }
     .rr-company-link:hover { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
@@ -218,10 +219,12 @@
       .rr-rank-group { margin-top: 6px; }
       .rr-company, .rr-company.rr-top-ten, .rr-company.rr-top-three, .rr-company.rr-rank-one { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; min-height: 0; padding: 14px; border-radius: 17px; }
       .rr-company.rr-rank-one { padding-block: 16px; }
-      .rr-rank { grid-column: 1; grid-row: 1; width: 34px; }
+      .rr-rank { grid-column: 1; grid-row: 1; align-self: start; width: 34px; margin-top: 6px; }
       .rr-logo { display: none; }
       .rr-company-main { grid-column: 2; grid-row: 1; }
-      .rr-company-link { font-size: 14px; }
+      .rr-company-title-row { flex-wrap: nowrap; }
+      .rr-mobile-logo { display: grid; flex: 0 0 28px; place-items: center; width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); font-size: 8px; font-weight: 700; }
+      .rr-company-link { min-width: 0; font-size: 14px; }
       .rr-top-three .rr-company-link { font-size: 15px; }
       .rr-description { margin-top: 5px; font-size: 10px; -webkit-line-clamp: 2; }
       .rr-entity-categories { margin-top: 5px; }
@@ -454,7 +457,7 @@
             <span class="rr-rank" aria-label="Rank ${rank}">#${rank}</span>
             <span class="rr-logo" aria-hidden="true">${initials(entity.name)}</span>
             <div class="rr-company-main">
-              <div class="rr-company-title-row"><a class="rr-company-link" href="#profile-${entity.id}" data-profile-id="${entity.id}">${entity.name}</a></div>
+              <div class="rr-company-title-row"><span class="rr-mobile-logo" aria-hidden="true">${initials(entity.name)}</span><a class="rr-company-link" href="#profile-${entity.id}" data-profile-id="${entity.id}">${entity.name}</a></div>
               <p class="rr-description">${entity.summary}</p>
               <p class="rr-entity-categories">${entity.categories.join(' · ')}</p>
               <button class="rr-contact" type="button" data-contact-id="${entity.id}" aria-label="Contact ${entity.name} by ${entity.contact}"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24">${contactIcon}</svg>Contact</button>

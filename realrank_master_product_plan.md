@@ -276,6 +276,8 @@ Rank numbers are unboxed ordinal labels in a narrow fixed-width left column, usi
 7. public **Rank total** in the top-right; and
 8. a small **Claim #N** action badge directly below Rank total.
 
+On mobile, hide the desktop logo column and show a separate **28 × 28px** mobile-only logo or initials fallback inside the company title row immediately before the entity name. Keep the rank in its existing narrow left column, aligned with the mobile logo. This preserves the stable three-column card grid while adding recognition without consuming another layout column.
+
 The Contact action routes directly to the method configured by the entity: call or WhatsApp. Do not add an extra contact-method dropdown on every card.
 
 Contact uses a quiet light-grey background, normal text weight and content-width sizing at every breakpoint. It must not become full width on mobile or visually compete with the ranking action.
