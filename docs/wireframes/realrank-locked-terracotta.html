@@ -45,9 +45,9 @@
     .rr-city-menu { position: absolute; z-index: 20; top: calc(100% + 7px); right: 0; width: 220px; padding: 6px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: var(--shadow); }
     .rr-city-option { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 40px; padding: 0 10px; border: 0; border-radius: 9px; color: var(--text); background: transparent; font-size: 11px; text-align: left; cursor: pointer; }
     .rr-city-option:hover:not(:disabled) { background: var(--quiet); }
-    .rr-city-option:disabled { color: var(--muted); cursor: default; }
     .rr-city-option .rr-icon { width: 14px; height: 14px; color: var(--accent); }
-    .rr-coming-soon { padding: 4px 7px; border-radius: 999px; color: var(--accent-dark); background: var(--tint); font-size: 8px; font-weight: 650; white-space: nowrap; }
+    .rr-city-add { border-top: 1px solid var(--line); border-radius: 0 0 9px 9px; color: var(--accent-dark); font-weight: 600; }
+    .rr-city-add .rr-icon { width: 15px; height: 15px; }
 
     .rr-hero { padding: 54px 0 48px; }
     .rr-live-wrap { display: flex; justify-content: center; }
@@ -130,16 +130,16 @@
     .rr-company-main { min-width: 0; }
     .rr-company-title-row { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; }
     .rr-mobile-logo { display: none; }
-    .rr-company-link { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 680; letter-spacing: -.025em; }
+    .rr-company-link { min-width: 0; color: var(--text); text-decoration: none; font-size: 15px; font-weight: 680; line-height: 1.25; letter-spacing: -.025em; overflow-wrap: anywhere; }
     .rr-top-three .rr-company-link { font-size: 17px; }
     .rr-company-link:hover { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
-    .rr-description { display: -webkit-box; margin: 6px 0 0; overflow: hidden; color: var(--muted); font-size: 11px; line-height: 1.45; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+    .rr-description { display: -webkit-box; margin: 6px 0 0; overflow: hidden; color: var(--muted); font-size: 11px; line-height: 1.45; overflow-wrap: anywhere; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
     .rr-company.rr-compact .rr-description { -webkit-line-clamp: 1; }
-    .rr-entity-categories { margin: 6px 0 0; color: var(--text); font-size: 10px; font-weight: 550; }
+    .rr-entity-categories { margin: 6px 0 0; color: var(--text); font-size: 10px; font-weight: 550; overflow-wrap: anywhere; }
     .rr-company-side { position: absolute; top: 16px; right: 16px; }
     .rr-rank-competition { display: grid; justify-items: end; gap: 6px; }
     .rr-rank-total { display: flex; flex-direction: column; align-items: flex-end; color: var(--muted); font-size: 9px; line-height: 1.25; white-space: nowrap; text-align: right; }
-    .rr-rank-total strong { color: var(--text); font-size: 14px; font-weight: 680; }
+    .rr-rank-total strong { color: var(--text); font-size: 14px; font-weight: 680; font-variant-numeric: tabular-nums; }
     .rr-contact, .rr-claim-position { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 38px; padding: 0 11px; border-radius: 999px; font-size: 10px; font-weight: 680; cursor: pointer; }
     .rr-contact { width: auto; min-height: 32px; margin-top: 9px; border: 1px solid var(--quiet); color: var(--text); background: var(--quiet); font-weight: 400; }
     .rr-contact:hover { border-color: var(--line); background: #e7e3de; }
@@ -180,6 +180,28 @@
     .rr-claim-row strong { text-align: right; }
     .rr-dialog-note { margin: 14px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
     .rr-dialog-action { width: 100%; margin-top: 18px; }
+    .rr-add-city-dialog { width: min(100% - 28px, 500px); max-height: min(90dvh, 720px); padding: 0; overflow-y: auto; border: 1px solid var(--line); border-radius: 22px; color: var(--text); background: var(--surface); box-shadow: var(--shadow); }
+    .rr-add-city-dialog::backdrop { background: rgba(32, 32, 30, .38); backdrop-filter: blur(3px); }
+    .rr-add-city-inner { padding: 24px; }
+    .rr-add-city-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .rr-add-city-head h3 { margin: 0; font-size: 23px; letter-spacing: -.04em; }
+    .rr-add-city-copy { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+    .rr-add-city-form { display: grid; gap: 11px; margin-top: 20px; }
+    .rr-add-city-field { position: relative; display: block; }
+    .rr-add-city-input { width: 100%; min-height: 48px; padding: 0 14px; border: 1px solid var(--line); border-radius: 12px; color: var(--text); background: var(--surface); font-size: 12px; }
+    .rr-add-city-input::placeholder { color: #918c86; }
+    .rr-add-city-results { position: relative; display: grid; max-height: 176px; overflow-y: auto; margin-top: 5px; padding: 4px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: 0 10px 24px rgba(64, 51, 44, .08); }
+    .rr-add-city-result { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; min-height: 42px; padding: 8px 10px; border: 0; border-radius: 9px; color: var(--text); background: transparent; font: inherit; font-size: 11px; text-align: left; cursor: pointer; }
+    .rr-add-city-result:hover, .rr-add-city-result.rr-is-active { background: var(--quiet); }
+    .rr-add-city-result small { color: var(--muted); font-size: 9px; white-space: nowrap; }
+    .rr-add-city-hint { min-height: 15px; margin: -4px 2px 0; color: var(--muted); font-size: 10px; line-height: 1.4; }
+    .rr-add-city-hint.rr-is-error { color: var(--accent-dark); }
+    .rr-add-city-bid { display: grid; grid-template-columns: 38px minmax(0, 1fr) 38px; align-items: center; min-height: 48px; padding: 0 8px; border: 1px solid var(--line); border-radius: 12px; }
+    .rr-add-city-bid .rr-bid-button { justify-self: center; }
+    .rr-add-city-bid .rr-bid-value { width: 100%; }
+    .rr-add-city-submit { width: 100%; margin-top: 2px; }
+    .rr-add-city-terms { margin: 2px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .rr-add-city-terms a { color: var(--text); font-weight: 600; text-decoration: none; }
     .rr-toast { position: fixed; z-index: 40; right: 20px; bottom: 20px; max-width: min(360px, calc(100% - 40px)); padding: 12px 15px; border-radius: 13px; color: #fff; background: var(--text); box-shadow: var(--shadow); font-size: 11px; }
 
     @media (max-width: 980px) {
@@ -222,7 +244,7 @@
       .rr-rank { grid-column: 1; grid-row: 1; align-self: start; width: 34px; margin-top: 6px; }
       .rr-logo { display: none; }
       .rr-company-main { grid-column: 2; grid-row: 1; }
-      .rr-company-title-row { flex-wrap: nowrap; }
+      .rr-company-title-row { align-items: flex-start; flex-wrap: nowrap; }
       .rr-mobile-logo { display: grid; flex: 0 0 28px; place-items: center; width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); font-size: 8px; font-weight: 700; }
       .rr-company-link { min-width: 0; font-size: 14px; }
       .rr-top-three .rr-company-link { font-size: 15px; }
@@ -242,9 +264,12 @@
       .rr-footer-links a { display: inline-flex; align-items: center; min-height: 32px; }
       .rr-floating-list-cta { bottom: max(14px, env(safe-area-inset-bottom)); min-height: 40px; padding-inline: 16px; }
       .rr-dialog-inner { padding: 20px; }
+      .rr-add-city-inner { padding: 20px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .rr-floating-list-cta { transition: none; }
+      html { scroll-behavior: auto; }
+      .rr-floating-list-cta, .rr-city-chevron, .rr-company { transition: none; }
+      .rr-company:hover { transform: none; }
     }
   </style>
 </head>
@@ -253,7 +278,7 @@
     <nav class="rr-container rr-nav" aria-label="Primary navigation">
       <a class="rr-wordmark" href="#"><span class="rr-mark">RR</span>RealRank</a>
       <div class="rr-nav-links">
-        <a href="#rankings">Categories</a><a href="#how-it-works">How it works</a><a href="#">Login</a>
+        <a href="#rr-rankings">Categories</a><a href="#how-it-works">How it works</a><a href="#">Login</a>
         <div class="rr-city-picker">
           <button class="rr-city-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="rr-city-menu">
             <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
@@ -262,7 +287,7 @@
           </button>
           <div class="rr-city-menu" id="rr-city-menu" role="menu" hidden>
             <button class="rr-city-option" type="button" role="menuitem" aria-current="true"><span>Indore</span><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg></button>
-            <button class="rr-city-option" type="button" role="menuitem" disabled><span>Other cities</span><span class="rr-coming-soon">Coming soon</span></button>
+            <button class="rr-city-option rr-city-add" type="button" role="menuitem" aria-haspopup="dialog"><span>Add a city</span><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
           </div>
         </div>
       </div>
@@ -271,7 +296,7 @@
 
   <main>
     <section class="rr-container rr-hero">
-      <div class="rr-live-wrap"><div class="rr-live"><span class="rr-live-dot"></span>Now live in Indore · Rankings update instantly</div></div>
+      <div class="rr-live-wrap"><div class="rr-live"><span class="rr-live-dot" aria-hidden="true"></span>Now live in Indore · Rankings update instantly</div></div>
       <div class="rr-hero-copy">
         <h1>The Real Estate <span>Discovery&nbsp;Index</span> of Companies &amp; Marketers.</h1>
         <p class="rr-lead">Where real estate companies and marketers claim prime digital visibility across leading property categories. Bid transparently, showcase live portfolios, and connect directly with high-intent property buyers—zero commission fees, zero middleman algorithms.</p>
@@ -303,7 +328,7 @@
           </div>
           <div class="rr-ranking-controls">
             <div class="rr-category-rail">
-              <div class="rr-filters" aria-label="Filter rankings by category">
+              <div class="rr-filters" aria-label="Filter the RealRank Index by category">
                 <button class="rr-filter" type="button" data-filter="All" aria-pressed="true"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>All</button>
                 <button class="rr-filter" type="button" data-filter="Residential" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20H6v-8"/><path d="M9 20v-6h6v6"/></svg>Residential</button>
                 <button class="rr-filter" type="button" data-filter="Commercial" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V5h10v16M15 9h4v12M8 9h4M8 13h4M8 17h4"/></svg>Commercial</button>
@@ -338,8 +363,8 @@
       </div>
 
       <div class="rr-container">
-        <div class="rr-rankings" aria-label="Entity rankings" aria-live="polite"></div>
-        <div class="rr-pagination-wrap"><span class="rr-pagination-summary" data-pagination-summary></span><nav class="rr-pagination" aria-label="Rankings pages"></nav></div>
+        <div class="rr-rankings" aria-label="Entity rankings"></div>
+        <div class="rr-pagination-wrap"><span class="rr-pagination-summary" data-pagination-summary aria-live="polite" aria-atomic="true"></span><nav class="rr-pagination" aria-label="Rankings pages"></nav></div>
         <p class="rr-disclosure"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><span>Positions are sponsored and ordered by rank total—not by quality, reviews, recommendation or business verification.</span></p>
       </div>
     </section>
@@ -372,6 +397,25 @@
       </div>
       <p class="rr-dialog-note">Existing entities pay only the difference between their current total and the required total. The amount is checked again before payment, and only completed payments affect the ranking.</p>
       <button class="rr-primary rr-dialog-action" type="button">Continue to list your Entity <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </dialog>
+
+  <dialog class="rr-add-city-dialog" aria-labelledby="rr-add-city-title">
+    <div class="rr-add-city-inner">
+      <div class="rr-add-city-head"><div><p class="rr-dialog-kicker">Open a new city</p><h3 id="rr-add-city-title">Add your city to RealRank</h3><p class="rr-add-city-copy">Choose a recognised city and list your entity. After confirmed payment, its public index opens if needed; then complete your profile.</p></div><button class="rr-dialog-close rr-add-city-close" type="button" aria-label="Close add-city form"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <form class="rr-add-city-form" id="rr-add-city-form" novalidate>
+        <div class="rr-add-city-field">
+          <label class="rr-sr-only" for="rr-city-search">Search city</label>
+          <input class="rr-add-city-input" id="rr-city-search" name="citySearch" type="search" placeholder="Search city and state" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="rr-add-city-results" aria-describedby="rr-city-search-hint" required>
+          <div class="rr-add-city-results" id="rr-add-city-results" role="listbox" aria-label="Recognised cities" hidden></div>
+        </div>
+        <p class="rr-add-city-hint" id="rr-city-search-hint" aria-live="polite">Select a city from the results; typed text alone cannot create a city.</p>
+        <label class="rr-add-city-field"><span class="rr-sr-only">Entity name</span><input class="rr-add-city-input" name="entityName" autocomplete="organization" placeholder="Entity Name" required></label>
+        <label class="rr-add-city-field"><span class="rr-sr-only">Contact or WhatsApp number</span><input class="rr-add-city-input" name="contact" type="tel" inputmode="tel" autocomplete="tel" placeholder="Contact or WhatsApp Number" required></label>
+        <div class="rr-add-city-field"><label class="rr-sr-only" for="rr-add-city-amount">Rank Amount, minimum 10 rupees</label><span class="rr-sr-only" id="rr-add-city-amount-hint">Enter any whole-rupee amount of at least 10 rupees. The minus and plus buttons move to the previous or next 10-rupee amount.</span><div class="rr-add-city-bid"><button class="rr-bid-button" type="button" data-city-bid-action="decrease" aria-label="Move to the previous 10-rupee amount">−</button><div class="rr-bid-value"><span class="rr-rupee">₹</span><input class="rr-bid-input" id="rr-add-city-amount" name="rankAmount" type="number" inputmode="numeric" min="10" step="1" value="10" aria-describedby="rr-add-city-amount-hint"></div><button class="rr-bid-button" type="button" data-city-bid-action="increase" aria-label="Move to the next 10-rupee amount">+</button></div></div>
+        <button class="rr-primary rr-add-city-submit" type="submit"><span class="rr-add-city-submit-label">Add your Entity</span><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="rr-add-city-terms">A city is published only after captured payment and safety checks. First listing does not reserve rank #1. By continuing, you agree to the <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a href="#">Ranking Policy</a>.</p>
+      </form>
     </div>
   </dialog>
   <div class="rr-toast" role="status" aria-live="polite" hidden></div>
@@ -472,7 +516,7 @@
       };
 
       const renderPagination = (pageCount) => {
-        const pageButtons = Array.from({ length: pageCount }, (_, index) => `<button class="rr-page-button" type="button" data-page="${index + 1}" ${state.page === index + 1 ? 'aria-current="page"' : ''}>${index + 1}</button>`).join('');
+        const pageButtons = Array.from({ length: pageCount }, (_, index) => `<button class="rr-page-button" type="button" data-page="${index + 1}" aria-label="Page ${index + 1}" ${state.page === index + 1 ? 'aria-current="page"' : ''}>${index + 1}</button>`).join('');
         pagination.innerHTML = `<button class="rr-page-button" type="button" data-page="${state.page - 1}" ${state.page === 1 ? 'disabled' : ''}>Previous</button>${pageButtons}<button class="rr-page-button" type="button" data-page="${state.page + 1}" ${state.page === pageCount ? 'disabled' : ''}>Next</button>`;
       };
 
@@ -497,18 +541,20 @@
 
       const moreCategoriesButton = document.querySelector('.rr-more-categories');
       const categoryIsland = document.querySelector('.rr-category-island');
-      const closeCategoryIsland = () => {
+      const closeCategoryIsland = (restoreFocus = false) => {
+        const wasOpen = !categoryIsland.hidden;
         categoryIsland.hidden = true;
         moreCategoriesButton.setAttribute('aria-expanded', 'false');
+        if (restoreFocus && wasOpen) moreCategoriesButton.focus();
       };
-      const chooseCategory = (category) => {
+      const chooseCategory = (category, fromIsland = false) => {
         document.querySelectorAll('[data-filter]').forEach((item) => item.setAttribute('aria-pressed', String(item.dataset.filter === category)));
         state.category = category;
         state.page = 1;
-        closeCategoryIsland();
+        closeCategoryIsland(fromIsland);
         renderRankings();
       };
-      document.querySelectorAll('[data-filter]').forEach((filter) => filter.addEventListener('click', () => chooseCategory(filter.dataset.filter)));
+      document.querySelectorAll('[data-filter]').forEach((filter) => filter.addEventListener('click', () => chooseCategory(filter.dataset.filter, filter.classList.contains('rr-island-category'))));
       moreCategoriesButton.addEventListener('click', (event) => {
         event.stopPropagation();
         const willOpen = categoryIsland.hidden;
@@ -517,13 +563,15 @@
         moreCategoriesButton.setAttribute('aria-expanded', String(willOpen));
       });
       categoryIsland.addEventListener('click', (event) => event.stopPropagation());
-      document.querySelector('.rr-island-close').addEventListener('click', closeCategoryIsland);
+      document.querySelector('.rr-island-close').addEventListener('click', () => closeCategoryIsland(true));
 
       const cityButton = document.querySelector('.rr-city-button');
       const cityMenu = document.querySelector('.rr-city-menu');
-      const closeCityMenu = () => {
+      const closeCityMenu = (restoreFocus = false) => {
+        const wasOpen = !cityMenu.hidden;
         cityMenu.hidden = true;
         cityButton.setAttribute('aria-expanded', 'false');
+        if (restoreFocus && wasOpen) cityButton.focus();
       };
       cityButton.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -532,7 +580,128 @@
         cityMenu.hidden = !willOpen;
         cityButton.setAttribute('aria-expanded', String(willOpen));
       });
-      cityMenu.querySelectorAll('.rr-city-option:not(:disabled)').forEach((option) => option.addEventListener('click', closeCityMenu));
+      cityMenu.querySelector('.rr-city-option[aria-current="true"]').addEventListener('click', () => closeCityMenu(true));
+
+      const addCityDialog = document.querySelector('.rr-add-city-dialog');
+      const addCityForm = document.querySelector('#rr-add-city-form');
+      const addCitySearch = document.querySelector('#rr-city-search');
+      const addCityResults = document.querySelector('#rr-add-city-results');
+      const addCityHint = document.querySelector('#rr-city-search-hint');
+      const addCityAmount = document.querySelector('#rr-add-city-amount');
+      const addCitySubmitLabel = document.querySelector('.rr-add-city-submit-label');
+      let handoffToHero = false;
+      // Wireframe sample only. Production search and validation must use a server-owned canonical city catalogue.
+      const sampleCities = [
+        { id: 'indore-mp', name: 'Indore', state: 'Madhya Pradesh', live: true },
+        { id: 'bhopal-mp', name: 'Bhopal', state: 'Madhya Pradesh', live: false },
+        { id: 'ujjain-mp', name: 'Ujjain', state: 'Madhya Pradesh', live: false },
+        { id: 'jaipur-rj', name: 'Jaipur', state: 'Rajasthan', live: false },
+        { id: 'pune-mh', name: 'Pune', state: 'Maharashtra', live: false },
+        { id: 'mumbai-mh', name: 'Mumbai', state: 'Maharashtra', live: false },
+        { id: 'ahmedabad-gj', name: 'Ahmedabad', state: 'Gujarat', live: false }
+      ];
+      let cityMatches = [];
+      let selectedCity = null;
+      let activeCityIndex = -1;
+      const closeCityResults = () => {
+        addCityResults.hidden = true;
+        addCitySearch.setAttribute('aria-expanded', 'false');
+        addCitySearch.removeAttribute('aria-activedescendant');
+        activeCityIndex = -1;
+      };
+      const setCityHint = (message, isError = false) => {
+        addCityHint.textContent = message;
+        addCityHint.classList.toggle('rr-is-error', isError);
+      };
+      const updateCitySubmitLabel = () => {
+        addCitySubmitLabel.textContent = selectedCity?.live ? `Use ${selectedCity.name} listing form` : 'Add your Entity';
+      };
+      const renderCityMatches = () => {
+        const normaliseCitySearch = (value) => value.toLocaleLowerCase('en-IN').replace(/[,\s]+/g, ' ').trim();
+        const query = normaliseCitySearch(addCitySearch.value);
+        cityMatches = sampleCities.filter((city) => normaliseCitySearch(`${city.name} ${city.state}`).includes(query)).slice(0, 6);
+        addCityResults.replaceChildren();
+        cityMatches.forEach((city, index) => {
+          const option = document.createElement('button');
+          option.type = 'button';
+          option.className = 'rr-add-city-result';
+          option.id = `rr-add-city-result-${index}`;
+          option.setAttribute('role', 'option');
+          option.setAttribute('aria-selected', 'false');
+          const label = document.createElement('span');
+          label.textContent = `${city.name}, ${city.state}`;
+          const status = document.createElement('small');
+          status.textContent = city.live ? 'Already live' : 'Open this city';
+          option.append(label, status);
+          option.addEventListener('click', () => selectCity(index));
+          addCityResults.append(option);
+        });
+        addCityResults.hidden = cityMatches.length === 0;
+        addCitySearch.setAttribute('aria-expanded', String(cityMatches.length > 0));
+        if (!cityMatches.length) {
+          setCityHint('No match in this wireframe sample. Production checks a broader verified catalogue before payment.', true);
+        } else {
+          setCityHint('Select a city and state from the results; typed text alone cannot open a city.');
+        }
+        activeCityIndex = -1;
+        addCitySearch.removeAttribute('aria-activedescendant');
+      };
+      const setActiveCity = (index) => {
+        activeCityIndex = index;
+        addCityResults.querySelectorAll('[role="option"]').forEach((option, optionIndex) => {
+          option.classList.toggle('rr-is-active', optionIndex === index);
+          option.setAttribute('aria-selected', String(optionIndex === index));
+        });
+        if (index >= 0) addCitySearch.setAttribute('aria-activedescendant', `rr-add-city-result-${index}`);
+      };
+      function selectCity(index) {
+        selectedCity = cityMatches[index];
+        addCitySearch.value = `${selectedCity.name}, ${selectedCity.state}`;
+        addCitySearch.focus();
+        closeCityResults();
+        updateCitySubmitLabel();
+        setCityHint(selectedCity.live
+          ? `${selectedCity.name} is already live. Continue on its existing city page.`
+          : `${selectedCity.name} can open after confirmed payment and safety checks.`);
+      }
+      cityMenu.querySelector('.rr-city-add').addEventListener('click', () => {
+        closeCityMenu();
+        addCityDialog.showModal();
+        addCitySearch.focus();
+      });
+      document.querySelector('.rr-add-city-close').addEventListener('click', () => addCityDialog.close());
+      addCityDialog.addEventListener('close', () => {
+        closeCityResults();
+        if (handoffToHero) handoffToHero = false;
+        else cityButton.focus();
+      });
+      addCitySearch.addEventListener('focus', renderCityMatches);
+      addCitySearch.addEventListener('input', () => { selectedCity = null; updateCitySubmitLabel(); renderCityMatches(); });
+      addCityForm.addEventListener('focusin', (event) => {
+        if (event.target !== addCitySearch && !addCityResults.contains(event.target)) closeCityResults();
+      });
+      addCitySearch.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowDown' && cityMatches.length) {
+          event.preventDefault();
+          setActiveCity((activeCityIndex + 1) % cityMatches.length);
+        } else if (event.key === 'ArrowUp' && cityMatches.length) {
+          event.preventDefault();
+          setActiveCity((activeCityIndex - 1 + cityMatches.length) % cityMatches.length);
+        } else if (event.key === 'Enter' && activeCityIndex >= 0) {
+          event.preventDefault();
+          selectCity(activeCityIndex);
+        } else if (event.key === 'Escape' && !addCityResults.hidden) {
+          event.stopPropagation();
+          closeCityResults();
+        }
+      });
+      document.querySelectorAll('[data-city-bid-action]').forEach((button) => button.addEventListener('click', () => {
+        const amount = Number(addCityAmount.value);
+        const wholeAmount = Number.isFinite(amount) ? Math.trunc(amount) : 0;
+        addCityAmount.value = button.dataset.cityBidAction === 'increase'
+          ? (wholeAmount < 10 ? 10 : Math.floor(wholeAmount / 10) * 10 + 10)
+          : (wholeAmount <= 10 ? 10 : Math.max(10, Math.ceil(wholeAmount / 10) * 10 - 10));
+      }));
 
       const toast = document.querySelector('.rr-toast');
       let toastTimer;
@@ -542,6 +711,35 @@
         toast.hidden = false;
         toastTimer = window.setTimeout(() => { toast.hidden = true; }, 2600);
       };
+      addCityForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!addCityForm.checkValidity()) { addCityForm.reportValidity(); return; }
+        if (!selectedCity) {
+          setCityHint('Choose a recognised city and state from the results before continuing.', true);
+          addCitySearch.focus();
+          return;
+        }
+        const amount = Number(addCityAmount.value);
+        if (!Number.isInteger(amount) || amount < 10) {
+          setCityHint('Enter a whole Rank Amount of ₹10 or more.', true);
+          addCityAmount.focus();
+          return;
+        }
+        const city = selectedCity;
+        if (city.live) {
+          document.querySelector('#entity-name').value = addCityForm.elements.entityName.value;
+          document.querySelector('#contact-number').value = addCityForm.elements.contact.value;
+          bidInput.value = amount;
+          handoffToHero = true;
+          addCityDialog.close();
+          document.querySelector('.rr-entry').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          document.querySelector('#entity-name').focus({ preventScroll: true });
+          showToast(`${city.name} is live. Review your details in its listing form.`);
+          return;
+        }
+        addCityDialog.close();
+        showToast(`Wireframe only: payment capture would open ${city.name}, then prompt profile setup.`);
+      });
       const claimDialog = document.querySelector('.rr-claim-dialog');
       rankings.addEventListener('click', (event) => {
         const contactButton = event.target.closest('[data-contact-id]');
@@ -580,10 +778,14 @@
         document.querySelector('#entity-name').focus({ preventScroll: true });
       });
       document.addEventListener('click', () => { closeCityMenu(); closeCategoryIsland(); });
-      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeCityMenu(); closeCategoryIsland(); } });
+      document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeCityMenu(true); closeCategoryIsland(true); } });
       const entryForm = document.querySelector('#entry-form');
       entryForm.addEventListener('submit', (event) => {
         event.preventDefault();
+        if (!entryForm.checkValidity()) {
+          entryForm.reportValidity();
+          return;
+        }
         const bid = Number(bidInput.value);
         if (!Number.isInteger(bid) || bid < 10) {
           showToast('Enter a whole ranking amount of ₹10 or more.');

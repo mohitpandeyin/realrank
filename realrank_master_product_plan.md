@@ -1,7 +1,7 @@
 # RealRank — Master Product Plan & Technical Direction
 
 > **Status:** Current product source of truth
-> **Last updated:** 13 September 2026
+> **Last updated:** 16 September 2026
 > **Launch market:** Indore first, designed for expansion across India
 > **Public headline:** The Real Estate Discovery Index of Companies & Marketers.
 > **Locked landing wireframe:** [`docs/wireframes/realrank-locked-terracotta.html`](docs/wireframes/realrank-locked-terracotta.html)
@@ -31,6 +31,7 @@ The ranking is a visibility mechanism, not a quality score, recommendation, revi
 - **Entity first:** the ranked object is always the company or marketer, not an individual project or property.
 - **Optional depth:** categories, description and portfolio content improve the profile but do not block the minimum listing.
 - **Location-scalable brand:** the headline and brand do not name Indore; city selection provides local context.
+- **One shared ranking investment:** an entity has one cumulative Rank total across the cities where it is active; city and category views have different competitors, not separate ranking wallets.
 - **No commission:** RealRank earns from ranking payments made by professional entities, not from visitors or property transactions.
 
 ---
@@ -61,6 +62,8 @@ The public product should avoid using the word **broker** as the default audienc
 - The `+` and `−` controls are convenience steppers: `+` moves to the next higher ₹10 multiple and `−` moves to the next lower ₹10 multiple, never below ₹10. They do not restrict typed values to ₹10 multiples.
 - Every successfully captured ranking payment is platform revenue, subject to the published refund and dispute policy.
 - Existing entities pay only the difference needed to reach their intended total.
+- The initial entry includes **three editable active-city slots**. An entity does not repay its Rank total when it fills or corrects one of those slots.
+- A fourth or later **simultaneously active** city requires a separate, one-time **additional-city slot fee**. Its price remains to be decided before this feature launches. The fee increases coverage capacity; it does **not** increase the public Rank total or buy a particular position. A purchased slot can be reassigned to another valid city without buying the slot again.
 - No subscription is required for the MVP.
 - No property-sale or rental commission is charged.
 
@@ -148,13 +151,25 @@ Detailed properties belong on the optional entity profile, not in the minimum in
 ### Ranking scope
 
 - The launch product has one sponsored index for the selected city.
-- There are no sub-locality pools in the MVP.
+- A city is the only geographic ranking context. There are no state, nationwide or sub-locality indexes or paid ranking pools.
 - **All** shows every listed entity in the selected city.
 - Category filters show only city listings that selected that category.
-- Rank is recalculated inside the active category view using the same entity ranking total.
-- An entity has one ranking total per city, not a separate paid balance for every category.
+- Rank is recalculated inside the active city/category view using the entity's **one shared Rank total**.
+- An entity may have one active listing per city it actually serves. Three active-city slots are included with entry; a fourth or later simultaneous city requires a purchased additional slot.
+- Categories are eligibility and discovery filters, not separate paid balances or pools. Category selection may differ by city.
 
-This model keeps onboarding and payment simple. A future version may introduce category-specific campaigns only if real usage shows that a single city-wide amount is insufficient.
+Example: an entity with a ₹500 shared Rank total may be #3 in Indore and #1 in Bhopal because each city contains different competitors. A ₹200 top-up raises its shared Rank total to ₹700 in both views. RealRank must not show a paid nationwide or state-wide ordinal rank.
+
+### Editable city slots and coverage
+
+- Every entity starts with **three active-city slots**. City 1 is filled at entry; Cities 2 and 3 may be filled later. An owner who confirms account access may change or clear any slot, including City 1, without another ₹10 entry payment. A valid but mistaken city selection does not invalidate the entity: fulfil the captured entry, then allow correction in the owner profile.
+- A fourth or later **active slot** is a one-time capacity purchase, not a new ranking contribution. Purchased capacity remains with the entity without a subscription or 30-day expiry, subject to refunds, moderation and normal account rules. Changing the city assigned to an existing paid slot does not trigger the fee again.
+- Itemize any additional-city slot fee separately from an optional Rank Amount top-up. Changing or buying city coverage alone must not move the entity above a competitor.
+- A city need not already be live. A first valid entity may open a recognised city index as soon as its payment or included-city entitlement is confirmed and safety checks pass. The entity must genuinely serve the selected city; payment is not proof of local presence. Review implausibly broad coverage and provide a way to report it.
+- Opening a city with one entity gives that entity the first displayed position at publication, not an exclusive or permanent #1. Later entries and top-ups reorder the city index under the normal shared-Rank-total rules. If two first-listing checkouts finish close together, both may publish and ranking is calculated from the captured records; do not promise either buyer sole first place.
+- A move from City A to City B removes that entity's eligibility from A and starts a new eligibility/tie-break timestamp in B; the shared Rank total is unchanged. Do not silently carry city-specific categories, portfolio location tags, city contact overrides or position claims to B. Show the effect before saving, keep an audit trail and apply sensible rate limits or review to repeated implausible moves.
+- If the last entity leaves a city, remove that city from live discovery and sitemaps and return its page to a truthful empty `noindex` state; retain the canonical city record and assignment history so it can reopen later. Do not invent a continuing leaderboard with zero entities.
+- A category- or city-specific **Claim #N** action carries its context into checkout. If the entity is not yet active in that city or category, show the required activation or category-selection step. Recompute the target against that view immediately before payment; a global top-up may also improve positions elsewhere.
 
 ### Permanent cumulative ranking
 
@@ -163,7 +178,7 @@ This model keeps onboarding and payment simple. A future version may introduce c
 - Higher total ranking amount means higher position.
 - The minimum amount to move ahead of another entity is ₹1 above that entity's total.
 - Example: if rank #1 has ₹1,250, ₹1,251 is required to claim #1.
-- If two entities have the same total, the entity that reached that total first remains higher.
+- If two entities have the same total, the entity that became eligible at that total in the current city/category first remains higher. A newly added city or category must not inherit an earlier tie-break timestamp from another view.
 - Only successfully captured payments or explicitly issued promotional credits affect rank.
 
 ### Top-ups
@@ -179,7 +194,7 @@ Top-up payable:                ₹411
 New entity total:            ₹1,251
 ```
 
-The server must recompute the required amount immediately before payment. A displayed position is predictive until payment is captured because another entity may pay first.
+The server must recompute the required amount in the selected city/category immediately before payment. A displayed position is predictive until payment is captured because another entity may pay first. The top-up changes one shared Rank total and may improve the entity's position in every city where it appears; the checkout should explain this without promising a fixed rank elsewhere.
 
 ### Public disclosure
 
@@ -214,7 +229,7 @@ Header navigation contains:
 - Categories;
 - How it works;
 - Login; and
-- a custom city selector with Indore selected and other cities marked Coming soon.
+- a custom city selector with Indore selected and an **Add a city** action. As cities become live, show them as selectable destinations; do not label recognised cities Coming soon if users can open them themselves.
 
 Locked hero headline:
 
@@ -286,6 +301,8 @@ Entity categories use plain dark-neutral text at a small readable metadata size 
 
 The Claim badge remains an actual button but is visually compact. Do not show an arrow icon or the required amount inside the badge; the payment dialog explains the current total and amount required after activation.
 
+After multi-city expansion, the displayed **Rank total** remains the same for that entity in every active city, while its ordinal rank and the amount needed to claim a position depend on the city and optional category currently being viewed.
+
 Do not show email-confirmation, verification, property-count or portfolio-count signals on the index card.
 
 ### Footer
@@ -310,6 +327,23 @@ The footer is one restrained horizontal row on desktop and stacks on mobile. Do 
 
 These removals keep the launch product credible even when entities have completed only minimal onboarding.
 
+### Homepage final QA lock
+
+The homepage is **final pending production implementation**, with no additional marketing sections required. Its core loop is: discover an entity, understand the sponsored order, open a profile or portfolio, contact the entity, or claim a stronger sponsored position.
+
+- **Hero transition:** the bottom-centred **List Your Entity** CTA appears only after the complete hero has left the viewport and disappears when the footer enters. It must respect the device safe area and reduced-motion preferences.
+- **Card hierarchy:** entity name and logo establish recognition; the short description and categories explain relevance; Rank total and ordinal rank remain visible metadata; **Claim #N** is the ranking action; Contact stays visually quiet.
+- **Mobile scanning:** retain the narrow rank column, 28 × 28px mobile-only logo or initials before the entity name, top-right Rank total and compact Claim badge. Long names and descriptions may wrap safely, while descriptions remain clamped to two lines to avoid unnecessarily tall cards.
+- **Amount behavior:** manual input accepts any whole-rupee value of ₹10 or more. The steppers move to the adjacent ₹10 multiples—for example, `₹14 → ₹20` with `+` and `₹14 → ₹10` with `−`; `₹20 → ₹30` with `+` and `₹20 → ₹10` with `−`.
+- **Filters:** the selected state is a white chip with a terracotta outline, icon and text plus stronger text weight. The combination of border, fill change, weight and `aria-pressed` means selection does not rely on colour alone. The previously considered solid-black state is not part of the locked design.
+- **Competitive clarity:** the selected city, ordinal positions, public Rank totals, top-position prompt and target-aware Claim action explain where the visitor is, who is ahead and how to move up without aggressive auction styling.
+- **Trust:** keep the sponsored-order disclosure visible. Do not add RERA, ownership or verification badges to the index until RealRank performs and records the specific check being claimed. Optional entity-supplied RERA information belongs on the profile later and must be labelled accurately until verified.
+- **Accessibility:** preserve visible keyboard focus, programmatic labels, `aria-pressed` category state, descriptive Contact and Claim labels, useful result-count announcements, predictable dialog focus, and reduced-motion behavior. Do not make the entire changing result grid an `aria-live` region.
+- **Responsive resilience:** production tests must cover 320px, 360px, 375px and desktop widths; unusually long business names; large Indian-formatted Rank totals; empty descriptions; missing logos with initials fallback; and zero-portfolio profiles.
+- **Performance:** render public index content on the server, paginate results, reserve logo dimensions to prevent layout shift, use small appropriately sized logo files, lazy-load below-the-fold media, and avoid loading portfolio imagery on the index page.
+
+This QA lock is deliberately corrective rather than additive. Do not add another homepage feature unless validated usage reveals a specific unmet need.
+
 ---
 
 ## 6. Payment-first onboarding
@@ -317,15 +351,23 @@ These removals keep the launch product credible even when entities have complete
 The owner explicitly prefers payment before signup. The safe MVP flow is:
 
 1. Visitor enters entity name, contact number and Rank Amount.
-2. Server derives the city from the canonical page context. During the root-only launch this is always Indore; never trust a browser-supplied city ID as authoritative.
+2. Server derives the initial city from the canonical page context. During the root-only launch this is always Indore; never trust a browser-supplied city ID as authoritative.
 3. Server creates a short-lived pending checkout record.
 4. Razorpay collects the payment.
 5. Server verifies the captured payment through an authenticated webhook.
-6. Server creates or updates the entity's city listing and recalculates rank atomically.
+6. Server records the captured contribution against the entity's shared Rank total, activates its initial city listing and recalculates that city view atomically.
 7. The minimum listing becomes public.
 8. The payment-success screen asks the owner for an email address; this happens only after payment has been captured, so signup does not interrupt checkout.
 9. RealRank sends a one-time email OTP. After the owner confirms it, the account is created and linked to the paid entity listing.
 10. Owner optionally adds description, city-specific categories, logo, website/social link and portfolio.
+
+The city selector's **Add a city** action opens a payment-first registration dialog that mirrors the hero's entity name, contact number and free-form Rank Amount fields, plus a searchable city-and-state picker. The picker must select a canonical city ID from RealRank's server-owned catalogue; free text alone cannot create a city or a URL. For a new entity, the server checks the selected city, duplicates, the applicable payment and safety rules, then creates the pending order. After the payment is captured, publish the minimal entity listing and, if this is the first valid listing for that city, create its public city index in the same fulfilment flow. The success screen then requests email OTP and optional profile completion. A newly opened one-entity city is public but not automatically search-indexable; see the indexation policy.
+
+The dialog CTA reads **Add your Entity**. It advances to review/payment; clicking it alone must not claim that the listing or city is already live.
+
+For an existing owned entity, **Add a city** should authenticate or recover ownership and enter a coverage-management flow, not create another entity or charge a second ₹10 entry. Up to three active city slots are included; additional simultaneous cities require separately disclosed, one-time slot purchases. A slot change is not another charge. An additional-city fee does not add to Rank total. City coverage, category selection and contact overrides remain editable subject to moderation. The public wireframe demonstrates the new-entity payment branch; production must also route recognised existing owners to the no-duplicate branch.
+
+An unknown, ambiguous or unsupported city must not enter checkout. Offer a catalogue-review request without charging or creating a city page. Do not use a payment-gateway phone number, typed city string or client-side catalogue result as the sole authority for ownership or city validation.
 
 If account setup is abandoned, the minimum paid listing can remain live using the submitted name and contact details, subject to moderation and the published privacy terms. The payment-success screen must clearly explain that the listing is already active and how the owner can return to complete email OTP setup. WhatsApp or SMS account-setup delivery is deferred until RealRank has an approved provider, explicit user consent and enough operational need to justify the additional integration.
 
@@ -405,8 +447,9 @@ Do not require complete property data before an entity can participate in the in
 
 Outbid alerts should show:
 
+- the city and, when relevant, category in which the position changed;
 - current position;
-- current ranking total;
+- the entity's shared Rank total;
 - total required to reclaim the intended position; and
 - a short-lived signed link that recomputes the payable top-up.
 
@@ -414,17 +457,25 @@ Notifications should be opt-in, rate-limited and sent through the entity's chose
 
 ---
 
-## 10. Nationwide expansion, routes and discoverability
+## 10. City expansion, routes and discoverability
 
-The brand and hero remain location-neutral. City context is supplied by the city selector and page metadata.
+The brand and hero remain location-neutral. City context is supplied by the city selector and page metadata. RealRank has no All India entity listing, nationwide paid ranking, state index or state paid pool. The root page may later help people select a live city; ranking and category discovery always occur within a city.
 
 ### Rollout
 
 - At launch, `/` directly serves the complete Indore landing page and index. It is self-canonical; do not redirect visitors to `/indore` and do not publish a duplicate `/indore` page yet.
-- Show other cities as Coming soon until they have enough real entities to support a useful index.
-- Keep all ranking, payment and category records scoped to Indore's city ID even though the public page is `/`.
-- When the second city launches, move the Indore city experience to `/indore`, turn `/` into the nationwide city-discovery page and add the new `/{city}` page in the same release.
+- Let the first valid paid or included activation open a recognised city immediately. A city does not need five entities to be publicly usable; the five-entity threshold governs search indexation, not product launch. Do not display a fake Coming soon state for a city eligible for self-service opening.
+- Keep the launch city listing and category records scoped to Indore's city ID even though the public page is `/`. Ranking contributions and the public Rank total belong to the entity, not to Indore.
+- When the second city opens, move the Indore city experience to `/indore`, turn `/` into a compact live-city chooser—not an All India listing—and add the new `/{city}` page in the same fulfilment flow. The routing and canonical switch must be deployment-ready before self-service city activation is enabled; it cannot wait for a later manual release.
 - Expand city by city across India without changing the core headline or entity URLs.
+
+### Canonical city catalogue and self-service opening
+
+- RealRank owns a searchable catalogue of accepted Indian cities, with stable internal IDs, canonical names, state/UT labels, aliases and unique reserved slugs. Seed and periodically reconcile it against official location references such as the [Government of India Local Government Directory](https://lgdirectory.gov.in/demo/downloadDirectory.do) and the [Census Location Code Directory](https://censusindia.gov.in/nada/index.php/catalog/42648/study-description). Neither raw source should be treated as a ready-made product-city list: town boundaries, aliases, merged urban areas and names can differ, and Census 2011 is historical.
+- Show city and state together in autocomplete; add district or other disambiguation only where names collide. A user must choose a catalogue result. The server revalidates its canonical ID and status at checkout and again on fulfilment, rather than trusting a typed name, hidden field or stale browser response.
+- Catalogue states are **AVAILABLE**, **LIVE** and **BLOCKED/REVIEW**. AVAILABLE means a valid city can be opened by its first eligible listing; LIVE means a public city index exists; BLOCKED/REVIEW cannot go to payment. A name absent from the catalogue goes to human review without payment or page creation.
+- Opening a city is idempotent: use unique city identity and slug constraints, atomically upsert the public city state with the first fulfilled listing, and recalculate ranking from captured contributions. Two near-simultaneous buyers can both become listed; no checkout guarantees lasting #1. Delay publication only for a concrete safety or payment issue, and show a clear pending state instead of falsely reporting that the city is live.
+- Once LIVE, include the city in the selector and root chooser. New public city pages start with `noindex` until the content threshold below is met; this avoids a large collection of thin search pages without hiding the service from users.
 
 ### Launch route structure — Indore only
 
@@ -454,6 +505,8 @@ Examples:
 
 At launch, `/` means the active Indore experience. The custom selector and page content make that context explicit. City-qualified category routes begin with `/indore/` immediately so those URLs will not need to move later. Breadcrumbs on those pages link Indore back to `/` during the single-city phase.
 
+The locked three-field listing form remains on the active city page. The **Add a city** dialog adds one searchable city field for opening a new city. After expansion, the root chooser must establish a city before taking a new entity to that form or checkout; it must not silently publish into a default city.
+
 ### Route structure after the second city launches
 
 ```text
@@ -464,9 +517,9 @@ At launch, `/` means the active Indore experience. The custom selector and page 
 /entity/{entity-slug}/portfolio/{item-slug}
 ```
 
-At that transition, `/` becomes a nationwide discovery and city-selection page, while the Indore index moves to the new self-canonical `/indore` page. Update navigation, breadcrumbs, canonicals and the XML sitemap together. Do not keep the complete Indore index duplicated on `/`. Indore's existing `/indore/category/...` URLs and all `/entity/...` URLs remain unchanged.
+At that transition, `/` becomes a minimal live-city chooser without an aggregated entity index, while the Indore index moves to the new self-canonical `/indore` page. Update navigation, breadcrumbs, canonicals and the XML sitemap together. Do not keep the complete Indore index duplicated on `/`. Indore's existing `/indore/category/...` URLs and all `/entity/...` URLs remain unchanged. Do not create state listing routes.
 
-This is an intentional early-stage content move rather than a redirect: `/` must remain available for the new nationwide page. Because the transition happens while the product is still young, the launch simplicity is worth the later one-page URL change. Entity profiles remain outside city paths because one entity may eventually operate in several cities.
+This is an intentional early-stage content move rather than a redirect: `/` must remain available for the live-city chooser. Because the transition happens while the product is still young, the launch simplicity is worth the later one-page URL change. Entity profiles remain outside city paths because one entity may operate in several cities under one shared Rank total.
 
 Keep slugs lowercase, descriptive and hyphen-separated. Reserve static words such as `entity`, `faq`, `terms`, `privacy`, `contact` and `ranking-policy` so they cannot be used as city slugs. The words in a route are less important than stability, crawlability and useful page content; do not change canonical routes merely to add more keywords.
 
@@ -475,16 +528,16 @@ Keep slugs lowercase, descriptive and hyphen-separated. Reserve static words suc
 | Page type | Indexing rule |
 |---|---|
 | Home during Indore-only launch | Index as the canonical Indore landing page |
-| Home after multi-city expansion | Index as the national city-discovery page |
-| Launched city route | Index when it contains real entities and unique city context; Indore uses `/` until expansion |
+| Home after multi-city expansion | Index as a useful live-city chooser, without an All India entity list or ordinal rank |
+| Launched city route | Public immediately after a valid first listing; index only when it has enough genuine entities and unique city context; Indore uses `/` until expansion |
 | Approved city + category | Index only when the combination has enough real supply to be useful |
-| Coming-soon or empty city/category | `noindex`; exclude from XML sitemaps |
+| New city with fewer than five genuine entities, or empty city/category | `noindex`; exclude from XML sitemaps until the content threshold is met |
 | Entity profile | Index after publication and minimum content/moderation checks |
 | Substantive portfolio item | Index when current, unique and publicly useful |
 | Internal search, checkout, login, owner dashboard and admin | `noindex`; keep private routes authenticated |
 | Temporary sort, contact-method or combined-filter URLs | Do not index; canonicalize to the closest stable city or category page |
 
-The operating threshold for a new city/category page should begin at **five genuine published entities**, plus useful unique context and working internal links. Five is a product-quality threshold, not a search-engine ranking rule. Do not create sub-locality pages in the MVP.
+The operating threshold for indexing a new city/category page should begin at **five genuine published entities**, plus useful unique context and working internal links. One entity is enough to make a new city page usable to people, but not enough to include it in XML sitemaps or allow indexing. Five is a product-quality threshold, not a search-engine ranking rule. Do not create sub-locality pages in the MVP.
 
 In production, visible category chips should be crawlable `<a href>` links to approved category routes. JavaScript may enhance their behavior, but it must not be the only way to reach the category content. Filters that do not deserve landing pages may remain transient UI state.
 
@@ -573,6 +626,8 @@ Store money as integer paise and treat the payment ledger as immutable.
 - owner user id, nullable until post-payment setup
 - public name
 - public slug
+- shared total ranking credit in paise
+- shared ranking-total reached time for tie-breaking
 - short description, nullable
 - logo URL, nullable
 - website/social URL, nullable
@@ -585,22 +640,38 @@ Store money as integer paise and treat the payment ledger as immutable.
 
 - id
 - name
-- state
-- slug
-- launch status
+- state, as descriptive address metadata only—not a public ranking pool
+- slug, unique and checked against reserved route words
+- external reference code and source, nullable; source last-reviewed time
+- aliases and disambiguation metadata for city search
+- status: AVAILABLE, LIVE or BLOCKED/REVIEW
+- first live time, nullable
 
 **city_listings**
 
 - id
 - entity id
+- city slot id
 - city id
 - contact method override, nullable
 - contact number override, nullable
-- total ranking credit in paise
-- ranking-total reached time for tie-breaking
+- assignment time, retained for fair city-specific tie-breaking and reset on a move
+- unassignment time, nullable; retain old assignments as history
 - publication status
 - created and updated times
-- unique entity + city
+- unique active city slot and unique active entity + city
+
+**city_slots**
+
+- id
+- entity id
+- slot number, beginning with 1–3 included slots
+- entitlement source: INCLUDED or PAID
+- purchase payment line-item id, nullable for included slots
+- created time
+- unique entity + slot number
+
+City slots are capacity entitlements; the city assigned to a slot is editable. Keep city assignment history separate from the immutable payment record so a valid city correction does not rewrite or refund the original Rank Amount.
 
 **categories**
 
@@ -615,15 +686,16 @@ Store money as integer paise and treat the payment ledger as immutable.
 
 - city listing id
 - category id
+- selection time, retained for fair category-specific tie-breaking
 - unique city listing + category
 
 **ranking_contributions**
 
 - id
-- city listing id
+- entity id
 - amount in paise
 - source: PAYMENT or PROMOTIONAL_CREDIT
-- payment id, nullable for promotion
+- payment line-item id, nullable for promotion
 - reason/code, nullable
 - created time
 - reversal reference, nullable
@@ -632,14 +704,26 @@ Store money as integer paise and treat the payment ledger as immutable.
 
 - id
 - pending checkout id
-- entity/city listing reference
+- entity reference, nullable until a first payment creates the entity
 - gateway order id
 - gateway payment id
-- amount in paise
+- captured gross amount in paise
 - status
 - captured time
 - webhook idempotency key
 - refund/chargeback state
+
+**payment_line_items**
+
+- id
+- payment id
+- purpose: RANK_CONTRIBUTION or CITY_SLOT_PURCHASE
+- entity id, nullable while a first-entry checkout is pending
+- requested city id, nullable and informational for a city-slot purchase; the purchased entitlement is not tied permanently to that city
+- amount in paise
+- unique allocation reference for idempotent fulfillment and reversal
+
+The three included city slots have no city-fee payment line item. When a checkout includes both a global top-up and an additional-city slot, show two separate line items and fulfil both only after capture. A slot-fee line item must never enter the ranking-contribution ledger. Reassigning an existing slot has no payment line item.
 
 **portfolio_items**
 
@@ -663,17 +747,18 @@ Store money as integer paise and treat the payment ledger as immutable.
 
 ### Derived ranking
 
-Overall city ranking:
+Overall city ranking filters to published entities active in that city, then orders by:
 
 ```text
-ORDER BY total_ranking_credit_paise DESC,
-         ranking_total_reached_at ASC,
+ORDER BY entities.shared_total_ranking_credit_paise DESC,
+         later_of(entities.shared_total_reached_at,
+                  city_listings.activation_time) ASC,
          city_listing_id ASC
 ```
 
-Category ranking uses the same order after joining through `city_listing_categories`.
+Category ranking filters through `city_listing_categories` and also considers its selection time in the tie-break, so joining a category later cannot inherit an earlier tie priority. The exact query can use the database's equivalent of `GREATEST(...)`.
 
-Payments, promotional credits and reversals should update the cached city-listing total inside one database transaction. The immutable contribution ledger remains the financial source of truth.
+Captured ranking payments, promotional credits and reversals update the cached **entity-level** total inside one database transaction. City-activation payments update city eligibility separately. The immutable contribution and payment-allocation records remain the financial source of truth; rank is derived from the entity total within each active city/category view.
 
 ---
 
@@ -750,12 +835,15 @@ The server is authoritative for rank. Client-side optimistic movement must not i
 ### Payment safeguards
 
 - Never trust an amount supplied only by the browser or URL.
-- Create a server-side order from a freshly computed target.
+- Create a server-side order from a freshly computed target and explicit rank-contribution versus additional-city-slot allocations.
 - Verify webhook signatures.
 - Process gateway events idempotently and tolerate out-of-order delivery.
-- Apply ranking credit only after captured payment.
+- Apply ranking credit and any paid city-slot purchase only after captured payment; do not add slot fees to Rank total.
+- Allocate or reassign active city slots atomically against the entity. Enforce the three included-slot capacity under concurrent requests; never publish a fourth simultaneous city for free because a browser or stale checkout counted incorrectly. Reassigning a slot does not itself require payment.
+- Revalidate the canonical city ID, accepted coverage status and slug before checkout and fulfilment. Atomically publish or find the city page and its first listing after captured payment or a valid included activation; make duplicate webhooks and competing first-listing payments safe. Do not promise sole first place.
+- Do not create a new city page, consume an included activation or charge for city coverage when the city name is unmatched or still under review.
 - Preserve payment and contribution records after entity deletion.
-- Handle refunds and chargebacks as explicit reversing contributions.
+- Handle refunds and chargebacks as explicit reversals of the affected ranking contribution or purchased city-slot entitlement, not an unexplained change to every city view. If paid capacity is revoked, require a clear choice or policy-driven review before deactivating any excess city assignment.
 
 ---
 
@@ -764,10 +852,13 @@ The server is authoritative for rank. Client-side optimistic movement must not i
 ### Include
 
 - location-neutral landing page served at `/`, with Indore as the explicit launch context;
-- city selector with future cities marked Coming soon;
+- city selector with live destinations and an **Add a city** action;
+- searchable city-and-state registration dialog using the hero's three entry fields, canonical city selection, immediate first-listing city launch after valid fulfilment, and a no-payment review path for unmatched names;
 - three-field payment-first listing form;
 - ₹10 minimum, free whole-rupee entry and adjacent-₹10 stepper controls;
-- permanent cumulative ranking totals;
+- one permanent cumulative Rank total per entity, reused in each active city/category view;
+- three editable active-city slots per entity and a separately priced, one-time fee for each additional simultaneous city slot once multi-city coverage is available;
+- city-slot editing in the owner profile, including correction of an initial valid-but-wrong city without another entry payment;
 - RealRank Index with category filters;
 - horizontal category rail and More category island;
 - Auction Properties as a secondary category inside More, with no auction conducted by RealRank;
@@ -786,6 +877,7 @@ The server is authoritative for rank. Client-side optimistic movement must not i
 ### Defer
 
 - sub-locality pools and locality filters;
+- state-wide and All India entity indexes or paid ranking pools;
 - 30-day ranking windows, expiry or renewal;
 - subscriptions;
 - formal verification badges;
@@ -809,6 +901,7 @@ The server is authoritative for rank. Client-side optimistic movement must not i
 | RealRank Index | Leaderboard or best real-estate company as the public section label |
 | Sponsored position | Verified rank |
 | Rank Amount (payment control) / Rank total (public cumulative amount) | Bid Amount, Active Rank, Ranking Value or quality score |
+| Additional-city slot fee (separate from Rank total) | City bid, city Rank Amount or an unexplained extra charge |
 | Entity, company, marketer | Broker as the default umbrella term |
 | Entity profile and optional portfolio | Mandatory live inventory |
 | Contact | Lead sold by RealRank |
@@ -824,6 +917,8 @@ The following concepts from earlier drafts are no longer part of the current MVP
 - “Index & Portfolio Hub” and “Search Index” as the hero positioning;
 - Indore in the permanent brand headline;
 - category + sub-locality pools;
+- separate Rank totals, ranking wallets or ranking payments for every city;
+- state and All India paid ranking pools;
 - one paid listing per locality pool;
 - 30-day bid expiry or hard reset;
 - payment presented as identity verification;

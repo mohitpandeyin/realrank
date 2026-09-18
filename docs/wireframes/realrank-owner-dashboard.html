@@ -135,6 +135,16 @@
             </div>
             <div class="rr-panel-body rr-form-actions"><button class="rr-button rr-button-quiet" type="reset">Discard</button><button class="rr-button rr-button-primary" type="submit">Save profile</button></div>
           </form>
+
+          <section class="rr-card-flat rr-content-card" aria-labelledby="rr-cities-heading">
+            <div class="rr-panel-head"><div><h2 class="rr-section-title" id="rr-cities-heading">Cities you serve</h2><p class="rr-section-copy">Your first three active cities are included. You can correct a city without paying another entry fee.</p></div><span class="rr-badge" data-rr-city-count>1 of 3 used</span></div>
+            <div class="rr-panel-body rr-stack">
+              <div class="rr-city-slot-row" data-rr-city-slot-row="1" data-rr-city-id="indore-mp"><div class="rr-city-slot-meta"><span class="rr-city-slot-label">City 1</span><strong data-rr-city-name>Indore, Madhya Pradesh</strong><span data-rr-city-status>Active listing</span></div><button class="rr-button rr-button-quiet" type="button" data-rr-edit-city="1">Change</button></div>
+              <div class="rr-city-slot-row" data-rr-city-slot-row="2"><div class="rr-city-slot-meta"><span class="rr-city-slot-label">City 2</span><strong data-rr-city-name>Not added</strong><span data-rr-city-status>Included city slot</span></div><button class="rr-button rr-button-quiet" type="button" data-rr-edit-city="2">Add city</button></div>
+              <div class="rr-city-slot-row" data-rr-city-slot-row="3"><div class="rr-city-slot-meta"><span class="rr-city-slot-label">City 3</span><strong data-rr-city-name>Not added</strong><span data-rr-city-status>Included city slot</span></div><button class="rr-button rr-button-quiet" type="button" data-rr-edit-city="3">Add city</button></div>
+              <p class="rr-section-copy rr-city-slot-help">Changing a city moves this entity's listing to the new index. Your Rank total stays the same; city-specific categories and portfolio locations need review.</p>
+            </div>
+          </section>
         </section>
 
         <section data-rr-panel="portfolio" hidden>
@@ -153,7 +163,7 @@
           <section class="rr-card-flat">
             <div class="rr-panel-head"><div><h2 class="rr-section-title">Current position</h2><p class="rr-section-copy">Aarambh Realty is currently first in the Indore index.</p></div><span class="rr-badge rr-badge-accent">#1 · ₹1,260</span></div>
             <div class="rr-panel-body rr-stack">
-              <div class="rr-safe-note"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7"/></svg><span>Rank totals are cumulative and public. Higher total ranks higher. Top-ups must be in multiples of ₹10.</span></div>
+              <div class="rr-safe-note"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7"/></svg><span>Rank total is cumulative, public and shared across active cities. Higher total ranks higher. Top-ups may be any whole-rupee amount of ₹10 or more.</span></div>
               <div class="rr-topup">
                 <div><span class="rr-label">Top-up amount</span><div class="rr-amount-stepper"><button class="rr-step-button" type="button" data-rr-minus aria-label="Decrease amount">−</button><span class="rr-step-value" data-rr-topup-value>₹100</span><button class="rr-step-button" type="button" data-rr-plus aria-label="Increase amount">+</button></div></div>
                 <button class="rr-button rr-button-primary" type="button" data-rr-topup>Continue to payment</button>
@@ -165,6 +175,20 @@
       </div>
     </div>
   </main>
+
+  <dialog class="rr-city-edit-dialog" aria-labelledby="rr-city-edit-title">
+    <div class="rr-city-edit-inner">
+      <div class="rr-city-edit-head"><div><h2 class="rr-section-title" id="rr-city-edit-title">Change City 1</h2><p class="rr-section-copy">Choose a city you serve. This changes where your entity appears, not your Rank total.</p></div><button class="rr-city-edit-close" type="button" aria-label="Close city editor">×</button></div>
+      <form data-rr-city-form novalidate>
+        <label class="rr-label" for="rr-city-edit-search">City and state</label>
+        <input class="rr-input" id="rr-city-edit-search" type="search" placeholder="Search for a city" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="rr-city-edit-results" aria-describedby="rr-city-edit-hint" required>
+        <div class="rr-city-edit-results" id="rr-city-edit-results" role="listbox" aria-label="Available cities" hidden></div>
+        <p class="rr-city-edit-hint" id="rr-city-edit-hint" aria-live="polite">Select a city from the results.</p>
+        <p class="rr-city-edit-impact" data-rr-city-impact>Changing a city updates its index position. Your Rank total is unchanged.</p>
+        <div class="rr-city-edit-actions"><button class="rr-text-button rr-city-remove" type="button" data-rr-city-remove hidden>Remove city</button><button class="rr-button rr-button-quiet" type="button" data-rr-city-cancel>Cancel</button><button class="rr-button rr-button-primary" type="submit">Save city</button></div>
+      </form>
+    </div>
+  </dialog>
 
   <footer class="rr-site-footer"><div class="rr-container rr-footer-inner"><div class="rr-footer-brand"><strong>RealRank</strong> Owner dashboard</div><nav class="rr-footer-links" aria-label="Support"><a href="#">Help</a><a href="#">Ranking Policy</a><a href="#">Sign out</a></nav></div></footer>
   <div class="rr-toast" role="status" hidden></div>
@@ -184,6 +208,142 @@
       window.clearTimeout(window.rrToastTimer);
       window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
     }
+    const rrCityDialog = document.querySelector('.rr-city-edit-dialog');
+    const rrCityForm = document.querySelector('[data-rr-city-form]');
+    const rrCitySearch = document.querySelector('#rr-city-edit-search');
+    const rrCityResults = document.querySelector('#rr-city-edit-results');
+    const rrCityHint = document.querySelector('#rr-city-edit-hint');
+    const rrCityImpact = document.querySelector('[data-rr-city-impact]');
+    const rrCityRemove = document.querySelector('[data-rr-city-remove]');
+    const rrCityCatalog = [
+      { id: 'indore-mp', name: 'Indore', state: 'Madhya Pradesh' },
+      { id: 'bhopal-mp', name: 'Bhopal', state: 'Madhya Pradesh' },
+      { id: 'ujjain-mp', name: 'Ujjain', state: 'Madhya Pradesh' },
+      { id: 'jaipur-rj', name: 'Jaipur', state: 'Rajasthan' },
+      { id: 'pune-mh', name: 'Pune', state: 'Maharashtra' },
+      { id: 'mumbai-mh', name: 'Mumbai', state: 'Maharashtra' },
+      { id: 'ahmedabad-gj', name: 'Ahmedabad', state: 'Gujarat' }
+    ]; // Wireframe sample; production must validate canonical city IDs on the server.
+    let rrEditingSlot = null;
+    let rrSelectedCity = null;
+    let rrCityMatches = [];
+    let rrActiveCityIndex = -1;
+    let rrConfirmCityRemoval = false;
+    const rrNormaliseCity = (rrValue) => rrValue.toLocaleLowerCase('en-IN').replace(/[,\s]+/g, ' ').trim();
+    function rrCloseCityResults() {
+      rrCityResults.hidden = true;
+      rrCitySearch.setAttribute('aria-expanded', 'false');
+      rrCitySearch.removeAttribute('aria-activedescendant');
+      rrActiveCityIndex = -1;
+    }
+    function rrCityMessage(rrMessage, rrIsError = false) {
+      rrCityHint.textContent = rrMessage;
+      rrCityHint.classList.toggle('rr-is-error', rrIsError);
+    }
+    function rrChooseCity(rrIndex) {
+      rrSelectedCity = rrCityMatches[rrIndex];
+      rrConfirmCityRemoval = false;
+      rrCityRemove.textContent = 'Remove city';
+      rrCitySearch.value = `${rrSelectedCity.name}, ${rrSelectedCity.state}`;
+      rrCitySearch.focus();
+      rrCloseCityResults();
+      rrCityMessage('This city will replace the one currently assigned to this slot.');
+      const rrCurrent = rrEditingSlot.querySelector('[data-rr-city-name]').textContent;
+      rrCityImpact.textContent = rrEditingSlot.dataset.rrCityId
+        ? `Moving from ${rrCurrent} to ${rrSelectedCity.name} removes this listing from the old city index. Your Rank total stays the same.`
+        : `Adding ${rrSelectedCity.name} uses one included city slot. Your Rank total stays the same.`;
+    }
+    function rrRenderCityResults() {
+      const rrQuery = rrNormaliseCity(rrCitySearch.value);
+      rrCityMatches = rrCityCatalog.filter((rrCity) => rrNormaliseCity(`${rrCity.name} ${rrCity.state}`).includes(rrQuery)).slice(0, 7);
+      rrCityResults.replaceChildren();
+      rrCityMatches.forEach((rrCity, rrIndex) => {
+        const rrOption = document.createElement('button');
+        rrOption.type = 'button';
+        rrOption.className = 'rr-city-edit-result';
+        rrOption.id = `rr-city-edit-option-${rrIndex}`;
+        rrOption.setAttribute('role', 'option');
+        rrOption.setAttribute('aria-selected', 'false');
+        rrOption.textContent = `${rrCity.name}, ${rrCity.state}`;
+        rrOption.addEventListener('click', () => rrChooseCity(rrIndex));
+        rrCityResults.append(rrOption);
+      });
+      rrCityResults.hidden = rrCityMatches.length === 0;
+      rrCitySearch.setAttribute('aria-expanded', String(rrCityMatches.length > 0));
+      rrCitySearch.removeAttribute('aria-activedescendant');
+      rrActiveCityIndex = -1;
+      rrCityMessage(rrCityMatches.length ? 'Select a city from the results.' : 'No match in this wireframe sample. Production checks a broader city catalogue.', !rrCityMatches.length);
+    }
+    document.querySelectorAll('[data-rr-edit-city]').forEach((rrButton) => rrButton.addEventListener('click', () => {
+      rrEditingSlot = document.querySelector(`[data-rr-city-slot-row="${rrButton.dataset.rrEditCity}"]`);
+      rrSelectedCity = null;
+      rrConfirmCityRemoval = false;
+      rrCitySearch.value = '';
+      document.querySelector('#rr-city-edit-title').textContent = `${rrEditingSlot.dataset.rrCityId ? 'Change' : 'Add'} City ${rrButton.dataset.rrEditCity}`;
+      rrCityImpact.textContent = 'Changing a city updates where this entity appears. Your Rank total is unchanged.';
+      rrCityRemove.hidden = !rrEditingSlot.dataset.rrCityId || document.querySelectorAll('[data-rr-city-slot-row][data-rr-city-id]').length <= 1;
+      rrCityRemove.textContent = 'Remove city';
+      rrCityDialog.showModal();
+      rrCitySearch.focus();
+    }));
+    document.querySelector('.rr-city-edit-close').addEventListener('click', () => rrCityDialog.close());
+    document.querySelector('[data-rr-city-cancel]').addEventListener('click', () => rrCityDialog.close());
+    rrCityRemove.addEventListener('click', () => {
+      if (!rrConfirmCityRemoval) {
+        rrConfirmCityRemoval = true;
+        rrCityRemove.textContent = 'Confirm removal';
+        rrCityImpact.textContent = `Removing ${rrEditingSlot.querySelector('[data-rr-city-name]').textContent} takes this entity out of that city index. Your Rank total stays the same.`;
+        return;
+      }
+      const rrRemovedCity = rrEditingSlot.querySelector('[data-rr-city-name]').textContent;
+      delete rrEditingSlot.dataset.rrCityId;
+      rrEditingSlot.querySelector('[data-rr-city-name]').textContent = 'Not added';
+      rrEditingSlot.querySelector('[data-rr-city-status]').textContent = 'Included city slot';
+      rrEditingSlot.querySelector('[data-rr-edit-city]').textContent = 'Add city';
+      document.querySelector('[data-rr-city-count]').textContent = `${document.querySelectorAll('[data-rr-city-slot-row][data-rr-city-id]').length} of 3 used`;
+      rrCityDialog.close();
+      rrShowToast(`Wireframe preview: ${rrRemovedCity} removed. Rank total unchanged.`);
+    });
+    rrCityDialog.addEventListener('close', rrCloseCityResults);
+    rrCitySearch.addEventListener('focus', rrRenderCityResults);
+    rrCitySearch.addEventListener('input', () => { rrSelectedCity = null; rrRenderCityResults(); });
+    rrCityForm.addEventListener('focusin', (rrEvent) => {
+      if (rrEvent.target !== rrCitySearch && !rrCityResults.contains(rrEvent.target)) rrCloseCityResults();
+    });
+    rrCitySearch.addEventListener('keydown', (rrEvent) => {
+      if ((rrEvent.key === 'ArrowDown' || rrEvent.key === 'ArrowUp') && rrCityMatches.length) {
+        rrEvent.preventDefault();
+        if (rrCityResults.hidden) rrRenderCityResults();
+        rrActiveCityIndex = (rrActiveCityIndex + (rrEvent.key === 'ArrowDown' ? 1 : -1) + rrCityMatches.length) % rrCityMatches.length;
+        rrCityResults.querySelectorAll('[role="option"]').forEach((rrOption, rrIndex) => {
+          rrOption.classList.toggle('rr-is-active', rrIndex === rrActiveCityIndex);
+          rrOption.setAttribute('aria-selected', String(rrIndex === rrActiveCityIndex));
+        });
+        rrCitySearch.setAttribute('aria-activedescendant', `rr-city-edit-option-${rrActiveCityIndex}`);
+      } else if (rrEvent.key === 'Enter' && rrActiveCityIndex >= 0) {
+        rrEvent.preventDefault();
+        rrChooseCity(rrActiveCityIndex);
+      } else if (rrEvent.key === 'Escape' && !rrCityResults.hidden) {
+        rrEvent.stopPropagation();
+        rrCloseCityResults();
+      }
+    });
+    rrCityForm.addEventListener('submit', (rrEvent) => {
+      rrEvent.preventDefault();
+      if (!rrSelectedCity) { rrCityMessage('Select a city and state from the results before saving.', true); rrCitySearch.focus(); return; }
+      if (rrEditingSlot.dataset.rrCityId === rrSelectedCity.id) { rrCityDialog.close(); rrShowToast('That city is already assigned to this slot.'); return; }
+      const rrDuplicate = [...document.querySelectorAll('[data-rr-city-slot-row]')].some((rrRow) => rrRow !== rrEditingSlot && rrRow.dataset.rrCityId === rrSelectedCity.id);
+      if (rrDuplicate) { rrCityMessage('This city is already in another slot. Choose a different city.', true); rrCitySearch.focus(); return; }
+      const rrSlotNumber = rrEditingSlot.dataset.rrCitySlotRow;
+      rrEditingSlot.dataset.rrCityId = rrSelectedCity.id;
+      rrEditingSlot.querySelector('[data-rr-city-name]').textContent = `${rrSelectedCity.name}, ${rrSelectedCity.state}`;
+      rrEditingSlot.querySelector('[data-rr-city-status]').textContent = 'Active listing';
+      rrEditingSlot.querySelector('[data-rr-edit-city]').textContent = 'Change';
+      const rrUsed = document.querySelectorAll('[data-rr-city-slot-row][data-rr-city-id]').length;
+      document.querySelector('[data-rr-city-count]').textContent = `${rrUsed} of 3 used`;
+      rrCityDialog.close();
+      rrShowToast(`Wireframe preview: City ${rrSlotNumber} changed to ${rrSelectedCity.name}. Rank total unchanged.`);
+    });
     rrTabs.forEach((rrTab) => rrTab.addEventListener('click', () => rrOpenTab(rrTab.dataset.rrTab)));
     document.querySelectorAll('[data-rr-open-tab]').forEach((rrButton) => rrButton.addEventListener('click', () => rrOpenTab(rrButton.dataset.rrOpenTab)));
     document.querySelectorAll('.rr-option-chip:not([data-rr-exclusive])').forEach((rrChip) => rrChip.addEventListener('click', () => rrChip.setAttribute('aria-pressed', String(rrChip.getAttribute('aria-pressed') !== 'true'))));

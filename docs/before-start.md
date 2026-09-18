@@ -20,6 +20,17 @@ The four critical screens now have responsive functional drafts that use the loc
 
 These are flow and content references rather than a separate visual direction. Razorpay owns the secure payment-method UI; RealRank presents the order review and handles the return, delayed-confirmation and failure states.
 An administrator moderation screen can initially be utilitarian rather than visually polished.
+
+Homepage QA lock — 14 September 2026
+
+The Terracotta homepage wireframe has completed its final UX, responsive, accessibility and performance-oriented QA pass. Do not add further homepage sections before implementation. The authoritative interaction, hierarchy, trust, filter, amount-stepper and responsive decisions are recorded under **Homepage final QA lock** in the master product plan.
+
+Multi-city model — 16 September 2026
+
+RealRank uses city-specific public indexes, not state or All India entity rankings. An entity has one shared Rank total and three editable active-city slots (City 1, City 2, City 3). A valid but mistaken initial city does not cancel the paid entity: after account setup, the owner can correct that slot without paying entry again. A fourth simultaneous city requires a separately itemized, one-time purchase of another city slot; the slot can later be reassigned, and its fee never increases Rank total. The extra-slot price remains to be decided before paid expansion launches. See the master product plan for the authoritative rules and data model.
+
+The header city picker now offers **Add a city**, not Coming soon. Its registration dialog mirrors the hero's entity name, contact and Rank Amount fields and adds a searchable canonical city-and-state picker. A recognised city can open publicly with its first valid listing after captured payment and safety checks; it remains `noindex` until useful real supply exists. An unmatched city must be reviewed before checkout. Existing owners use their included or purchased city slots instead of paying a second ₹10 entry. The homepage wireframe demonstrates the popup only; it does not process payments or create production city pages.
+
 Build and launch preparation
 Before development:
 - Commit and push the latest locked documentation.
