@@ -135,6 +135,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 @keyframes rr-spin { to { transform: rotate(360deg); } }
 
 .rr-progress { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 0 28px; padding: 0; list-style: none; }
+.rr-progress.rr-progress-two { grid-template-columns: repeat(2, 1fr); }
 .rr-progress-item { position: relative; display: grid; justify-items: center; gap: 8px; color: var(--rr-muted); font-size: 9px; text-align: center; }
 .rr-progress-item::before { content: ""; position: absolute; z-index: 0; top: 14px; right: 50%; width: 100%; height: 1px; background: var(--rr-line); }
 .rr-progress-item:first-child::before { display: none; }

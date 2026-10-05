@@ -5,7 +5,7 @@
 > **Launch market:** Indore first, designed for expansion across India
 > **Public headline:** The Real Estate Discovery Index of Companies & Marketers.
 > **Locked landing wireframe:** [`docs/wireframes/realrank-locked-terracotta.html`](docs/wireframes/realrank-locked-terracotta.html)
-> **Draft flow wireframes for review:** [payment states](docs/wireframes/realrank-payment-states.html) · [payment success + email OTP](docs/wireframes/realrank-payment-success-otp.html) · [owner dashboard](docs/wireframes/realrank-owner-dashboard.html) · [public entity profile](docs/wireframes/realrank-entity-profile.html)
+> **Draft flow wireframes for review:** [payment states](docs/wireframes/realrank-payment-states.html) · [payment success + phone OTP](docs/wireframes/realrank-payment-success-otp.html) · [owner dashboard](docs/wireframes/realrank-owner-dashboard.html) · [public entity profile](docs/wireframes/realrank-entity-profile.html)
 
 ---
 
@@ -359,15 +359,15 @@ The owner explicitly prefers payment before signup. The safe MVP flow is:
 7. Server verifies the captured payment through an authenticated webhook.
 8. Server records the captured contribution against the entity's shared Rank total, activates its initial city listing and recalculates that city view atomically. If required, it opens the city index in the same idempotent fulfilment transaction.
 9. The minimum listing becomes public. The success screen displays the actual current position after fulfilment, not the earlier estimate.
-10. The payment-success screen asks the owner for an email address; this happens only after payment has been captured, so signup does not interrupt checkout.
-11. RealRank sends a one-time email OTP. After the owner confirms it, the account is created and linked to the paid entity listing.
+10. The payment-success screen reuses the submitted contact number and asks the owner to verify it through a WhatsApp OTP, with SMS as the fallback delivery channel. The number is not re-entered unless the owner chooses to change it.
+11. After the OTP is confirmed, the phone-authenticated account is created and linked to the paid entity through the short-lived payment-success onboarding session. Matching a phone number, entity name or payment-gateway field alone must never establish ownership.
 12. Owner optionally corrects or adds active-city slots, selects categories, and adds a description, logo, website/social link and portfolio.
 
 Razorpay Checkout is the final payment interaction, so a second RealRank review page would repeat information and add avoidable friction to a low-complexity, single-line-item purchase. The form must nevertheless keep entity name, public contact, city, Rank Amount, target position and legal consent visible and editable before the payment click. A delayed-confirmation screen is an exception state only: it must say that neither the Rank total nor city listing changes until the verified webhook arrives and must prevent an impulsive second payment. A failed-payment state must clearly state that no listing, Rank total or new city page was created and should return the user to the preserved form or reopen Checkout without requiring data entry again.
 
 Claim actions must distinguish **target total** from **owner top-up**. For an unidentified visitor, use wording such as **Claim #1 for ₹1,251**, where ₹1,251 is the full Rank Amount that will be submitted for the new entity. For a recognised, authenticated owner, use the same pattern only with the actual payable difference, calculated from the owner's current Rank total. Both values are estimates until the server revalidates them at order creation; never present a position as reserved before captured payment and fulfilment.
 
-The city selector's **Add a city** action opens a payment-first registration dialog that mirrors the hero's entity name, contact number and free-form Rank Amount fields, plus a searchable city-and-state picker. The picker must select a canonical city ID from RealRank's server-owned catalogue; free text alone cannot create a city or a URL. For a new entity, the server checks the selected city, duplicates, the applicable payment and safety rules, then creates the pending order. After the payment is captured, publish the minimal entity listing and, if this is the first valid listing for that city, create its public city index in the same fulfilment flow. The success screen then requests email OTP and optional profile completion. A newly opened one-entity city is public but not automatically search-indexable; see the indexation policy.
+The city selector's **Add a city** action opens a payment-first registration dialog that mirrors the hero's entity name, contact number and free-form Rank Amount fields, plus a searchable city-and-state picker. The picker must select a canonical city ID from RealRank's server-owned catalogue; free text alone cannot create a city or a URL. For a new entity, the server checks the selected city, duplicates, the applicable payment and safety rules, then creates the pending order. After the payment is captured, publish the minimal entity listing and, if this is the first valid listing for that city, create its public city index in the same fulfilment flow. The success screen then verifies the submitted number by WhatsApp OTP or SMS fallback before opening profile completion. A newly opened one-entity city is public but not automatically search-indexable; see the indexation policy.
 
 The dialog CTA reads **Add your Entity**. After fresh server validation it opens Razorpay Checkout directly; clicking it alone must not claim that the listing or city is already live.
 
@@ -375,13 +375,17 @@ For an existing owned entity, **Add a city** should authenticate or recover owne
 
 An unknown, ambiguous or unsupported city must not enter checkout. Offer a catalogue-review request without charging or creating a city page. Do not use a payment-gateway phone number, typed city string or client-side catalogue result as the sole authority for ownership or city validation.
 
-If account setup is abandoned, the minimum paid listing can remain live using the submitted name and contact details, subject to moderation and the published privacy terms. The payment-success screen must clearly explain that the listing is already active and how the owner can return to complete email OTP setup. WhatsApp or SMS account-setup delivery is deferred until RealRank has an approved provider, explicit user consent and enough operational need to justify the additional integration.
+If account setup is abandoned, the minimum paid listing can remain live using the submitted name and contact details, subject to moderation and the published privacy terms. The payment-success screen must clearly explain that the listing is already active and how the owner can return to phone verification. Profile editing, portfolio management and ranking top-ups remain unavailable until a phone identity is verified and securely linked to the payment-success session.
+
+WhatsApp and SMS are delivery channels for the same phone OTP identity, not separate account types. Prefer **Send code on WhatsApp** and retain **Send by SMS instead** as a visible fallback. Obtain explicit one-message authentication consent, apply CAPTCHA and request/resend limits, and never reveal whether a phone already has an account. A successful OTP proves control of the number only; any public label must say **Phone verified**, never Business verified, Identity verified, RERA verified or Property verified.
+
+Store the verified owner phone separately from each listing's public contact phone. They may initially contain the same value, but owners must later be able to use a private login number and a different public enquiry number. Changing either number requires appropriate re-verification and an audit record. Because mobile numbers can be reassigned or lost, add recovery email or a connected Google identity later from account settings; neither is an MVP onboarding requirement.
 
 ### Ownership model
 
 - One owner manages each entity in the MVP.
 - Team members, roles and shared permissions are deferred.
-- Email confirms access to the account; it is not business verification.
+- Phone OTP confirms control of the owner login number; it is not business verification.
 
 ---
 
@@ -393,7 +397,7 @@ RealRank does not offer formal entity verification at launch.
 
 - Do not show “Verified,” “Profile claimed,” “RERA verified,” or similar badges.
 - A ₹10 payment is an anti-spam and payment-pipeline gate, not identity verification.
-- Email access is account authentication, not verification of the company.
+- Phone access is account authentication, not verification of the company.
 - Ranking position must never be presented as a recommendation.
 
 ### Minimum moderation
@@ -622,7 +626,10 @@ Store money as integer paise and treat the payment ledger as immutable.
 **users**
 
 - id
-- email
+- verified owner phone in E.164 format
+- phone verified time
+- recovery email, nullable and deferred from MVP onboarding
+- connected authentication identities, managed by the authentication provider
 - account status
 - created time
 
@@ -814,7 +821,7 @@ RealRank begins as a modular monolith: one web application, one transactional Po
 | Validation | Zod schemas shared by forms, route handlers and server-side business logic |
 | Database access | Drizzle ORM and version-controlled PostgreSQL migrations |
 | Database | Supabase PostgreSQL, created in the Mumbai region |
-| Authentication | Supabase Auth with email OTP after captured payment |
+| Authentication | Supabase Auth with phone OTP after captured payment; WhatsApp is primary and SMS is the fallback |
 | Media storage | Cloudflare R2 for entity logos and portfolio images |
 | Payments | Razorpay Orders, Checkout, captured-payment webhooks and idempotent processing |
 | Search | PostgreSQL full-text search and trigram matching when text search is introduced |
@@ -823,13 +830,13 @@ RealRank begins as a modular monolith: one web application, one transactional Po
 | Product analytics | PostHog for explicitly defined product events and conversion funnels |
 | Aggregate traffic | Cloudflare Web Analytics may remain enabled as an infrastructure-level traffic view |
 | Error monitoring | Sentry or an equivalent error-monitoring service before public payment launch |
-| Transactional email | Supabase Auth through a production custom SMTP provider |
+| Authentication delivery | Approved phone provider integration supporting WhatsApp OTP and SMS fallback; apply CAPTCHA, rate limits and India messaging compliance |
 | Unit and integration testing | Vitest for ranking, payment, validation and data-access rules |
 | Browser testing | Playwright for responsive discovery, listing, checkout-return and account-setup journeys |
 | Continuous integration | GitHub Actions running formatting, linting, type checks and tests before deployment |
 | Hosting during development | Vercel Hobby for personal, non-commercial development and previews only |
 | Hosting for paid public launch | Vercel Pro, with application compute located as close as practical to the Mumbai database |
-| Notifications | Email first; WhatsApp or SMS only after explicit opt-in and an approved provider integration |
+| Notifications | Authentication messages use explicitly requested WhatsApp or SMS OTP; separate marketing or outbid notifications require their own consent and policy |
 
 Vercel Hobby must not serve the commercial version of RealRank. Upgrade before enabling real ranking payments. Supabase Free and Cloudflare free allowances may be used during development and a controlled early launch, but payment data must always have a tested, recoverable backup. Supabase Free does not provide the production backup guarantees required for meaningful paid volume; upgrade or establish automated encrypted PostgreSQL backups before accepting material transaction volume.
 
@@ -844,7 +851,7 @@ Vercel Hobby must not serve the commercial version of RealRank. Upgrade before e
 
 PostHog is the primary source for product and conversion-funnel analysis. Cloudflare Web Analytics may provide an independent aggregate traffic view, but it is not the source of truth for product behavior.
 
-Begin with an explicit event allowlist rather than automatic capture. Useful MVP events include category selection, entity-profile view, portfolio-item view, Contact click, Claim click, listing start, checkout start, captured payment, email-OTP completion and profile completion.
+Begin with an explicit event allowlist rather than automatic capture. Useful MVP events include category selection, entity-profile view, portfolio-item view, Contact click, Claim click, listing start, checkout start, captured payment, phone-OTP completion and profile completion.
 
 - Never send phone numbers, email addresses, names, payment IDs, gateway payloads, contact messages or other sensitive fields to PostHog.
 - Use a random internal identifier only after an owner authenticates; keep public visitors anonymous.

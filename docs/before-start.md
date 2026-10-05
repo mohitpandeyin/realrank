@@ -7,14 +7,14 @@ Unless you disagree, I would build with these rules:
 4. Listings publish after captured payment unless duplicate or abuse checks flag them.
 5. Matching entity name + phone opens a top-up flow; matching name with a different phone requires review.
 6. Claim #N opens a target-aware listing flow for guests and a top-up flow for authenticated owners.
-7. Skipping email OTP does not cancel the listing, but prevents profile management.
-8. Email is the only MVP notification channel.
+7. Skipping phone OTP does not cancel the listing, but prevents profile management.
+8. WhatsApp OTP is the primary account-verification delivery channel and SMS is the fallback. Other notifications require separate consent.
 9. No text search until the index has roughly 25–50 genuine entities.
 10. Refunds reverse ranking credit. Refunds are limited to technical failure, duplicate payment, RealRank rejection or legal requirements.
 Flow wireframe drafts created — 10 September 2026
 The four critical screens now have responsive functional drafts that use the locked Terracotta direction and `rr-` class prefix:
 - [Delayed confirmation and failed-payment exception states](wireframes/realrank-payment-states.html)
-- [Payment success and email OTP setup](wireframes/realrank-payment-success-otp.html)
+- [Payment success, phone verification and profile setup](wireframes/realrank-payment-success-otp.html)
 - [Owner dashboard, profile editor, portfolio and ranking top-up](wireframes/realrank-owner-dashboard.html)
 - [Public entity profile and portfolio](wireframes/realrank-entity-profile.html)
 
@@ -23,7 +23,11 @@ An administrator moderation screen can initially be utilitarian rather than visu
 
 Payment-flow update — 5 October 2026
 
-There is no separate RealRank payment-review screen. The listing form or target-aware Claim action shows the target and exact amount, the server revalidates both on click, and Razorpay Checkout opens directly when they are unchanged. If the price or target changed, RealRank shows a compact inline update and requires one click on the revised action; it never silently charges a different amount. Delayed confirmation remains an exception state where no Rank total, listing or city publication changes until the verified webhook arrives. Failure confirms that nothing was created and preserves the details for retry. The success/account-setup wireframe shows the fulfilled city and actual current position, then explains that City 1 can be corrected after email verification.
+There is no separate RealRank payment-review screen. The listing form or target-aware Claim action shows the target and exact amount, the server revalidates both on click, and Razorpay Checkout opens directly when they are unchanged. If the price or target changed, RealRank shows a compact inline update and requires one click on the revised action; it never silently charges a different amount. Delayed confirmation remains an exception state where no Rank total, listing or city publication changes until the verified webhook arrives. Failure confirms that nothing was created and preserves the details for retry. The success/account-setup wireframe shows the fulfilled city and actual current position, then verifies the submitted number before profile completion.
+
+Phone onboarding — 5 October 2026
+
+After captured payment, the visible next goal is **Complete your profile**. RealRank reuses the submitted contact number and offers **Send code on WhatsApp** with **Send by SMS instead** as the fallback. The owner does not re-enter the number unless choosing a different one. OTP completion creates the phone-authenticated account and links it to the paid entity through the short-lived payment-success session. The verified owner phone and public contact phone are separate fields even when initially equal. A successful OTP permits only the claim **Phone verified**. Recovery email or a connected Google identity is deferred to account settings and does not block MVP onboarding.
 
 Public Claim actions use **Claim #N for ₹X**, where ₹X is the full target Rank Amount for a new or unidentified entity. Once an owner is authenticated, ₹X may instead be the freshly calculated top-up difference from that entity's current Rank total. A position is never reserved before captured payment and idempotent fulfilment.
 
@@ -49,11 +53,11 @@ Before development:
 Before accepting real payments:
 - Activate Razorpay and complete its required business onboarding.
 - Upgrade from Vercel Hobby.
-- Configure production SMTP.
+- Configure an approved WhatsApp OTP provider, SMS fallback, CAPTCHA, resend limits and applicable India messaging registrations.
 - Establish tested PostgreSQL backups.
 - Publish Ranking Policy, Terms, Privacy and Refund Policy.
 - Confirm GST/invoicing treatment with an Indian accountant.
 - Test payment success, delayed webhook, duplicate webhook, failed payment, refund and chargeback flows.
 My recommended next move is to checkpoint the documentation, create the four remaining low-fidelity flow wireframes, and then build one complete vertical journey:
-Landing → payment → captured webhook → listing published → email OTP → profile editing.
+Landing → payment → captured webhook → listing published → WhatsApp/SMS phone OTP → profile editing.
 That will validate the hardest part of RealRank before expanding the rest.
