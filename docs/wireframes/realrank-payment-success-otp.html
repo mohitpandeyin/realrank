@@ -22,61 +22,34 @@
 
   <main class="rr-page">
     <div class="rr-narrow">
-      <div class="rr-prototype-bar">
-        <span>Wireframe states — continue through phone verification.</span>
-        <div class="rr-state-tabs" aria-label="Choose success state">
-          <button class="rr-state-tab" type="button" aria-pressed="true" data-rr-state="phone">Phone</button>
-          <button class="rr-state-tab" type="button" aria-pressed="false" data-rr-state="otp">OTP</button>
-          <button class="rr-state-tab" type="button" aria-pressed="false" data-rr-state="complete">Complete</button>
-        </div>
-      </div>
-
-      <ol class="rr-progress rr-progress-two" aria-label="Listing setup progress">
-        <li class="rr-progress-item rr-complete"><span class="rr-progress-dot">✓</span><span>Payment captured</span></li>
-        <li class="rr-progress-item rr-current" data-rr-progress-profile><span class="rr-progress-dot">2</span><span>Complete profile</span></li>
-      </ol>
-
-      <div class="rr-success-summary">
+      <div class="rr-success-summary rr-success-summary-compact">
         <div class="rr-status-icon rr-success">
           <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.6 2.6L16.5 9"/></svg>
         </div>
-        <div><strong>Aarambh Realty is now listed in Bhopal</strong><span>₹1,260 captured · Bhopal index opened · Payment RR-PAY-849214</span></div>
-        <div class="rr-success-rank"><strong>#1</strong><span>current position</span></div>
+        <div><strong>Payment successful — Aarambh Realty is live</strong><span>Bhopal · Current position #1</span></div>
       </div>
 
       <section class="rr-card rr-content-card" data-rr-panel="phone">
         <div class="rr-card-head">
           <div>
-            <span class="rr-badge rr-badge-success">Listing is active</span>
-            <h1 class="rr-section-title rr-status-heading">Complete your profile</h1>
-            <p class="rr-section-copy">Verify the number used for this listing to manage the profile, portfolio, cities and ranking.</p>
+            <h1 class="rr-section-title">Complete your profile</h1>
+            <p class="rr-section-copy">Verify the listing number to manage its details, portfolio and ranking.</p>
           </div>
         </div>
         <form class="rr-card-body rr-stack" data-rr-phone-form>
           <div>
-            <label class="rr-label" for="rr-owner-phone">Number to verify</label>
-            <input class="rr-input" id="rr-owner-phone" name="ownerPhone" type="tel" inputmode="tel" autocomplete="tel" value="+91 98765 43210" readonly required>
-            <div class="rr-field-help"><span>This is currently the listing's public WhatsApp contact.</span><button class="rr-text-button" type="button" data-rr-change-phone>Use a different number</button></div>
+            <label class="rr-label" for="rr-owner-phone">Mobile number</label>
+            <div class="rr-phone-input"><span aria-hidden="true">+91</span><input class="rr-phone-number" id="rr-owner-phone" name="ownerPhone" type="tel" inputmode="numeric" autocomplete="tel-national" pattern="[6-9][0-9]{9}" maxlength="10" value="9876543210" aria-label="10-digit Indian mobile number" title="Enter a valid 10-digit Indian mobile number" required></div>
           </div>
-          <div class="rr-safe-note">
-            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
-            <span>The verification code confirms control of this number. It does not verify the business, identity, RERA status or property claims.</span>
-          </div>
-          <div class="rr-stack">
-            <button class="rr-button rr-button-primary rr-button-block" type="submit" data-rr-channel="whatsapp">Send code on WhatsApp</button>
-            <button class="rr-button rr-button-secondary rr-button-block" type="submit" data-rr-channel="sms">Send by SMS instead</button>
-          </div>
-          <p class="rr-section-copy">By requesting a code, you agree to receive one authentication message on this number. Standard messaging charges may apply.</p>
-          <div class="rr-skip-box">Your paid listing stays active if you skip this step, but profile editing, portfolio management and ranking top-ups remain unavailable until a phone number is verified.</div>
-          <a class="rr-text-button" href="./realrank-entity-profile.html">Skip for now and view the listing</a>
+          <button class="rr-button rr-button-primary rr-button-block" type="submit">Send code on WhatsApp</button>
+          <button class="rr-text-button" type="button" data-rr-send-sms>Send by SMS instead</button>
         </form>
       </section>
 
       <section class="rr-card rr-content-card" data-rr-panel="otp" hidden>
         <div class="rr-card-head">
           <div>
-            <span class="rr-badge rr-badge-warning" data-rr-channel-badge>Code sent on WhatsApp</span>
-            <h1 class="rr-section-title rr-status-heading">Verify your number</h1>
+            <h1 class="rr-section-title">Verify your number</h1>
             <p class="rr-section-copy">Enter the six-digit code sent <span data-rr-channel-copy>on WhatsApp</span> to <strong data-rr-phone-label>+91 98••• ••210</strong>.</p>
           </div>
           <button class="rr-text-button" type="button" data-rr-change-from-otp>Change number</button>
@@ -91,28 +64,9 @@
             <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 5" value="6">
             <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 6" value="9">
           </div>
-          <div class="rr-button-row">
-            <button class="rr-button rr-button-primary" type="submit">Verify and complete profile</button>
-            <button class="rr-button rr-button-quiet" type="button" data-rr-resend>Resend code</button>
-          </div>
-          <button class="rr-text-button" type="button" data-rr-switch-channel>Send by SMS instead</button>
-          <p class="rr-section-copy">Never share this code. RealRank support will not ask for it. WhatsApp or SMS delivery verifies control of the number only.</p>
+          <button class="rr-button rr-button-primary rr-button-block" type="submit">Verify and complete profile</button>
+          <div class="rr-button-row"><button class="rr-text-button" type="button" data-rr-resend>Resend code</button><button class="rr-text-button" type="button" data-rr-switch-channel>Send by SMS instead</button></div>
         </form>
-      </section>
-
-      <section class="rr-card rr-content-card" data-rr-panel="complete" hidden>
-        <div class="rr-card-body rr-status-view">
-          <div class="rr-status-icon rr-success">
-            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-          </div>
-          <span class="rr-badge rr-badge-success">Phone verified</span>
-          <h1 class="rr-status-title">Your number is verified</h1>
-          <p class="rr-status-copy">Continue to choose the categories Aarambh Realty deals in, confirm its active cities, add a short description, and publish portfolio items.</p>
-          <div class="rr-status-actions">
-            <a class="rr-button rr-button-primary" href="./realrank-owner-dashboard.html">Complete profile</a>
-            <a class="rr-button rr-button-quiet" href="./realrank-entity-profile.html">View public listing</a>
-          </div>
-        </div>
       </section>
     </div>
   </main>
@@ -126,32 +80,26 @@
 
   <div class="rr-toast" role="status" hidden></div>
   <script>
-    const rrTabs = [...document.querySelectorAll('[data-rr-state]')];
     const rrPanels = [...document.querySelectorAll('[data-rr-panel]')];
     const rrToast = document.querySelector('.rr-toast');
     const rrPhoneInput = document.querySelector('#rr-owner-phone');
     const rrPhoneLabel = document.querySelector('[data-rr-phone-label]');
-    const rrChannelBadge = document.querySelector('[data-rr-channel-badge]');
     const rrChannelCopy = document.querySelector('[data-rr-channel-copy]');
     const rrSwitchChannel = document.querySelector('[data-rr-switch-channel]');
     let rrChannel = 'whatsapp';
     function rrMaskedPhone(rrPhone) {
       const rrDigits = rrPhone.replace(/\D/g, '');
-      const rrCountry = rrDigits.length > 10 ? `+${rrDigits.slice(0, -10)} ` : '';
       const rrLocal = rrDigits.slice(-10);
-      return rrLocal.length === 10 ? `${rrCountry}${rrLocal.slice(0, 2)}••• ••${rrLocal.slice(-3)}` : rrPhone;
+      return rrLocal.length === 10 ? `+91 ${rrLocal.slice(0, 2)}••• ••${rrLocal.slice(-3)}` : rrPhone;
     }
     function rrSetChannel(rrNextChannel) {
       rrChannel = rrNextChannel;
       const rrWhatsApp = rrChannel === 'whatsapp';
-      rrChannelBadge.textContent = rrWhatsApp ? 'Code sent on WhatsApp' : 'Code sent by SMS';
       rrChannelCopy.textContent = rrWhatsApp ? 'on WhatsApp' : 'by SMS';
       rrSwitchChannel.textContent = rrWhatsApp ? 'Send by SMS instead' : 'Send on WhatsApp instead';
     }
     function rrShowState(rrState) {
-      rrTabs.forEach((rrTab) => rrTab.setAttribute('aria-pressed', String(rrTab.dataset.rrState === rrState)));
       rrPanels.forEach((rrPanel) => { rrPanel.hidden = rrPanel.dataset.rrPanel !== rrState; });
-      document.querySelector('[data-rr-progress-profile]').className = 'rr-progress-item rr-current';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     function rrNotify(rrMessage) {
@@ -160,19 +108,23 @@
       window.clearTimeout(window.rrToastTimer);
       window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
     }
-    rrTabs.forEach((rrTab) => rrTab.addEventListener('click', () => rrShowState(rrTab.dataset.rrState)));
+    rrPhoneInput.addEventListener('input', () => { rrPhoneInput.value = rrPhoneInput.value.replace(/\D/g, '').slice(0, 10); });
     document.querySelector('[data-rr-phone-form]').addEventListener('submit', (rrEvent) => {
       rrEvent.preventDefault();
       if (!rrPhoneInput.reportValidity()) return;
-      rrSetChannel(rrEvent.submitter?.dataset.rrChannel || 'whatsapp');
+      rrSetChannel('whatsapp');
       rrPhoneLabel.textContent = rrMaskedPhone(rrPhoneInput.value);
       rrShowState('otp');
     });
-    document.querySelector('[data-rr-otp-form]').addEventListener('submit', (rrEvent) => { rrEvent.preventDefault(); rrShowState('complete'); });
-    document.querySelector('[data-rr-change-phone]').addEventListener('click', () => {
-      rrPhoneInput.readOnly = false;
-      rrPhoneInput.focus();
-      rrPhoneInput.select();
+    document.querySelector('[data-rr-send-sms]').addEventListener('click', () => {
+      if (!rrPhoneInput.reportValidity()) return;
+      rrSetChannel('sms');
+      rrPhoneLabel.textContent = rrMaskedPhone(rrPhoneInput.value);
+      rrShowState('otp');
+    });
+    document.querySelector('[data-rr-otp-form]').addEventListener('submit', (rrEvent) => {
+      rrEvent.preventDefault();
+      window.location.href = './realrank-owner-dashboard.html';
     });
     document.querySelector('[data-rr-change-from-otp]').addEventListener('click', () => rrShowState('phone'));
     document.querySelector('[data-rr-resend]').addEventListener('click', () => rrNotify(`A new code has been sent ${rrChannel === 'whatsapp' ? 'on WhatsApp' : 'by SMS'}.`));

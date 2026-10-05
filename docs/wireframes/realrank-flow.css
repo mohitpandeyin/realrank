@@ -86,6 +86,10 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .rr-textarea { min-height: 112px; padding: 12px 13px; line-height: 1.5; resize: vertical; }
 .rr-input::placeholder, .rr-textarea::placeholder { color: #948f89; }
 .rr-input:focus, .rr-textarea:focus, .rr-select:focus { border-color: var(--rr-accent); box-shadow: 0 0 0 3px var(--rr-tint); }
+.rr-phone-input { display: flex; align-items: center; min-height: 46px; border: 1px solid var(--rr-line); border-radius: 13px; background: var(--rr-surface); }
+.rr-phone-input:focus-within { border-color: var(--rr-accent); box-shadow: 0 0 0 3px var(--rr-tint); }
+.rr-phone-input > span { flex: 0 0 auto; padding-left: 13px; color: var(--rr-muted); font-size: 12px; }
+.rr-phone-number { min-width: 0; flex: 1; min-height: 44px; padding: 0 13px 0 7px; border: 0; outline: 0; color: var(--rr-text); background: transparent; font-size: 12px; }
 .rr-field-help { display: flex; justify-content: space-between; gap: 12px; margin-top: 6px; color: var(--rr-muted); font-size: 9px; line-height: 1.45; }
 .rr-checkbox-row { display: flex; align-items: flex-start; gap: 9px; color: var(--rr-muted); font-size: 10px; line-height: 1.5; }
 .rr-checkbox-row input { flex: 0 0 auto; width: 16px; height: 16px; margin: 0; accent-color: var(--rr-accent); }
@@ -135,7 +139,6 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 @keyframes rr-spin { to { transform: rotate(360deg); } }
 
 .rr-progress { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0 0 28px; padding: 0; list-style: none; }
-.rr-progress.rr-progress-two { grid-template-columns: repeat(2, 1fr); }
 .rr-progress-item { position: relative; display: grid; justify-items: center; gap: 8px; color: var(--rr-muted); font-size: 9px; text-align: center; }
 .rr-progress-item::before { content: ""; position: absolute; z-index: 0; top: 14px; right: 50%; width: 100%; height: 1px; background: var(--rr-line); }
 .rr-progress-item:first-child::before { display: none; }
@@ -144,6 +147,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .rr-progress-item.rr-current { color: var(--rr-text); font-weight: 650; }
 .rr-progress-item.rr-current .rr-progress-dot { color: #fff; border-color: var(--rr-accent); background: var(--rr-accent); }
 .rr-success-summary { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 16px; border: 1px solid #c7dfd2; border-radius: 17px; background: var(--rr-success-bg); }
+.rr-success-summary.rr-success-summary-compact { grid-template-columns: auto 1fr; padding: 12px 14px; }
 .rr-success-summary .rr-status-icon { width: 40px; height: 40px; margin: 0; background: var(--rr-surface); }
 .rr-success-summary .rr-status-icon .rr-icon { width: 20px; height: 20px; }
 .rr-success-summary strong { display: block; font-size: 13px; }

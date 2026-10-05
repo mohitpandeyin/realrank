@@ -7,7 +7,7 @@ Unless you disagree, I would build with these rules:
 4. Listings publish after captured payment unless duplicate or abuse checks flag them.
 5. Matching entity name + phone opens a top-up flow; matching name with a different phone requires review.
 6. Claim #N opens a target-aware listing flow for guests and a top-up flow for authenticated owners.
-7. Skipping phone OTP does not cancel the listing, but prevents profile management.
+7. Phone OTP is mandatory to continue onboarding or access profile management. Closing the flow does not cancel an already-paid listing.
 8. WhatsApp OTP is the primary account-verification delivery channel and SMS is the fallback. Other notifications require separate consent.
 9. No text search until the index has roughly 25–50 genuine entities.
 10. Refunds reverse ranking credit. Refunds are limited to technical failure, duplicate payment, RealRank rejection or legal requirements.
@@ -27,7 +27,7 @@ There is no separate RealRank payment-review screen. The listing form or target-
 
 Phone onboarding — 5 October 2026
 
-After captured payment, the visible next goal is **Complete your profile**. RealRank reuses the submitted contact number and offers **Send code on WhatsApp** with **Send by SMS instead** as the fallback. The owner does not re-enter the number unless choosing a different one. OTP completion creates the phone-authenticated account and links it to the paid entity through the short-lived payment-success session. The verified owner phone and public contact phone are separate fields even when initially equal. A successful OTP permits only the claim **Phone verified**. Recovery email or a connected Google identity is deferred to account settings and does not block MVP onboarding.
+After captured payment, the visible next goal is **Complete your profile**. RealRank reuses the submitted contact number in an editable **Mobile number** field and offers **Send code on WhatsApp** with **Send by SMS instead** as the quiet fallback. During the India-only launch, the input shows a fixed `+91` prefix and accepts exactly 10 Indian mobile digits; the backend normalizes the value to E.164. OTP completion creates the phone-authenticated account, links it to the paid entity through the short-lived payment-success session and opens the profile editor directly—there is no additional onboarding-complete screen. The verified owner phone and public contact phone are separate fields even when initially equal. A successful OTP permits only the claim **Phone verified**. Recovery email or a connected Google identity is deferred to account settings and does not block MVP onboarding.
 
 Public Claim actions use **Claim #N for ₹X**, where ₹X is the full target Rank Amount for a new or unidentified entity. Once an owner is authenticated, ₹X may instead be the freshly calculated top-up difference from that entity's current Rank total. A position is never reserved before captured payment and idempotent fulfilment.
 
