@@ -31,6 +31,8 @@ RealRank uses city-specific public indexes, not state or All India entity rankin
 
 The header city picker now offers **Add a city**, not Coming soon. Its registration dialog mirrors the hero's entity name, contact and Rank Amount fields and adds a searchable canonical city-and-state picker. A recognised city can open publicly with its first valid listing after captured payment and safety checks; it remains `noindex` until useful real supply exists. An unmatched city must be reviewed before checkout. Existing owners use their included or purchased city slots instead of paying a second ₹10 entry. The homepage wireframe demonstrates the popup only; it does not process payments or create production city pages.
 
+City data is stored in RealRank's own PostgreSQL catalogue rather than queried from a third-party places API during checkout. Seed and periodically reconcile it from LGD Urban Local Bodies, with Census location codes as a secondary reference. Keep canonical cities, aliases and external source references in separate tables. Maintain separate `catalog_status` (AVAILABLE/REVIEW/BLOCKED/RETIRED) and `realrank_status` (UNOPENED/LIVE/EMPTY/SUSPENDED) fields so official city validity is not confused with whether RealRank currently has a public index there. Source synchronization must never silently delete a live URL or rename its slug.
+
 Build and launch preparation
 Before development:
 - Commit and push the latest locked documentation.

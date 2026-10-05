@@ -473,9 +473,9 @@ The brand and hero remain location-neutral. City context is supplied by the city
 
 - RealRank owns a searchable catalogue of accepted Indian cities, with stable internal IDs, canonical names, state/UT labels, aliases and unique reserved slugs. Seed and periodically reconcile it against official location references such as the [Government of India Local Government Directory](https://lgdirectory.gov.in/demo/downloadDirectory.do) and the [Census Location Code Directory](https://censusindia.gov.in/nada/index.php/catalog/42648/study-description). Neither raw source should be treated as a ready-made product-city list: town boundaries, aliases, merged urban areas and names can differ, and Census 2011 is historical.
 - Show city and state together in autocomplete; add district or other disambiguation only where names collide. A user must choose a catalogue result. The server revalidates its canonical ID and status at checkout and again on fulfilment, rather than trusting a typed name, hidden field or stale browser response.
-- Catalogue states are **AVAILABLE**, **LIVE** and **BLOCKED/REVIEW**. AVAILABLE means a valid city can be opened by its first eligible listing; LIVE means a public city index exists; BLOCKED/REVIEW cannot go to payment. A name absent from the catalogue goes to human review without payment or page creation.
+- Keep city validity separate from RealRank publication. `catalog_status` is **AVAILABLE**, **REVIEW**, **BLOCKED** or **RETIRED**; only AVAILABLE cities can enter checkout. `realrank_status` is **UNOPENED**, **LIVE**, **EMPTY** or **SUSPENDED**. A first eligible listing changes an AVAILABLE city's RealRank status from UNOPENED/EMPTY to LIVE. A name absent from the catalogue goes to human review without payment or page creation.
 - Opening a city is idempotent: use unique city identity and slug constraints, atomically upsert the public city state with the first fulfilled listing, and recalculate ranking from captured contributions. Two near-simultaneous buyers can both become listed; no checkout guarantees lasting #1. Delay publication only for a concrete safety or payment issue, and show a clear pending state instead of falsely reporting that the city is live.
-- Once LIVE, include the city in the selector and root chooser. New public city pages start with `noindex` until the content threshold below is met; this avoids a large collection of thin search pages without hiding the service from users.
+- Once its `realrank_status` is LIVE, include the city in the selector and root chooser. New public city pages start with `noindex` until the content threshold below is met; this avoids a large collection of thin search pages without hiding the service from users.
 
 ### Launch route structure — Indore only
 
@@ -638,14 +638,45 @@ Store money as integer paise and treat the payment ledger as immutable.
 
 **cities**
 
-- id
-- name
-- state, as descriptive address metadata only—not a public ranking pool
+- id, stable internal UUID
+- canonical name
+- state/UT name and official code, as descriptive address metadata only—not a public ranking pool
+- district name and official code, nullable and used to disambiguate duplicate names
 - slug, unique and checked against reserved route words
-- external reference code and source, nullable; source last-reviewed time
-- aliases and disambiguation metadata for city search
-- status: AVAILABLE, LIVE or BLOCKED/REVIEW
+- catalogue status: AVAILABLE, REVIEW, BLOCKED or RETIRED
+- RealRank status: UNOPENED, LIVE, EMPTY or SUSPENDED
+- source-active flag; an official-source removal must trigger review rather than automatically deleting a city or public URL
+- source updated time, nullable
+- last manually reviewed time
 - first live time, nullable
+- created and updated times
+
+**city_aliases**
+
+- id
+- city id
+- alias as entered or officially recorded
+- normalized alias used for search
+- alias type: COMMON, FORMER_NAME, SPELLING or TRANSLITERATION
+- locale/language, nullable
+- active status
+- unique city + normalized alias
+
+Examples include Gurgaon → Gurugram, Bangalore → Bengaluru and Bombay → Mumbai. Aliases improve matching but never become independent ranking pools or public city pages.
+
+**city_external_refs**
+
+- id
+- city id
+- source: LGD, CENSUS or MANUAL
+- external code
+- source display name, nullable
+- source record updated time, nullable
+- last synchronized time
+- source metadata needed for reconciliation, nullable
+- unique source + external code
+
+Use LGD Urban Local Bodies as the primary maintained source and Census town/location codes as a secondary cross-check. Import source data into staging first, compare additions, removals, mergers and renames, and then update canonical records. Never let synchronization silently change an established slug, delete a live city, or merge two RealRank indexes.
 
 **city_listings**
 
