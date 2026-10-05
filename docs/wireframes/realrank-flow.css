@@ -51,6 +51,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .rr-section-copy { margin: 7px 0 0; color: var(--rr-muted); font-size: 12px; line-height: 1.55; }
 
 .rr-prototype-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; padding: 10px 12px 10px 15px; border: 1px dashed #c9c4bd; border-radius: 14px; color: var(--rr-muted); background: rgba(255, 255, 255, .6); font-size: 10px; }
+.rr-checkout-context { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin: -10px 0 24px; color: var(--rr-muted); font-size: 10px; }
 .rr-state-tabs { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
 .rr-state-tab { min-height: 30px; padding: 0 11px; border: 1px solid var(--rr-line); border-radius: 999px; color: var(--rr-muted); background: var(--rr-surface); font-size: 10px; cursor: pointer; }
 .rr-state-tab[aria-pressed="true"] { color: #fff; border-color: var(--rr-accent); background: var(--rr-accent); }
@@ -108,6 +109,17 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .rr-price-line strong { font-size: 28px; letter-spacing: -.035em; }
 .rr-safe-note { display: flex; align-items: flex-start; gap: 9px; padding: 12px; border-radius: 13px; color: var(--rr-muted); background: var(--rr-quiet); font-size: 10px; line-height: 1.5; }
 .rr-safe-note .rr-icon { flex: 0 0 auto; width: 15px; height: 15px; color: var(--rr-success); }
+.rr-review-city { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 11px; padding: 12px; border: 1px solid var(--rr-line); border-radius: 13px; background: var(--rr-page); }
+.rr-review-city-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: var(--rr-accent-dark); background: var(--rr-tint); }
+.rr-review-city-icon .rr-icon { width: 16px; height: 16px; }
+.rr-review-city small, .rr-review-city strong, .rr-review-city em { display: block; }
+.rr-review-city small { color: var(--rr-muted); font-size: 9px; }
+.rr-review-city strong { margin-top: 2px; font-size: 11px; }
+.rr-review-city em { margin-top: 3px; color: var(--rr-muted); font-size: 9px; font-style: normal; line-height: 1.35; }
+.rr-checkout-next { padding: 13px; border: 1px solid var(--rr-line); border-radius: 13px; }
+.rr-checkout-next > strong { font-size: 10px; }
+.rr-checkout-next ol { display: grid; gap: 6px; margin: 9px 0 0; padding-left: 18px; color: var(--rr-muted); font-size: 10px; line-height: 1.45; }
+.rr-estimate-note { margin: -2px 0 0; color: var(--rr-muted); font-size: 9px; line-height: 1.5; }
 
 .rr-status-view { text-align: center; }
 .rr-status-icon { display: grid; place-items: center; width: 62px; height: 62px; margin: 2px auto 18px; border-radius: 50%; }
@@ -135,7 +147,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .rr-success-summary .rr-status-icon .rr-icon { width: 20px; height: 20px; }
 .rr-success-summary strong { display: block; font-size: 13px; }
 .rr-success-summary span { display: block; margin-top: 3px; color: var(--rr-muted); font-size: 10px; }
-.rr-success-rank { color: var(--rr-success); font-size: 22px; font-weight: 750; }
+.rr-success-rank { color: var(--rr-success); text-align: right; }
+.rr-success-rank strong { display: block; font-size: 22px; font-weight: 750; }
+.rr-success-rank span { margin-top: 1px; font-size: 8px; }
 .rr-otp-inputs { display: grid; grid-template-columns: repeat(6, 44px); gap: 8px; margin: 18px 0; }
 .rr-otp-input { width: 44px; height: 48px; border: 1px solid var(--rr-line); border-radius: 12px; color: var(--rr-text); background: var(--rr-surface); font-size: 18px; font-weight: 700; text-align: center; }
 .rr-skip-box { margin-top: 16px; padding: 13px; border: 1px dashed #c9c4bd; border-radius: 13px; color: var(--rr-muted); font-size: 10px; line-height: 1.5; }
@@ -276,8 +290,11 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   .rr-page-title { font-size: 36px; }
   .rr-page-lead { font-size: 13px; }
   .rr-prototype-bar { align-items: flex-start; flex-direction: column; }
+  .rr-checkout-context { align-items: flex-start; justify-content: flex-start; flex-direction: column; }
   .rr-state-tabs { justify-content: flex-start; }
   .rr-card-head, .rr-card-body, .rr-panel-head, .rr-panel-body { padding: 18px; }
+  .rr-review-city { grid-template-columns: auto minmax(0, 1fr); }
+  .rr-review-city > .rr-text-button { grid-column: 2; justify-self: start; }
   .rr-grid-two, .rr-metric-grid { grid-template-columns: 1fr; }
   .rr-button-row > .rr-button { width: 100%; }
   .rr-status-title { font-size: 24px; }

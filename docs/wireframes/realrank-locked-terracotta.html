@@ -143,7 +143,7 @@
     .rr-contact, .rr-claim-position { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 38px; padding: 0 11px; border-radius: 999px; font-size: 10px; font-weight: 680; cursor: pointer; }
     .rr-contact { width: auto; min-height: 32px; margin-top: 9px; border: 1px solid var(--quiet); color: var(--text); background: var(--quiet); font-weight: 400; }
     .rr-contact:hover { border-color: var(--line); background: #e7e3de; }
-    .rr-claim-position { min-height: 28px; padding: 0 10px; border: 1px solid #d9b6a9; color: var(--accent-dark); background: #fff8f5; font-size: 9px; }
+    .rr-claim-position { min-height: 28px; padding: 0 10px; border: 1px solid #d9b6a9; color: var(--accent-dark); background: #fff8f5; font-size: 9px; white-space: nowrap; }
     .rr-claim-position:hover { border-color: var(--accent); background: var(--tint); }
 
     .rr-pagination-wrap { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 24px; }
@@ -166,20 +166,10 @@
     .rr-footer-links a { color: var(--muted); font-size: 10px; text-decoration: none; }
     .rr-footer-links a:hover { color: var(--text); }
 
-    .rr-claim-dialog { width: min(100% - 28px, 460px); padding: 0; border: 1px solid var(--line); border-radius: 22px; color: var(--text); background: var(--surface); box-shadow: var(--shadow); }
-    .rr-claim-dialog::backdrop { background: rgba(32, 32, 30, .38); backdrop-filter: blur(3px); }
     .rr-dialog-inner { padding: 24px; }
     .rr-dialog-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
     .rr-dialog-kicker { margin: 0 0 6px; color: var(--accent-dark); font-size: 9px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
-    .rr-claim-dialog h3 { margin: 0; font-size: 23px; letter-spacing: -.04em; }
     .rr-dialog-close { display: grid; place-items: center; flex: 0 0 34px; width: 34px; min-width: 34px; height: 34px; aspect-ratio: 1; padding: 0; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); background: var(--surface); cursor: pointer; }
-    .rr-claim-breakdown { display: grid; gap: 0; margin-top: 20px; border: 1px solid var(--line); border-radius: 15px; overflow: hidden; }
-    .rr-claim-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 14px; border-bottom: 1px solid var(--line); font-size: 10px; }
-    .rr-claim-row:last-child { border-bottom: 0; background: var(--tint); }
-    .rr-claim-row span { color: var(--muted); }
-    .rr-claim-row strong { text-align: right; }
-    .rr-dialog-note { margin: 14px 0 0; color: var(--muted); font-size: 10px; line-height: 1.55; }
-    .rr-dialog-action { width: 100%; margin-top: 18px; }
     .rr-add-city-dialog { width: min(100% - 28px, 500px); max-height: min(90dvh, 720px); padding: 0; overflow-y: auto; border: 1px solid var(--line); border-radius: 22px; color: var(--text); background: var(--surface); box-shadow: var(--shadow); }
     .rr-add-city-dialog::backdrop { background: rgba(32, 32, 30, .38); backdrop-filter: blur(3px); }
     .rr-add-city-inner { padding: 24px; }
@@ -387,19 +377,6 @@
 
   <button class="rr-floating-list-cta" type="button" aria-label="Go to the listing form">List Your Entity <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
 
-  <dialog class="rr-claim-dialog" aria-labelledby="claim-dialog-title">
-    <div class="rr-dialog-inner">
-      <div class="rr-dialog-head"><div><p class="rr-dialog-kicker">Transparent rank cost</p><h3 id="claim-dialog-title">Claim rank <span data-dialog-rank>#1</span></h3></div><button class="rr-dialog-close" type="button" aria-label="Close"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
-      <div class="rr-claim-breakdown">
-        <div class="rr-claim-row"><span>Business to move ahead of</span><strong data-dialog-entity>Apollo Realty</strong></div>
-        <div class="rr-claim-row"><span>Current rank total</span><strong data-dialog-current>₹1,250</strong></div>
-        <div class="rr-claim-row"><span>Total required</span><strong data-dialog-required>₹1,251</strong></div>
-      </div>
-      <p class="rr-dialog-note">Existing entities pay only the difference between their current total and the required total. The amount is checked again before payment, and only completed payments affect the ranking.</p>
-      <button class="rr-primary rr-dialog-action" type="button">Continue to list your Entity <svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-    </div>
-  </dialog>
-
   <dialog class="rr-add-city-dialog" aria-labelledby="rr-add-city-title">
     <div class="rr-add-city-inner">
       <div class="rr-add-city-head"><div><p class="rr-dialog-kicker">Open a new city</p><h3 id="rr-add-city-title">Add your city to RealRank</h3><p class="rr-add-city-copy">Choose a recognised city and list your entity. After confirmed payment, its public index opens if needed; then complete your profile.</p></div><button class="rr-dialog-close rr-add-city-close" type="button" aria-label="Close add-city form"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
@@ -509,7 +486,7 @@
             <div class="rr-company-side">
               <div class="rr-rank-competition">
                 <span class="rr-rank-total"><strong>${formatRupees(entity.total)}</strong><span>rank total</span></span>
-                <button class="rr-claim-position" type="button" data-claim-id="${entity.id}" data-claim-rank="${rank}" aria-label="Claim rank ${rank}">Claim #${rank}</button>
+                <button class="rr-claim-position" type="button" data-claim-id="${entity.id}" data-claim-rank="${rank}" aria-label="Set a ${formatRupees(entity.total + 1)} rank amount to claim rank ${rank}">Claim #${rank} for ${formatRupees(entity.total + 1)}</button>
               </div>
             </div>
           </article>`;
@@ -738,9 +715,8 @@
           return;
         }
         addCityDialog.close();
-        showToast(`Wireframe only: payment capture would open ${city.name}, then prompt profile setup.`);
+        showToast(`Opening secure Razorpay Checkout for ${formatRupees(amount)}…`);
       });
-      const claimDialog = document.querySelector('.rr-claim-dialog');
       rankings.addEventListener('click', (event) => {
         const contactButton = event.target.closest('[data-contact-id]');
         const claimButton = event.target.closest('[data-claim-id]');
@@ -752,11 +728,11 @@
         if (claimButton) {
           const entity = entities.find((item) => item.id === Number(claimButton.dataset.claimId));
           const rank = Number(claimButton.dataset.claimRank);
-          document.querySelector('[data-dialog-rank]').textContent = `#${rank}`;
-          document.querySelector('[data-dialog-entity]').textContent = entity.name;
-          document.querySelector('[data-dialog-current]').textContent = formatRupees(entity.total);
-          document.querySelector('[data-dialog-required]').textContent = formatRupees(entity.total + 1);
-          claimDialog.showModal();
+          const requiredTotal = entity.total + 1;
+          bidInput.value = requiredTotal;
+          document.querySelector('.rr-entry').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          document.querySelector('#entity-name').focus({ preventScroll: true });
+          showToast(`${formatRupees(requiredTotal)} set for estimated rank #${rank}. Confirm your details to continue.`);
         }
         if (profileLink) {
           event.preventDefault();
@@ -770,12 +746,6 @@
         state.page = Number(button.dataset.page);
         renderRankings();
         document.querySelector('.rr-ranking-toolbar').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-      document.querySelector('.rr-dialog-close').addEventListener('click', () => claimDialog.close());
-      document.querySelector('.rr-dialog-action').addEventListener('click', () => {
-        claimDialog.close();
-        document.querySelector('.rr-entry').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        document.querySelector('#entity-name').focus({ preventScroll: true });
       });
       document.addEventListener('click', () => { closeCityMenu(); closeCategoryIsland(); });
       document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { closeCityMenu(true); closeCategoryIsland(true); } });
@@ -792,7 +762,7 @@
           bidInput.focus();
           return;
         }
-        showToast(`Ready to list with a ₹${bid.toLocaleString('en-IN')} rank amount.`);
+        showToast(`Opening secure Razorpay Checkout for ₹${bid.toLocaleString('en-IN')}…`);
       });
 
       const floatingListCta = document.querySelector('.rr-floating-list-cta');

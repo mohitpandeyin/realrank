@@ -289,7 +289,7 @@ Rank numbers are unboxed ordinal labels in a narrow fixed-width left column, usi
 5. selected categories;
 6. compact secondary **Contact** action inside the company-information area;
 7. public **Rank total** in the top-right; and
-8. a small **Claim #N** action badge directly below Rank total.
+8. a small **Claim #N for ₹X** action badge directly below Rank total, where the amount follows the guest-versus-owner rules in the payment flow.
 
 On mobile, hide the desktop logo column and show a separate **28 × 28px** mobile-only logo or initials fallback inside the company title row immediately before the entity name. Keep the rank in its existing narrow left column, aligned with the mobile logo. This preserves the stable three-column card grid while adding recognition without consuming another layout column.
 
@@ -332,7 +332,7 @@ These removals keep the launch product credible even when entities have complete
 The homepage is **final pending production implementation**, with no additional marketing sections required. Its core loop is: discover an entity, understand the sponsored order, open a profile or portfolio, contact the entity, or claim a stronger sponsored position.
 
 - **Hero transition:** the bottom-centred **List Your Entity** CTA appears only after the complete hero has left the viewport and disappears when the footer enters. It must respect the device safe area and reduced-motion preferences.
-- **Card hierarchy:** entity name and logo establish recognition; the short description and categories explain relevance; Rank total and ordinal rank remain visible metadata; **Claim #N** is the ranking action; Contact stays visually quiet.
+- **Card hierarchy:** entity name and logo establish recognition; the short description and categories explain relevance; Rank total and ordinal rank remain visible metadata; **Claim #N for ₹X** is the ranking action; Contact stays visually quiet.
 - **Mobile scanning:** retain the narrow rank column, 28 × 28px mobile-only logo or initials before the entity name, top-right Rank total and compact Claim badge. Long names and descriptions may wrap safely, while descriptions remain clamped to two lines to avoid unnecessarily tall cards.
 - **Amount behavior:** manual input accepts any whole-rupee value of ₹10 or more. The steppers move to the adjacent ₹10 multiples—for example, `₹14 → ₹20` with `+` and `₹14 → ₹10` with `−`; `₹20 → ₹30` with `+` and `₹20 → ₹10` with `−`.
 - **Filters:** the selected state is a white chip with a terracotta outline, icon and text plus stronger text weight. The combination of border, fill change, weight and `aria-pressed` means selection does not rely on colour alone. The previously considered solid-black state is not part of the locked design.
@@ -350,20 +350,26 @@ This QA lock is deliberately corrective rather than additive. Do not add another
 
 The owner explicitly prefers payment before signup. The safe MVP flow is:
 
-1. Visitor enters entity name, contact number and Rank Amount.
-2. Server derives the initial city from the canonical page context. During the root-only launch this is always Indore; never trust a browser-supplied city ID as authoritative.
-3. Server creates a short-lived pending checkout record.
-4. Razorpay collects the payment.
-5. Server verifies the captured payment through an authenticated webhook.
-6. Server records the captured contribution against the entity's shared Rank total, activates its initial city listing and recalculates that city view atomically.
-7. The minimum listing becomes public.
-8. The payment-success screen asks the owner for an email address; this happens only after payment has been captured, so signup does not interrupt checkout.
-9. RealRank sends a one-time email OTP. After the owner confirms it, the account is created and linked to the paid entity listing.
-10. Owner optionally adds description, city-specific categories, logo, website/social link and portfolio.
+1. Visitor enters entity name, contact number and Rank Amount on an active city page, or enters those fields plus a catalogue-selected city in the Add-a-city dialog.
+2. Server resolves the initial city from the canonical page context or revalidates the submitted canonical city ID from the dialog. Never trust a raw city name, URL value or hidden browser field as authoritative.
+3. On the click that starts payment, the server freshly recomputes the applicable total, estimated city position and any owner-specific top-up, then creates a short-lived pending checkout and Razorpay Order. Browser-submitted amounts are never authoritative.
+4. If the server result still matches the exact amount and target already shown in the form or Claim action, open Razorpay Standard Checkout immediately. RealRank does not insert a separate payment-review or confirmation page.
+5. If the target or payable amount changed before order creation, do not silently charge the new value. Keep the user's details, show a compact inline update such as **#1 now requires ₹1,261 instead of ₹1,251**, and require one click on the updated payment action.
+6. Razorpay collects the payment. Prefill the submitted contact data where supported, but do not treat gateway-collected contact data as RealRank ownership verification.
+7. Server verifies the captured payment through an authenticated webhook.
+8. Server records the captured contribution against the entity's shared Rank total, activates its initial city listing and recalculates that city view atomically. If required, it opens the city index in the same idempotent fulfilment transaction.
+9. The minimum listing becomes public. The success screen displays the actual current position after fulfilment, not the earlier estimate.
+10. The payment-success screen asks the owner for an email address; this happens only after payment has been captured, so signup does not interrupt checkout.
+11. RealRank sends a one-time email OTP. After the owner confirms it, the account is created and linked to the paid entity listing.
+12. Owner optionally corrects or adds active-city slots, selects categories, and adds a description, logo, website/social link and portfolio.
+
+Razorpay Checkout is the final payment interaction, so a second RealRank review page would repeat information and add avoidable friction to a low-complexity, single-line-item purchase. The form must nevertheless keep entity name, public contact, city, Rank Amount, target position and legal consent visible and editable before the payment click. A delayed-confirmation screen is an exception state only: it must say that neither the Rank total nor city listing changes until the verified webhook arrives and must prevent an impulsive second payment. A failed-payment state must clearly state that no listing, Rank total or new city page was created and should return the user to the preserved form or reopen Checkout without requiring data entry again.
+
+Claim actions must distinguish **target total** from **owner top-up**. For an unidentified visitor, use wording such as **Claim #1 for ₹1,251**, where ₹1,251 is the full Rank Amount that will be submitted for the new entity. For a recognised, authenticated owner, use the same pattern only with the actual payable difference, calculated from the owner's current Rank total. Both values are estimates until the server revalidates them at order creation; never present a position as reserved before captured payment and fulfilment.
 
 The city selector's **Add a city** action opens a payment-first registration dialog that mirrors the hero's entity name, contact number and free-form Rank Amount fields, plus a searchable city-and-state picker. The picker must select a canonical city ID from RealRank's server-owned catalogue; free text alone cannot create a city or a URL. For a new entity, the server checks the selected city, duplicates, the applicable payment and safety rules, then creates the pending order. After the payment is captured, publish the minimal entity listing and, if this is the first valid listing for that city, create its public city index in the same fulfilment flow. The success screen then requests email OTP and optional profile completion. A newly opened one-entity city is public but not automatically search-indexable; see the indexation policy.
 
-The dialog CTA reads **Add your Entity**. It advances to review/payment; clicking it alone must not claim that the listing or city is already live.
+The dialog CTA reads **Add your Entity**. After fresh server validation it opens Razorpay Checkout directly; clicking it alone must not claim that the listing or city is already live.
 
 For an existing owned entity, **Add a city** should authenticate or recover ownership and enter a coverage-management flow, not create another entity or charge a second ₹10 entry. Up to three active city slots are included; additional simultaneous cities require separately disclosed, one-time slot purchases. A slot change is not another charge. An additional-city fee does not add to Rank total. City coverage, category selection and contact overrides remain editable subject to moderation. The public wireframe demonstrates the new-entity payment branch; production must also route recognised existing owners to the no-duplicate branch.
 
@@ -895,7 +901,7 @@ The server is authoritative for rank. Client-side optimistic movement must not i
 - Auction Properties as a secondary category inside More, with no auction conducted by RealRank;
 - balanced entity cards with name, description, categories, compact Contact action, rank, top-right Rank total and compact Claim badge;
 - entity profile with optional portfolio;
-- responsive payment review, delayed-confirmation and failure states, with Razorpay owning payment-method collection;
+- direct-to-Razorpay checkout from the validated listing or Claim action, plus responsive delayed-confirmation and failure exception states;
 - Razorpay captured-payment processing;
 - post-payment one-owner account setup;
 - owner dashboard for profile, contact preference, categories, portfolio and ranking top-ups;

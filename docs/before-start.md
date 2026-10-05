@@ -13,13 +13,19 @@ Unless you disagree, I would build with these rules:
 10. Refunds reverse ranking credit. Refunds are limited to technical failure, duplicate payment, RealRank rejection or legal requirements.
 Flow wireframe drafts created — 10 September 2026
 The four critical screens now have responsive functional drafts that use the locked Terracotta direction and `rr-` class prefix:
-- [Payment review, delayed confirmation and failure states](wireframes/realrank-payment-states.html)
+- [Delayed confirmation and failed-payment exception states](wireframes/realrank-payment-states.html)
 - [Payment success and email OTP setup](wireframes/realrank-payment-success-otp.html)
 - [Owner dashboard, profile editor, portfolio and ranking top-up](wireframes/realrank-owner-dashboard.html)
 - [Public entity profile and portfolio](wireframes/realrank-entity-profile.html)
 
-These are flow and content references rather than a separate visual direction. Razorpay owns the secure payment-method UI; RealRank presents the order review and handles the return, delayed-confirmation and failure states.
+These are flow and content references rather than a separate visual direction. Razorpay owns the secure payment-method UI; RealRank opens it directly from the validated listing or Claim action and handles the return, delayed-confirmation and failure states.
 An administrator moderation screen can initially be utilitarian rather than visually polished.
+
+Payment-flow update — 5 October 2026
+
+There is no separate RealRank payment-review screen. The listing form or target-aware Claim action shows the target and exact amount, the server revalidates both on click, and Razorpay Checkout opens directly when they are unchanged. If the price or target changed, RealRank shows a compact inline update and requires one click on the revised action; it never silently charges a different amount. Delayed confirmation remains an exception state where no Rank total, listing or city publication changes until the verified webhook arrives. Failure confirms that nothing was created and preserves the details for retry. The success/account-setup wireframe shows the fulfilled city and actual current position, then explains that City 1 can be corrected after email verification.
+
+Public Claim actions use **Claim #N for ₹X**, where ₹X is the full target Rank Amount for a new or unidentified entity. Once an owner is authenticated, ₹X may instead be the freshly calculated top-up difference from that entity's current Rank total. A position is never reserved before captured payment and idempotent fulfilment.
 
 Homepage QA lock — 14 September 2026
 
