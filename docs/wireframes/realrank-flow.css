@@ -135,6 +135,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .rr-status-copy { max-width: 520px; margin: 10px auto 0; color: var(--rr-muted); font-size: 12px; line-height: 1.6; }
 .rr-status-meta { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; padding: 8px 11px; border-radius: 999px; color: var(--rr-muted); background: var(--rr-quiet); font-size: 9px; }
 .rr-status-actions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+.rr-verification-success .rr-card-body { padding: clamp(48px, 8vw, 78px) 24px; }
+.rr-verification-success .rr-status-actions .rr-button { min-width: 170px; }
 .rr-spinner { width: 26px; height: 26px; border: 3px solid #ead9d2; border-top-color: var(--rr-accent); border-radius: 50%; animation: rr-spin .8s linear infinite; }
 @keyframes rr-spin { to { transform: rotate(360deg); } }
 
@@ -303,6 +305,8 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   .rr-grid-two, .rr-metric-grid { grid-template-columns: 1fr; }
   .rr-button-row > .rr-button { width: 100%; }
   .rr-status-title { font-size: 24px; }
+  .rr-verification-success .rr-status-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rr-verification-success .rr-status-actions .rr-button { width: 100%; min-width: 0; padding-inline: 12px; }
   .rr-success-summary { grid-template-columns: auto 1fr; }
   .rr-success-rank { grid-column: 2; }
   .rr-otp-inputs { grid-template-columns: repeat(6, minmax(36px, 1fr)); gap: 5px; }

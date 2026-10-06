@@ -208,6 +208,8 @@
       window.clearTimeout(window.rrToastTimer);
       window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
     }
+    const rrRequestedTab = new URLSearchParams(window.location.search).get('tab');
+    if (rrRequestedTab && rrTabs.some((rrTab) => rrTab.dataset.rrTab === rrRequestedTab)) rrOpenTab(rrRequestedTab);
     const rrCityDialog = document.querySelector('.rr-city-edit-dialog');
     const rrCityForm = document.querySelector('[data-rr-city-form]');
     const rrCitySearch = document.querySelector('#rr-city-edit-search');

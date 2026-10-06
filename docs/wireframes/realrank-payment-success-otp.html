@@ -64,9 +64,24 @@
             <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 5" value="6">
             <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 6" value="9">
           </div>
-          <button class="rr-button rr-button-primary rr-button-block" type="submit">Verify and complete profile</button>
+          <button class="rr-button rr-button-primary rr-button-block" type="submit" data-rr-verify-button>Verify number</button>
           <div class="rr-button-row"><button class="rr-text-button" type="button" data-rr-resend>Resend code</button><button class="rr-text-button" type="button" data-rr-switch-channel>Send by SMS instead</button></div>
+          <span class="rr-sr-only" role="status" aria-live="polite" data-rr-verification-status></span>
         </form>
+      </section>
+
+      <section class="rr-card rr-content-card rr-verification-success" data-rr-panel="verified" hidden>
+        <div class="rr-card-body rr-status-view">
+          <div class="rr-status-icon rr-success">
+            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3Z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <h1 class="rr-status-title" tabindex="-1" data-rr-verified-heading>Number verified</h1>
+          <p class="rr-status-copy">You can now manage Aarambh Realty and complete its public profile.</p>
+          <div class="rr-status-actions">
+            <a class="rr-button rr-button-primary" href="./realrank-owner-dashboard.html?tab=profile">Complete profile</a>
+            <a class="rr-button rr-button-quiet" href="./realrank-entity-profile.html" target="_blank" rel="noopener">View public listing</a>
+          </div>
+        </div>
       </section>
     </div>
   </main>
@@ -86,6 +101,8 @@
     const rrPhoneLabel = document.querySelector('[data-rr-phone-label]');
     const rrChannelCopy = document.querySelector('[data-rr-channel-copy]');
     const rrSwitchChannel = document.querySelector('[data-rr-switch-channel]');
+    const rrVerifyButton = document.querySelector('[data-rr-verify-button]');
+    const rrVerificationStatus = document.querySelector('[data-rr-verification-status]');
     let rrChannel = 'whatsapp';
     function rrMaskedPhone(rrPhone) {
       const rrDigits = rrPhone.replace(/\D/g, '');
@@ -101,6 +118,7 @@
     function rrShowState(rrState) {
       rrPanels.forEach((rrPanel) => { rrPanel.hidden = rrPanel.dataset.rrPanel !== rrState; });
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (rrState === 'verified') document.querySelector('[data-rr-verified-heading]').focus();
     }
     function rrNotify(rrMessage) {
       rrToast.textContent = rrMessage;
@@ -124,7 +142,16 @@
     });
     document.querySelector('[data-rr-otp-form]').addEventListener('submit', (rrEvent) => {
       rrEvent.preventDefault();
-      window.location.href = './realrank-owner-dashboard.html';
+      rrVerifyButton.disabled = true;
+      rrVerifyButton.setAttribute('aria-busy', 'true');
+      rrVerifyButton.textContent = 'Verifying…';
+      rrVerificationStatus.textContent = 'Verifying your mobile number.';
+      window.setTimeout(() => {
+        rrVerifyButton.removeAttribute('aria-busy');
+        rrVerifyButton.textContent = '✓ Number verified';
+        rrVerificationStatus.textContent = 'Number verified.';
+        window.setTimeout(() => rrShowState('verified'), 450);
+      }, 650);
     });
     document.querySelector('[data-rr-change-from-otp]').addEventListener('click', () => rrShowState('phone'));
     document.querySelector('[data-rr-resend]').addEventListener('click', () => rrNotify(`A new code has been sent ${rrChannel === 'whatsapp' ? 'on WhatsApp' : 'by SMS'}.`));
