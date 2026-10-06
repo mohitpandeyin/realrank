@@ -133,6 +133,11 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .rr-status-title { margin: 0; font-size: 27px; font-weight: 650; letter-spacing: -.04em; }
 .rr-status-copy { max-width: 520px; margin: 10px auto 0; color: var(--rr-muted); font-size: 12px; line-height: 1.6; }
 .rr-status-meta { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; padding: 8px 11px; border-radius: 999px; color: var(--rr-muted); background: var(--rr-quiet); font-size: 9px; }
+.rr-order-meta { min-height: 42px; padding: 3px 7px 3px 12px; }
+.rr-copy-order { position: relative; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 50%; color: var(--rr-muted); background: transparent; cursor: pointer; }
+.rr-copy-order::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; }
+.rr-copy-order:hover { color: var(--rr-text); background: var(--rr-surface); }
+.rr-copy-order .rr-icon { width: 14px; height: 14px; }
 .rr-status-actions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
 .rr-payment-auto-status { display: flex; align-items: center; justify-content: center; gap: 7px; margin: 12px 0 0; color: var(--rr-muted); font-size: 10px; }
 .rr-live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rr-warning); box-shadow: 0 0 0 4px var(--rr-warning-bg); }

@@ -36,7 +36,13 @@
           <div class="rr-status-icon rr-processing"><span class="rr-spinner" aria-hidden="true"></span></div>
           <h1 class="rr-status-title">Confirming your payment</h1>
           <p class="rr-status-copy">We’re waiting for secure confirmation from your bank. RealRank will publish or update Aarambh Realty automatically once payment is confirmed.</p>
-          <span class="rr-status-meta">Order RRL-BHO-001284 · ₹1,260</span>
+          <span class="rr-status-meta rr-order-meta">
+            <span>Order RRL-BHO-001284</span>
+            <button class="rr-copy-order" type="button" data-rr-copy-order="RRL-BHO-001284" aria-label="Copy order number" title="Copy order number">
+              <svg class="rr-icon" data-rr-copy-icon viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="rr-icon" data-rr-copied-icon viewBox="0 0 24 24" aria-hidden="true" hidden><path d="m5 12 4 4L19 6"/></svg>
+            </button>
+          </span>
           <p class="rr-payment-auto-status" role="status" aria-live="polite"><span class="rr-live-dot" aria-hidden="true"></span><span data-rr-auto-status>Checking automatically…</span></p>
           <div class="rr-payment-warning">
             <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5m0 3h.01"/></svg>
@@ -58,7 +64,13 @@
           <span class="rr-badge rr-badge-danger">No payment captured</span>
           <h1 class="rr-status-title">Payment couldn’t be completed</h1>
           <p class="rr-status-copy">Aarambh Realty was not published or updated. Your details are saved, so you can try again without entering them again.</p>
-          <span class="rr-status-meta">Order RRL-BHO-001284 · ₹1,260</span>
+          <span class="rr-status-meta rr-order-meta">
+            <span>Order RRL-BHO-001284</span>
+            <button class="rr-copy-order" type="button" data-rr-copy-order="RRL-BHO-001284" aria-label="Copy order number" title="Copy order number">
+              <svg class="rr-icon" data-rr-copy-icon viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg class="rr-icon" data-rr-copied-icon viewBox="0 0 24 24" aria-hidden="true" hidden><path d="m5 12 4 4L19 6"/></svg>
+            </button>
+          </span>
           <div class="rr-status-actions">
             <button class="rr-button rr-button-primary" type="button" data-rr-retry>Try payment again</button>
             <a class="rr-button rr-button-quiet" href="./realrank-locked-terracotta.html">Edit listing details</a>
@@ -95,12 +107,51 @@
       window.clearTimeout(window.rrToastTimer);
       window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
     }
+    function rrFallbackCopy(rrValue) {
+      const rrTemporary = document.createElement('textarea');
+      rrTemporary.value = rrValue;
+      rrTemporary.setAttribute('readonly', '');
+      rrTemporary.style.position = 'fixed';
+      rrTemporary.style.opacity = '0';
+      document.body.append(rrTemporary);
+      rrTemporary.select();
+      const rrCopied = document.execCommand('copy');
+      rrTemporary.remove();
+      return rrCopied;
+    }
+    async function rrCopyOrder(rrButton) {
+      const rrOrderNumber = rrButton.dataset.rrCopyOrder;
+      let rrCopied = false;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(rrOrderNumber);
+          rrCopied = true;
+        } else {
+          rrCopied = rrFallbackCopy(rrOrderNumber);
+        }
+      } catch (rrError) {
+        rrCopied = rrFallbackCopy(rrOrderNumber);
+      }
+      if (!rrCopied) { rrNotify('Could not copy the order number.'); return; }
+      rrButton.querySelector('[data-rr-copy-icon]').hidden = true;
+      rrButton.querySelector('[data-rr-copied-icon]').hidden = false;
+      rrButton.setAttribute('aria-label', 'Order number copied');
+      rrButton.title = 'Order number copied';
+      rrNotify('Order number copied.');
+      window.setTimeout(() => {
+        rrButton.querySelector('[data-rr-copy-icon]').hidden = false;
+        rrButton.querySelector('[data-rr-copied-icon]').hidden = true;
+        rrButton.setAttribute('aria-label', 'Copy order number');
+        rrButton.title = 'Copy order number';
+      }, 1800);
+    }
     function rrMarkChecked() {
       rrStatusChecks += 1;
       rrAutoStatus.textContent = rrStatusChecks > 1 ? 'Still checking automatically…' : 'Checked just now · continuing automatically';
       if (rrStatusChecks > 1) rrDelayHelp.hidden = false;
     }
     rrTabs.forEach((rrTab) => rrTab.addEventListener('click', () => rrShowState(rrTab.dataset.rrState)));
+    document.querySelectorAll('[data-rr-copy-order]').forEach((rrButton) => rrButton.addEventListener('click', () => rrCopyOrder(rrButton)));
     document.querySelector('[data-rr-check]').addEventListener('click', () => { rrMarkChecked(); rrNotify('Payment is still awaiting secure confirmation.'); });
     document.querySelector('[data-rr-retry]').addEventListener('click', () => rrNotify('Reopening secure Razorpay Checkout with the same verified amount…'));
     window.setTimeout(rrMarkChecked, 5000);
