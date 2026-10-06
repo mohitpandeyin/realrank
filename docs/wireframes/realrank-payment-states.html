@@ -15,7 +15,7 @@
         <a class="rr-nav-link" href="./realrank-locked-terracotta.html">Back to index</a>
         <span class="rr-city-pill">
           <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
-          <span data-rr-city-label>Bhopal</span>
+          <span>Bhopal</span>
         </span>
       </div>
     </nav>
@@ -31,25 +31,22 @@
         </div>
       </div>
 
-      <div class="rr-checkout-context" aria-label="Choose checkout example">
-        <span>Checkout example</span>
-        <div class="rr-state-tabs">
-          <button class="rr-state-tab" type="button" aria-pressed="false" data-rr-scenario="existing">Existing city</button>
-          <button class="rr-state-tab" type="button" aria-pressed="true" data-rr-scenario="opening">Opening a city</button>
-        </div>
-      </div>
-
       <section class="rr-card rr-status-view" data-rr-panel="processing">
         <div class="rr-card-body">
           <div class="rr-status-icon rr-processing"><span class="rr-spinner" aria-hidden="true"></span></div>
           <h1 class="rr-status-title">Confirming your payment</h1>
-          <p class="rr-status-copy" data-rr-processing-copy>Your bank may have completed the payment, but RealRank is waiting for secure confirmation. The listing and Bhopal index remain unpublished until confirmation arrives.</p>
-          <span class="rr-status-meta" data-rr-order-meta>Order RRL-BHO-001284 · ₹1,260</span>
+          <p class="rr-status-copy">We’re waiting for secure confirmation from your bank. RealRank will publish or update Aarambh Realty automatically once payment is confirmed.</p>
+          <span class="rr-status-meta">Order RRL-BHO-001284 · ₹1,260</span>
+          <p class="rr-payment-auto-status" role="status" aria-live="polite"><span class="rr-live-dot" aria-hidden="true"></span><span data-rr-auto-status>Checking automatically…</span></p>
+          <div class="rr-payment-warning">
+            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5m0 3h.01"/></svg>
+            <span><strong>Don’t pay again yet.</strong> Nothing will be published or added to the Rank total until confirmation.</span>
+          </div>
           <div class="rr-status-actions">
-            <button class="rr-button rr-button-quiet" type="button" data-rr-check>Check status</button>
+            <button class="rr-button rr-button-quiet" type="button" data-rr-check>Check again</button>
             <a class="rr-button rr-button-secondary" href="./realrank-locked-terracotta.html">Return to index</a>
           </div>
-          <p class="rr-section-copy">Do not pay again while confirmation is pending. The Rank total and city listing change only after the payment webhook is verified.</p>
+          <p class="rr-section-copy rr-payment-support" data-rr-delay-help hidden>Still confirming payment. You can safely leave this page and contact <a href="#">Support</a> with the order number if you need help.</p>
         </div>
       </section>
 
@@ -59,14 +56,14 @@
             <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/></svg>
           </div>
           <span class="rr-badge rr-badge-danger">No payment captured</span>
-          <h1 class="rr-status-title">Payment was not completed</h1>
-          <p class="rr-status-copy" data-rr-failed-copy>No payment was captured, so no listing, Rank total or Bhopal city page was created. You can retry the same order without re-entering the entity details.</p>
-          <span class="rr-status-meta" data-rr-failed-order-meta>Order RRL-BHO-001284 · ₹1,260</span>
+          <h1 class="rr-status-title">Payment couldn’t be completed</h1>
+          <p class="rr-status-copy">Aarambh Realty was not published or updated. Your details are saved, so you can try again without entering them again.</p>
+          <span class="rr-status-meta">Order RRL-BHO-001284 · ₹1,260</span>
           <div class="rr-status-actions">
-            <button class="rr-button rr-button-primary" type="button" data-rr-retry>Retry payment</button>
+            <button class="rr-button rr-button-primary" type="button" data-rr-retry>Try payment again</button>
             <a class="rr-button rr-button-quiet" href="./realrank-locked-terracotta.html">Edit listing details</a>
           </div>
-          <p class="rr-section-copy">If money was debited, do not retry immediately. Check payment status first or contact support with the order number.</p>
+          <p class="rr-section-copy rr-payment-support">If your bank shows a debit, don’t retry yet. Contact <a href="#">Support</a> with the order number.</p>
         </div>
       </section>
     </div>
@@ -83,9 +80,10 @@
   <script>
     const rrTabs = [...document.querySelectorAll('[data-rr-state]')];
     const rrPanels = [...document.querySelectorAll('[data-rr-panel]')];
-    const rrScenarioTabs = [...document.querySelectorAll('[data-rr-scenario]')];
     const rrToast = document.querySelector('.rr-toast');
-    let rrScenario = 'opening';
+    const rrAutoStatus = document.querySelector('[data-rr-auto-status]');
+    const rrDelayHelp = document.querySelector('[data-rr-delay-help]');
+    let rrStatusChecks = 0;
     function rrShowState(rrState) {
       rrTabs.forEach((rrTab) => rrTab.setAttribute('aria-pressed', String(rrTab.dataset.rrState === rrState)));
       rrPanels.forEach((rrPanel) => { rrPanel.hidden = rrPanel.dataset.rrPanel !== rrState; });
@@ -97,27 +95,16 @@
       window.clearTimeout(window.rrToastTimer);
       window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
     }
-    function rrShowScenario(rrNextScenario) {
-      rrScenario = rrNextScenario;
-      const rrOpening = rrScenario === 'opening';
-      const rrCity = rrOpening ? 'Bhopal' : 'Indore';
-      rrScenarioTabs.forEach((rrTab) => rrTab.setAttribute('aria-pressed', String(rrTab.dataset.rrScenario === rrScenario)));
-      document.querySelectorAll('[data-rr-city-label]').forEach((rrLabel) => { rrLabel.textContent = rrCity; });
-      document.querySelector('[data-rr-processing-copy]').textContent = rrOpening
-        ? `Your bank may have completed the payment, but RealRank is waiting for secure confirmation. The listing and ${rrCity} index remain unpublished until confirmation arrives.`
-        : `Your bank may have completed the payment, but RealRank is waiting for secure confirmation. The ${rrCity} listing remains unpublished until confirmation arrives.`;
-      document.querySelector('[data-rr-failed-copy]').textContent = rrOpening
-        ? `No payment was captured, so no listing, Rank total or ${rrCity} city page was created. You can retry the same order without re-entering the entity details.`
-        : `No payment was captured, so no ${rrCity} listing or Rank total was created. You can retry the same order without re-entering the entity details.`;
-      const rrOrder = `Order RRL-${rrOpening ? 'BHO' : 'IND'}-001284 · ₹1,260`;
-      document.querySelector('[data-rr-order-meta]').textContent = rrOrder;
-      document.querySelector('[data-rr-failed-order-meta]').textContent = rrOrder;
+    function rrMarkChecked() {
+      rrStatusChecks += 1;
+      rrAutoStatus.textContent = rrStatusChecks > 1 ? 'Still checking automatically…' : 'Checked just now · continuing automatically';
+      if (rrStatusChecks > 1) rrDelayHelp.hidden = false;
     }
     rrTabs.forEach((rrTab) => rrTab.addEventListener('click', () => rrShowState(rrTab.dataset.rrState)));
-    rrScenarioTabs.forEach((rrTab) => rrTab.addEventListener('click', () => rrShowScenario(rrTab.dataset.rrScenario)));
-    document.querySelector('[data-rr-check]').addEventListener('click', () => rrNotify('Still waiting for secure payment confirmation.'));
+    document.querySelector('[data-rr-check]').addEventListener('click', () => { rrMarkChecked(); rrNotify('Payment is still awaiting secure confirmation.'); });
     document.querySelector('[data-rr-retry]').addEventListener('click', () => rrNotify('Reopening secure Razorpay Checkout with the same verified amount…'));
-    rrShowScenario(rrScenario);
+    window.setTimeout(rrMarkChecked, 5000);
+    window.setTimeout(rrMarkChecked, 10000);
   </script>
 </body>
 </html>
