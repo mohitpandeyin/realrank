@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Get help or report an issue with Realrank.">
+  <meta name="theme-color" content="#20201E">
+  <title>Help &amp; Support — Realrank</title>
+  <link rel="icon" href="../brand/final/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="../brand/final/svg/realrank-icon-micro.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../brand/final/favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../brand/final/favicon/apple-touch-icon.png">
+  <link rel="stylesheet" href="./realrank-flow.css">
+</head>
+<body class="rr-owner-app rr-help-page">
+  <header class="rr-site-header">
+    <nav class="rr-container rr-nav" aria-label="Support navigation">
+      <a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" width="188" height="47" alt="Realrank"></a>
+      <div class="rr-nav-actions">
+        <div class="rr-help-menu-wrap">
+          <button class="rr-account-pill" type="button" aria-label="Open help menu" aria-expanded="false" aria-controls="rr-help-page-menu" data-rr-help-button><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.4 2.4 0 1 1 3.5 2.1c-.9.5-1.3 1-1.3 2M12 17h.01"/></svg><span>Help</span></button>
+          <div class="rr-help-menu" id="rr-help-page-menu" role="menu" data-rr-help-menu hidden><a href="#rr-help-topics" role="menuitem">Get help <span>→</span></a><a href="?intent=report#rr-report-issue" role="menuitem">Report an issue <span>→</span></a><button type="button" role="menuitem" data-rr-ranking-policy>Ranking policy <span>→</span></button></div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="rr-page rr-help-main">
+    <div class="rr-container rr-help-shell">
+      <a class="rr-public-back" href="./realrank-owner-dashboard.html" data-rr-help-back><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span>Back to Home</span></a>
+
+      <header class="rr-help-intro">
+        <h1>Help &amp; Support</h1>
+        <p>Find an answer, get help with a listing, or tell us when something is not working.</p>
+        <nav class="rr-help-shortcuts" aria-label="Help and support sections">
+          <a href="#rr-help-topics">Find an answer</a>
+          <a href="#rr-report-issue">Report an issue</a>
+        </nav>
+      </header>
+
+      <section class="rr-help-section" id="rr-help-topics" aria-labelledby="rr-help-topics-title">
+        <div class="rr-help-section-head">
+          <h2 id="rr-help-topics-title">Get help</h2>
+          <p>Choose the topic closest to what you need.</p>
+        </div>
+        <div class="rr-help-questions">
+          <details class="rr-help-question">
+            <summary>Payment is pending or not confirmed <span aria-hidden="true">+</span></summary>
+            <div><p>If money may have been deducted, do not pay again. Keep the order ID and allow the payment status to update. Report the payment below if it remains pending.</p><a href="?intent=report&amp;type=payment#rr-report-issue">Report this payment</a></div>
+          </details>
+          <details class="rr-help-question">
+            <summary>How Rank total and positions work <span aria-hidden="true">+</span></summary>
+            <div><p>An entity has one Rank total shared across its active cities. Within each city, a higher Rank total appears above a lower one. Position is not a quality score or business verification.</p><button type="button" data-rr-ranking-policy>Read the Ranking Policy</button></div>
+          </details>
+          <details class="rr-help-question">
+            <summary>Manage a listing or public profile <span aria-hidden="true">+</span></summary>
+            <div><p>Use Home to update public details, cities and portfolio items. A changed public contact number must be verified before it is published.</p><a href="./realrank-owner-dashboard.html">Open entity Home</a></div>
+          </details>
+          <details class="rr-help-question">
+            <summary>Change cities or categories <span aria-hidden="true">+</span></summary>
+            <div><p>Each entity includes up to three active city slots. Cities and their categories can be updated from the Cities section without changing the shared Rank total.</p><a href="./realrank-owner-dashboard.html#rr-owner-cities">Manage cities</a></div>
+          </details>
+          <details class="rr-help-question">
+            <summary>Phone verification or account access <span aria-hidden="true">+</span></summary>
+            <div><p>Realrank uses the verified owner number for account access. WhatsApp is the primary OTP channel and SMS is available as a fallback.</p><a href="?intent=report&amp;type=account#rr-report-issue">Get account help</a></div>
+          </details>
+          <details class="rr-help-question">
+            <summary>Contact an entity <span aria-hidden="true">+</span></summary>
+            <div><p>Use Contact on the public profile to reach the entity through its published number. Realrank does not confirm availability, pricing or property details.</p><a href="./realrank-entity-profile.html">View a public profile</a></div>
+          </details>
+        </div>
+        <div class="rr-help-contact-row">
+          <span><strong>Still need help?</strong><small>Send your question with the relevant listing or order details.</small></span>
+          <a class="rr-button rr-button-secondary" href="?intent=report&amp;type=other#rr-report-issue">Contact support</a>
+        </div>
+      </section>
+
+      <section class="rr-help-section" id="rr-report-issue" aria-labelledby="rr-report-title">
+        <div class="rr-help-section-head">
+          <h2 id="rr-report-title">Report an issue</h2>
+          <p>Tell us what happened. We will include the current page and signed-in entity automatically.</p>
+        </div>
+        <form class="rr-issue-form" data-rr-issue-form novalidate>
+          <div>
+            <label class="rr-label" for="rr-issue-type">What do you need help with?</label>
+            <select class="rr-select" id="rr-issue-type" name="issue-type" data-rr-issue-type required>
+              <option value="">Choose an issue</option>
+              <option value="payment">Payment</option>
+              <option value="listing">Listing or profile</option>
+              <option value="rank">Rank total or position</option>
+              <option value="account">Account or phone verification</option>
+              <option value="city">City or category</option>
+              <option value="content">Incorrect or abusive content</option>
+              <option value="technical">Technical problem</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="rr-payment-help" data-rr-payment-help hidden>
+            <strong>Do not pay again if money may have been deducted.</strong>
+            <span>Share the order ID so support can trace the payment.</span>
+          </div>
+
+          <div data-rr-order-field hidden>
+            <label class="rr-label" for="rr-order-id">Order ID <span class="rr-label-note">optional</span></label>
+            <input class="rr-input" id="rr-order-id" name="order-id" type="text" placeholder="For example, order_RR849214" autocomplete="off">
+          </div>
+
+          <div>
+            <label class="rr-label" for="rr-issue-description">What happened?</label>
+            <textarea class="rr-textarea" id="rr-issue-description" name="description" rows="5" maxlength="1000" placeholder="Describe the problem and what you expected to happen." required></textarea>
+          </div>
+
+          <div>
+            <label class="rr-label" for="rr-issue-file">Add a screenshot <span class="rr-label-note">optional</span></label>
+            <label class="rr-file-input" for="rr-issue-file"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.4 11.6 12 21a6 6 0 0 1-8.5-8.5l10-10a4 4 0 0 1 5.7 5.7L9.1 18.3a2 2 0 1 1-2.8-2.8l9.2-9.2"/></svg><span data-rr-file-name>Choose an image</span></label>
+            <input class="rr-sr-only" id="rr-issue-file" name="screenshot" type="file" accept="image/png,image/jpeg,image/webp" data-rr-issue-file>
+            <p class="rr-field-hint">PNG, JPG or WebP up to 5 MB.</p>
+          </div>
+
+          <div>
+            <label class="rr-label" for="rr-support-phone">Mobile number</label>
+            <div class="rr-phone-input"><span>+91</span><input class="rr-phone-number" id="rr-support-phone" name="phone" type="tel" inputmode="numeric" value="9876543210" maxlength="10" pattern="[6-9][0-9]{9}" autocomplete="tel-national" required></div>
+            <p class="rr-field-hint">We will use this verified number to reply about this issue.</p>
+          </div>
+
+          <p class="rr-support-privacy"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M12 8v4M12 16h.01"/></svg><span>Never include an OTP, password, UPI PIN or card details.</span></p>
+          <button class="rr-button rr-button-primary rr-issue-submit" type="submit">Submit issue</button>
+        </form>
+
+        <div class="rr-issue-success" role="status" tabindex="-1" data-rr-issue-success hidden>
+          <span class="rr-status-icon rr-success"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>
+          <div><h3>Issue submitted</h3><p>We received your report. Keep reference <strong>RR-10428</strong> if you contact support again.</p></div>
+          <a class="rr-button rr-button-secondary" href="./realrank-owner-dashboard.html">Back to Home</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <aside class="rr-sidebar" aria-label="Owner navigation" data-rr-help-owner-nav>
+    <nav class="rr-sidebar-nav" aria-label="Manage entity">
+      <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html#rr-owner-home"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>Home</a>
+      <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html#rr-owner-portfolio"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 5V3h8v2M3 11h18"/></svg>Portfolio</a>
+      <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html#rr-owner-rank"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7"/></svg>Rank</a>
+      <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html?open=account"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</a>
+    </nav>
+  </aside>
+
+  <div class="rr-toast" role="status" hidden></div>
+
+  <script>
+    const rrToast = document.querySelector('.rr-toast');
+    function rrShowToast(rrMessage) {
+      rrToast.textContent = rrMessage;
+      rrToast.hidden = false;
+      window.clearTimeout(window.rrToastTimer);
+      window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
+    }
+
+    const rrHelpButton = document.querySelector('[data-rr-help-button]');
+    const rrHelpMenu = document.querySelector('[data-rr-help-menu]');
+    function rrCloseHelp() { rrHelpMenu.hidden = true; rrHelpButton.setAttribute('aria-expanded', 'false'); }
+    rrHelpButton.addEventListener('click', () => {
+      const rrWillOpen = rrHelpMenu.hidden;
+      rrHelpMenu.hidden = !rrWillOpen;
+      rrHelpButton.setAttribute('aria-expanded', String(rrWillOpen));
+      if (rrWillOpen) rrHelpMenu.querySelector('[role="menuitem"]').focus();
+    });
+    document.addEventListener('click', (rrEvent) => { if (!rrEvent.target.closest('.rr-help-menu-wrap')) rrCloseHelp(); });
+    document.addEventListener('keydown', (rrEvent) => { if (rrEvent.key === 'Escape') { rrCloseHelp(); rrHelpButton.focus(); } });
+    document.querySelectorAll('[data-rr-ranking-policy]').forEach((rrButton) => rrButton.addEventListener('click', () => { rrCloseHelp(); rrShowToast('Ranking Policy would open here.'); }));
+
+    document.querySelectorAll('.rr-help-question').forEach((rrQuestion) => rrQuestion.addEventListener('toggle', () => {
+      if (!rrQuestion.open) return;
+      document.querySelectorAll('.rr-help-question').forEach((rrOther) => { if (rrOther !== rrQuestion) rrOther.open = false; });
+    }));
+
+    const rrIssueForm = document.querySelector('[data-rr-issue-form]');
+    const rrIssueType = document.querySelector('[data-rr-issue-type]');
+    const rrPaymentHelp = document.querySelector('[data-rr-payment-help]');
+    const rrOrderField = document.querySelector('[data-rr-order-field]');
+    const rrFileInput = document.querySelector('[data-rr-issue-file]');
+    const rrFileName = document.querySelector('[data-rr-file-name]');
+    const rrIssueSuccess = document.querySelector('[data-rr-issue-success]');
+
+    function rrUpdateIssueType() {
+      const rrIsPayment = rrIssueType.value === 'payment';
+      rrPaymentHelp.hidden = !rrIsPayment;
+      rrOrderField.hidden = !rrIsPayment;
+    }
+    rrIssueType.addEventListener('change', rrUpdateIssueType);
+    rrFileInput.addEventListener('change', () => {
+      const rrFile = rrFileInput.files[0];
+      if (!rrFile) { rrFileName.textContent = 'Choose an image'; return; }
+      if (rrFile.size > 5 * 1024 * 1024) {
+        rrFileInput.value = '';
+        rrFileName.textContent = 'Choose an image';
+        rrShowToast('Choose an image smaller than 5 MB.');
+        return;
+      }
+      rrFileName.textContent = rrFile.name;
+    });
+
+    const rrParams = new URLSearchParams(window.location.search);
+    if (rrParams.get('context') === 'public') {
+      document.body.classList.remove('rr-owner-app');
+      document.body.classList.add('rr-help-public-context');
+      document.querySelector('[data-rr-help-owner-nav]').hidden = true;
+      const rrBack = document.querySelector('[data-rr-help-back]');
+      rrBack.href = './realrank-entity-profile.html';
+      rrBack.querySelector('span').textContent = 'Back to listing';
+    }
+    const rrRequestedType = rrParams.get('type');
+    const rrAllowedTypes = [...rrIssueType.options].map((rrOption) => rrOption.value);
+    if (rrAllowedTypes.includes(rrRequestedType)) rrIssueType.value = rrRequestedType;
+    rrUpdateIssueType();
+    if (rrParams.get('intent') === 'report') {
+      window.requestAnimationFrame(() => {
+        document.querySelector('#rr-report-issue').scrollIntoView({ block: 'start' });
+        rrIssueType.focus({ preventScroll: true });
+      });
+    }
+
+    rrIssueForm.addEventListener('submit', (rrEvent) => {
+      rrEvent.preventDefault();
+      if (!rrIssueForm.reportValidity()) return;
+      rrIssueForm.hidden = true;
+      rrIssueSuccess.hidden = false;
+      rrIssueSuccess.focus();
+    });
+  </script>
+</body>
+</html>

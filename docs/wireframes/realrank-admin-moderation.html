@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#20201E">
+  <title>Moderation queue — Realrank</title>
+  <link rel="icon" href="../brand/final/favicon/favicon.ico" sizes="any"><link rel="stylesheet" href="./realrank-flow.css">
+</head>
+<body class="rr-admin-page">
+  <header class="rr-site-header"><nav class="rr-container rr-nav" aria-label="Admin navigation"><a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" width="188" height="47" alt="Realrank"></a><span class="rr-admin-label">Internal moderation</span></nav></header>
+  <main class="rr-page">
+    <div class="rr-container rr-admin-shell">
+      <header class="rr-admin-head"><div><span class="rr-eyebrow">Operations</span><h1>Review queue</h1><p>Resolve only the items that need human judgment. Payments and ranks remain server-authoritative.</p></div><div class="rr-admin-count"><strong data-rr-visible-count>6</strong><span>open</span></div></header>
+      <nav class="rr-admin-filters" aria-label="Filter moderation queue">
+        <button type="button" aria-pressed="true" data-rr-admin-filter="all">All</button><button type="button" aria-pressed="false" data-rr-admin-filter="city">New city</button><button type="button" aria-pressed="false" data-rr-admin-filter="duplicate">Possible duplicate</button><button type="button" aria-pressed="false" data-rr-admin-filter="content">Content</button><button type="button" aria-pressed="false" data-rr-admin-filter="payment">Payment</button>
+      </nav>
+      <section class="rr-admin-queue" aria-label="Items awaiting review">
+        <article class="rr-admin-row" data-rr-admin-type="city"><span class="rr-admin-type">New city</span><div><strong>Satna, Madhya Pradesh</strong><p>First listing: Horizon Property Desk · matched LGD catalogue record</p></div><time>8 min</time><button type="button" data-rr-review data-title="Open Satna city">Review</button></article>
+        <article class="rr-admin-row" data-rr-admin-type="duplicate"><span class="rr-admin-type">Possible duplicate</span><div><strong>Aarambh Realty</strong><p>Similar name and phone to an existing Bhopal entity</p></div><time>21 min</time><button type="button" data-rr-review data-title="Review possible duplicate">Review</button></article>
+        <article class="rr-admin-row" data-rr-admin-type="content"><span class="rr-admin-type">Media</span><div><strong>Current launch opportunities</strong><p>New portfolio cover image awaiting publication</p></div><time>34 min</time><button type="button" data-rr-review data-title="Review portfolio image">Review</button></article>
+        <article class="rr-admin-row" data-rr-admin-type="content"><span class="rr-admin-type">Report</span><div><strong>Incorrect property details</strong><p>Public report on MP Nagar office collection · RR-SUP-1042</p></div><time>1 hr</time><button type="button" data-rr-review data-title="Review reported content">Review</button></article>
+        <article class="rr-admin-row" data-rr-admin-type="payment"><span class="rr-admin-type">Payment</span><div><strong>Duplicate capture review</strong><p>Two captured gateway payments reference the same pending checkout</p></div><time>2 hr</time><button type="button" data-rr-review data-title="Review payment exception">Review</button></article>
+        <article class="rr-admin-row" data-rr-admin-type="city"><span class="rr-admin-type">City match</span><div><strong>Rajahmundry, Andhra Pradesh</strong><p>User chose alias; canonical city is Rajamahendravaram</p></div><time>4 hr</time><button type="button" data-rr-review data-title="Resolve city match">Review</button></article>
+      </section>
+      <p class="rr-admin-empty" data-rr-admin-empty hidden>No open items in this queue.</p>
+    </div>
+  </main>
+  <dialog class="rr-owner-dialog rr-admin-review-dialog" aria-labelledby="rr-admin-review-title">
+    <div class="rr-owner-dialog-inner"><div class="rr-owner-dialog-head"><div><h2 id="rr-admin-review-title">Review item</h2><p>Confirm the evidence before changing public state.</p></div><button class="rr-owner-dialog-close" type="button" aria-label="Close review" data-rr-admin-close>×</button></div>
+      <div class="rr-admin-review-body"><dl><div><dt>Submitted value</dt><dd data-rr-admin-subject>—</dd></div><div><dt>Automated checks</dt><dd>Payment signature valid · no sanctions match · source record available</dd></div><div><dt>Audit note</dt><dd><textarea class="rr-textarea" rows="3" placeholder="Optional internal note"></textarea></dd></div></dl><p>Approval publishes only eligible content. It does not alter captured payment amounts or manually set a rank.</p></div>
+      <div class="rr-owner-dialog-actions"><button class="rr-button rr-button-danger" type="button" data-rr-admin-resolve="Rejected">Reject</button><button class="rr-button rr-button-quiet" type="button" data-rr-admin-resolve="Changes requested">Request changes</button><button class="rr-button rr-button-primary" type="button" data-rr-admin-resolve="Approved">Approve</button></div>
+    </div>
+  </dialog>
+  <div class="rr-toast" role="status" hidden></div>
+  <script>
+    const rrRows = [...document.querySelectorAll('.rr-admin-row')];
+    const rrFilters = [...document.querySelectorAll('[data-rr-admin-filter]')];
+    const rrDialog = document.querySelector('.rr-admin-review-dialog');
+    const rrToast = document.querySelector('.rr-toast');
+    let rrActiveRow = null;
+    function rrUpdateCount() { const rrVisible = rrRows.filter((rrRow) => !rrRow.hidden).length; document.querySelector('[data-rr-visible-count]').textContent = rrVisible; document.querySelector('[data-rr-admin-empty]').hidden = rrVisible !== 0; }
+    rrFilters.forEach((rrButton) => rrButton.addEventListener('click', () => { rrFilters.forEach((rrOther) => rrOther.setAttribute('aria-pressed', String(rrOther === rrButton))); rrRows.forEach((rrRow) => { rrRow.hidden = rrButton.dataset.rrAdminFilter !== 'all' && rrRow.dataset.rrAdminType !== rrButton.dataset.rrAdminFilter; }); rrUpdateCount(); }));
+    document.querySelectorAll('[data-rr-review]').forEach((rrButton) => rrButton.addEventListener('click', () => { rrActiveRow = rrButton.closest('.rr-admin-row'); document.querySelector('#rr-admin-review-title').textContent = rrButton.dataset.title; document.querySelector('[data-rr-admin-subject]').textContent = rrActiveRow.querySelector('strong').textContent; rrDialog.showModal(); }));
+    document.querySelector('[data-rr-admin-close]').addEventListener('click', () => rrDialog.close());
+    rrDialog.addEventListener('click', (rrEvent) => { if (rrEvent.target === rrDialog) rrDialog.close(); });
+    document.querySelectorAll('[data-rr-admin-resolve]').forEach((rrButton) => rrButton.addEventListener('click', () => { if (rrActiveRow) rrActiveRow.remove(); rrDialog.close(); rrToast.textContent = `${rrButton.dataset.rrAdminResolve}. Audit history retained.`; rrToast.hidden = false; window.setTimeout(() => { rrToast.hidden = true; }, 2600); rrUpdateCount(); }));
+  </script>
+</body>
+</html>

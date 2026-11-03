@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Access your Realrank entity profile."><meta name="theme-color" content="#20201E">
+  <title>Owner access — Realrank</title>
+  <link rel="icon" href="../brand/final/favicon/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="../brand/final/svg/realrank-icon-micro.svg"><link rel="stylesheet" href="./realrank-flow.css">
+</head>
+<body>
+  <header class="rr-site-header"><nav class="rr-container rr-nav" aria-label="Account access"><a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" width="188" height="47" alt="Realrank"></a><a class="rr-account-pill" href="./realrank-help-support.html?context=public"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.4 2.4 0 1 1 3.5 2.1c-.9.5-1.3 1-1.3 2M12 17h.01"/></svg><span>Help</span></a></nav></header>
+  <main class="rr-auth-main">
+    <div class="rr-narrow rr-auth-shell">
+      <a class="rr-public-back" href="./realrank-locked-terracotta.html"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back to index</a>
+      <section class="rr-auth-panel" aria-labelledby="rr-access-title">
+        <div data-rr-phone-step>
+          <h1 id="rr-access-title">Manage your entity</h1>
+          <p>Use the verified owner number linked to your Realrank listing.</p>
+          <form class="rr-auth-form" data-rr-access-form novalidate>
+            <div><label class="rr-label" for="rr-access-phone">Mobile number</label><div class="rr-phone-input"><span>+91</span><input class="rr-phone-number" id="rr-access-phone" type="tel" inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" autocomplete="tel-national" placeholder="10-digit mobile number" required></div></div>
+            <button class="rr-button rr-button-primary rr-button-block" type="submit">Send code on WhatsApp</button>
+            <button class="rr-text-button rr-auth-alt" type="button" data-rr-use-sms>Send by SMS instead</button>
+          </form>
+        </div>
+        <div data-rr-code-step hidden>
+          <h1>Enter verification code</h1>
+          <div class="rr-auth-delivery-line"><p data-rr-code-copy>We sent a code by WhatsApp to +91 ••••••3210.</p><button class="rr-text-button" type="button" data-rr-change-number>Change</button></div>
+          <form class="rr-auth-form" data-rr-code-form novalidate>
+            <div><label class="rr-label" for="rr-access-code">6-digit code</label><input class="rr-input rr-auth-code" id="rr-access-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required></div>
+            <button class="rr-button rr-button-primary rr-button-block" type="submit">Verify and continue</button>
+            <div class="rr-auth-links rr-auth-links-single"><button class="rr-text-button" type="button" data-rr-resend>Resend code</button></div>
+            <p class="rr-auth-channel-fallback"><span data-rr-fallback-question>Didn’t receive it on WhatsApp?</span> <button class="rr-text-button" type="button" data-rr-switch-channel>Send by SMS</button></p>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div class="rr-toast" role="status" hidden></div>
+  <script>
+    const rrPhoneStep = document.querySelector('[data-rr-phone-step]');
+    const rrCodeStep = document.querySelector('[data-rr-code-step]');
+    const rrPhone = document.querySelector('#rr-access-phone');
+    const rrToast = document.querySelector('.rr-toast');
+    let rrChannel = 'WhatsApp';
+    function rrShowToast(rrText) { rrToast.textContent = rrText; rrToast.hidden = false; window.clearTimeout(window.rrToastTimer); window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600); }
+    function rrRenderChannelFallback() { const rrOtherChannel = rrChannel === 'WhatsApp' ? 'SMS' : 'WhatsApp'; document.querySelector('[data-rr-fallback-question]').textContent = `Didn’t receive it on ${rrChannel}?`; document.querySelector('[data-rr-switch-channel]').textContent = `Send by ${rrOtherChannel}`; }
+    function rrOpenCodeStep() { rrPhoneStep.hidden = true; rrCodeStep.hidden = false; document.querySelector('[data-rr-code-copy]').textContent = `We sent a code by ${rrChannel} to +91 ••••••${rrPhone.value.slice(-4)}.`; rrRenderChannelFallback(); document.querySelector('#rr-access-code').focus(); }
+    document.querySelector('[data-rr-access-form]').addEventListener('submit', (rrEvent) => { rrEvent.preventDefault(); if (!rrEvent.currentTarget.reportValidity()) return; rrOpenCodeStep(); });
+    document.querySelector('[data-rr-use-sms]').addEventListener('click', () => { rrChannel = 'SMS'; if (document.querySelector('[data-rr-access-form]').reportValidity()) rrOpenCodeStep(); });
+    document.querySelector('[data-rr-change-number]').addEventListener('click', () => { rrCodeStep.hidden = true; rrPhoneStep.hidden = false; rrPhone.focus(); });
+    document.querySelector('[data-rr-resend]').addEventListener('click', () => rrShowToast(`A new code was sent by ${rrChannel}.`));
+    document.querySelector('[data-rr-switch-channel]').addEventListener('click', () => { rrChannel = rrChannel === 'WhatsApp' ? 'SMS' : 'WhatsApp'; document.querySelector('[data-rr-code-copy]').textContent = `We sent a code by ${rrChannel} to +91 ••••••${rrPhone.value.slice(-4)}.`; rrRenderChannelFallback(); rrShowToast(`A code was sent by ${rrChannel}.`); });
+    document.querySelector('[data-rr-code-form]').addEventListener('submit', (rrEvent) => { rrEvent.preventDefault(); if (!rrEvent.currentTarget.reportValidity()) return; window.location.href = './realrank-owner-dashboard.html'; });
+  </script>
+</body>
+</html>
