@@ -1,9 +1,10 @@
-# RealRank — Master Product Plan & Technical Direction
+# Realrank — Master Product Plan & Technical Direction
 
 > **Status:** Current product source of truth
-> **Last updated:** 16 September 2026
+> **Last updated:** 3 November 2026
 > **Launch market:** Indore first, designed for expansion across India
 > **Public headline:** The Real Estate Discovery Index of Companies & Marketers.
+> **Locked brand kit:** [`docs/brand/final`](docs/brand/final/README.md)
 > **Locked landing wireframe:** [`docs/wireframes/realrank-locked-terracotta.html`](docs/wireframes/realrank-locked-terracotta.html)
 > **Draft flow wireframes for review:** [payment states](docs/wireframes/realrank-payment-states.html) · [payment success + phone OTP](docs/wireframes/realrank-payment-success-otp.html) · [owner dashboard](docs/wireframes/realrank-owner-dashboard.html) · [public entity profile](docs/wireframes/realrank-entity-profile.html)
 
@@ -11,16 +12,34 @@
 
 ## 1. Product definition
 
-RealRank is a public real-estate entity index and portfolio-profile platform.
+Realrank is a public real-estate entity index and portfolio-profile platform.
 
-Real-estate companies and marketers can pay for prominent sponsored positions. Public visitors can browse the index, open entity profiles and contact an entity directly by phone or WhatsApp. RealRank does not charge visitors, take a commission on property transactions or act as a lead-distribution middleman.
+Real-estate companies and marketers can pay for prominent sponsored positions. Public visitors can browse the index, open entity profiles and contact an entity directly by phone or WhatsApp. Realrank does not charge visitors, take a commission on property transactions or act as a lead-distribution middleman.
 
 The core product has two connected functions:
 
-1. **RealRank Index:** entities are presented in sponsored order according to their cumulative ranking amount.
+1. **Realrank Index:** entities are presented in sponsored order according to their cumulative ranking amount.
 2. **Portfolio Hub:** each entity may maintain an optional public profile and portfolio after its basic index listing is created.
 
 The ranking is a visibility mechanism, not a quality score, recommendation, review score or business-verification system.
+
+### Locked brand identity
+
+The official spelling is **Realrank**, with only the initial **R** capitalised. The previous camel-case spelling **RealRank** is retired. Apply **Realrank** consistently in the wordmark, interface copy, metadata, accessibility labels, policies, support communication and structured data. Continue using lowercase `realrank` for routes, domains, filenames, package or database identifiers, and retain the `rr-` CSS prefix.
+
+The approved Realrank identity is the parcel-R and ascending-skyline mark in [`docs/brand/final`](docs/brand/final/README.md). The icon combines property parcels, an abstract **R** and upward movement without adding a literal trophy or rank badge. Charcoal `#20201E` provides a premium, data-led institutional tone; terracotta `#C65D2E` connects the identity to the existing product action colour; warm cream `#F7F5F0` and ink `#171A18` support light and monochrome applications.
+
+Use the supplied assets rather than rebuilding the mark:
+
+- public and signed-in headers: `svg/realrank-logo-horizontal.svg`; its generous internal clear space means the wireframes reserve a 188 × 47px desktop box and 172 × 43px narrow-screen box while the visible lockup remains compact;
+- normal standalone icon placements: `svg/realrank-icon.svg`;
+- browser tabs and other sub-32px placements: `svg/realrank-icon-micro.svg` or the supplied 16/32px favicon exports;
+- dark surfaces: the matching `-white` variant;
+- one-colour output: the matching `-mono-dark` variant.
+
+Always reserve the asset's intrinsic aspect ratio, keep the clear space defined in the brand-kit README, use `alt="Realrank"` and name a linked logo **Realrank home**. Do not recolour supplied files with CSS, add `#1`, a trophy or another property symbol, place the full wordmark where it becomes illegible, or substitute the retired rounded-square **RR** placeholder. Terracotta remains the primary-action colour in the locked UI; charcoal establishes the identity and typography without becoming a competing CTA colour. The brand favicon and charcoal `theme-color` must ship on public, payment, owner and profile routes.
+
+Before production, convert the live `<text>` wordmark in the horizontal, stacked and standalone wordmark SVGs to vector outlines, or embed the approved font inside those files. Otherwise devices without Inter Tight may render fallback lettering. The icon-only SVGs are already path-based; the high-resolution PNG/WebP lockups are the stable interim fallback when exact typography is required.
 
 ### Product principles
 
@@ -32,7 +51,7 @@ The ranking is a visibility mechanism, not a quality score, recommendation, revi
 - **Optional depth:** categories, description and portfolio content improve the profile but do not block the minimum listing.
 - **Location-scalable brand:** the headline and brand do not name Indore; city selection provides local context.
 - **One shared ranking investment:** an entity has one cumulative Rank total across the cities where it is active; city and category views have different competitors, not separate ranking wallets.
-- **No commission:** RealRank earns from ranking payments made by professional entities, not from visitors or property transactions.
+- **No commission:** Realrank earns from ranking payments made by professional entities, not from visitors or property transactions.
 
 ---
 
@@ -40,7 +59,7 @@ The ranking is a visibility mechanism, not a quality score, recommendation, revi
 
 ### Public audience
 
-Anyone may use RealRank to discover and contact real-estate entities. The public experience is free and requires no login.
+Anyone may use Realrank to discover and contact real-estate entities. The public experience is free and requires no login.
 
 ### Paying audience
 
@@ -87,7 +106,7 @@ The interface may show the amount required to claim rank #1 next to the Rank Amo
 
 ### Minimum publishable entity
 
-After captured payment, RealRank can create a minimal public listing using:
+After captured payment, Realrank can create a minimal public listing using:
 
 - entity name;
 - configured contact method and contact number;
@@ -129,7 +148,7 @@ Categories describe what the entity deals in. The MVP taxonomy is:
 
 An entity may select multiple categories for each city in which it is active. Category choices may be corrected by the entity owner or platform moderation if they are misleading.
 
-**Auction Properties** is a secondary specialisation category and belongs in the More category island at launch. It means the entity deals in auction-property opportunities; it does not mean RealRank conducts the auction or accepts property bids. Use **Bank Auction** later as a portfolio-level tag when the auctioning authority is a bank. Keep Rank Amount terminology visually and verbally separate from any bid made to an auctioning authority.
+**Auction Properties** is a secondary specialisation category and belongs in the More category island at launch. It means the entity deals in auction-property opportunities; it does not mean Realrank conducts the auction or accepts property bids. Use **Bank Auction** later as a portfolio-level tag when the auctioning authority is a bank. Keep Rank Amount terminology visually and verbally separate from any bid made to an auctioning authority.
 
 ### What the index card does not require
 
@@ -158,7 +177,7 @@ Detailed properties belong on the optional entity profile, not in the minimum in
 - An entity may have one active listing per city it actually serves. Three active-city slots are included with entry; a fourth or later simultaneous city requires a purchased additional slot.
 - Categories are eligibility and discovery filters, not separate paid balances or pools. Category selection may differ by city.
 
-Example: an entity with a ₹500 shared Rank total may be #3 in Indore and #1 in Bhopal because each city contains different competitors. A ₹200 top-up raises its shared Rank total to ₹700 in both views. RealRank must not show a paid nationwide or state-wide ordinal rank.
+Example: an entity with a ₹500 shared Rank total may be #3 in Indore and #1 in Bhopal because each city contains different competitors. A ₹200 top-up raises its shared Rank total to ₹700 in both views. Realrank must not show a paid nationwide or state-wide ordinal rank.
 
 ### Editable city slots and coverage
 
@@ -225,7 +244,7 @@ Do not add generic feature grids, testimonial carousels, newsletter forms or rep
 
 Header navigation contains:
 
-- RealRank wordmark;
+- Realrank wordmark;
 - Categories;
 - How it works;
 - Login; and
@@ -249,13 +268,13 @@ After the entire hero has scrolled above the viewport, show a small bottom-centr
 
 ### Section title
 
-Use **RealRank Index**. Do not append Indore to this section heading during the single-city launch because the custom city selector and launch-status pill already establish the location. Future city pages retain the same section heading and establish location through their page context.
+Use **Realrank Index**. Do not append Indore to this section heading during the single-city launch because the custom city selector and launch-status pill already establish the location. Future city pages retain the same section heading and establish location through their page context.
 
 Supporting explanation:
 
 > Discover real estate companies and marketers, explore portfolios, and connect directly.
 
-Desktop may show the quiet disclosure **Sponsored ranking · not a quality score or recommendation** opposite the heading. Do not show a listing-count label in the index header. Pagination may still communicate the current result range where necessary.
+Desktop may show the quiet disclosure **Paid ranking · not a quality score or recommendation** opposite the heading. This is the single nearby disclosure for interpreting the ordered list; do not repeat sponsored-language labels on every card. Do not show a listing-count label in the index header. Pagination may still communicate the current result range where necessary.
 
 ### Category navigation
 
@@ -271,7 +290,7 @@ Desktop may show the quiet disclosure **Sponsored ranking · not a quality score
 
 Use restrained milestone groups:
 
-- Top 3 — highest sponsored positions
+- Top 3 — highest Rank totals
 - Top 10 — #4–10
 - Top 20 — #11–20
 - All listings — #21 onward
@@ -309,8 +328,8 @@ Do not show email-confirmation, verification, property-count or portfolio-count 
 
 The MVP uses a simple footer with the same page background and one subtle top divider. It contains:
 
-- **RealRank © 2026**;
-- **Transparent sponsored discovery for real estate.**; and
+- **Realrank © 2026**;
+- **Real estate discovery index.**; and
 - How it works, Ranking Policy, FAQ, Terms, Privacy, Refund Policy and Contact links.
 
 The footer is one restrained horizontal row on desktop and stacks on mobile. Do not add a dark footer surface, newsletter form, social icons without active accounts, or another listing CTA.
@@ -337,7 +356,7 @@ The homepage is **final pending production implementation**, with no additional 
 - **Amount behavior:** manual input accepts any whole-rupee value of ₹10 or more. The steppers move to the adjacent ₹10 multiples—for example, `₹14 → ₹20` with `+` and `₹14 → ₹10` with `−`; `₹20 → ₹30` with `+` and `₹20 → ₹10` with `−`.
 - **Filters:** the selected state is a white chip with a terracotta outline, icon and text plus stronger text weight. The combination of border, fill change, weight and `aria-pressed` means selection does not rely on colour alone. The previously considered solid-black state is not part of the locked design.
 - **Competitive clarity:** the selected city, ordinal positions, public Rank totals, top-position prompt and target-aware Claim action explain where the visitor is, who is ahead and how to move up without aggressive auction styling.
-- **Trust:** keep the sponsored-order disclosure visible. Do not add RERA, ownership or verification badges to the index until RealRank performs and records the specific check being claimed. Optional entity-supplied RERA information belongs on the profile later and must be labelled accurately until verified.
+- **Trust:** keep the sponsored-order disclosure visible. Do not add RERA, ownership or verification badges to the index until Realrank performs and records the specific check being claimed. Optional entity-supplied RERA information belongs on the profile later and must be labelled accurately until verified.
 - **Accessibility:** preserve visible keyboard focus, programmatic labels, `aria-pressed` category state, descriptive Contact and Claim labels, useful result-count announcements, predictable dialog focus, and reduced-motion behavior. Do not make the entire changing result grid an `aria-live` region.
 - **Responsive resilience:** production tests must cover 320px, 360px, 375px and desktop widths; unusually long business names; large Indian-formatted Rank totals; empty descriptions; missing logos with initials fallback; and zero-portfolio profiles.
 - **Performance:** render public index content on the server, paginate results, reserve logo dimensions to prevent layout shift, use small appropriately sized logo files, lazy-load below-the-fold media, and avoid loading portfolio imagery on the index page.
@@ -353,9 +372,9 @@ The owner explicitly prefers payment before signup. The safe MVP flow is:
 1. Visitor enters entity name, contact number and Rank Amount on an active city page, or enters those fields plus a catalogue-selected city in the Add-a-city dialog.
 2. Server resolves the initial city from the canonical page context or revalidates the submitted canonical city ID from the dialog. Never trust a raw city name, URL value or hidden browser field as authoritative.
 3. On the click that starts payment, the server freshly recomputes the applicable total, estimated city position and any owner-specific top-up, then creates a short-lived pending checkout and Razorpay Order. Browser-submitted amounts are never authoritative.
-4. If the server result still matches the exact amount and target already shown in the form or Claim action, open Razorpay Standard Checkout immediately. RealRank does not insert a separate payment-review or confirmation page.
+4. If the server result still matches the exact amount and target already shown in the form or Claim action, open Razorpay Standard Checkout immediately. Realrank does not insert a separate payment-review or confirmation page.
 5. If the target or payable amount changed before order creation, do not silently charge the new value. Keep the user's details, show a compact inline update such as **#1 now requires ₹1,261 instead of ₹1,251**, and require one click on the updated payment action.
-6. Razorpay collects the payment. Prefill the submitted contact data where supported, but do not treat gateway-collected contact data as RealRank ownership verification.
+6. Razorpay collects the payment. Prefill the submitted contact data where supported, but do not treat gateway-collected contact data as Realrank ownership verification.
 7. Server verifies the captured payment through an authenticated webhook.
 8. Server records the captured contribution against the entity's shared Rank total, activates its initial city listing and recalculates that city view atomically. If required, it opens the city index in the same idempotent fulfilment transaction.
 9. The minimum listing becomes public. The success screen displays the actual current position after fulfilment, not the earlier estimate.
@@ -363,11 +382,11 @@ The owner explicitly prefers payment before signup. The safe MVP flow is:
 11. After the OTP is confirmed, the phone-authenticated account is created and linked to the paid entity through the short-lived payment-success onboarding session. Matching a phone number, entity name or payment-gateway field alone must never establish ownership.
 12. During verification, disable the action and show **Verifying…**; on success briefly change it to **✓ Number verified**, then replace the OTP form with one lean ownership-confirmation screen. Keep the compact payment-success banner above it so payment capture, live-listing status, city and current position remain confirmed. The card uses an outlined shield-check to distinguish secure number control from the banner's transaction check. It contains **Number verified**, the sentence **You can now manage [Entity] and complete its public profile.**, a primary **Complete profile** action, and a quiet secondary **View public listing** action; it does not repeat the banner's payment or ranking details. The listing preview opens separately so the confirmation and onboarding state remain available. **Complete profile** opens the profile editor, where the owner may correct or add active-city slots, select categories, and add a description, logo, website/social link and portfolio.
 
-Razorpay Checkout is the final payment interaction, so a second RealRank review page would repeat information and add avoidable friction to a low-complexity, single-line-item purchase. The form must nevertheless keep entity name, public contact, city, Rank Amount, target position and legal consent visible and editable before the payment click. Use one common delayed-confirmation screen for an existing city, a city opened by its first listing, a new listing and a rank top-up; these cases change backend fulfilment, not the customer's recovery action. It automatically checks the server-authoritative payment state, clearly warns **Don't pay again yet**, and says that RealRank will publish or update the entity only after confirmation. Keep the order reference visible with a compact control that copies only the order ID and confirms success; a prolonged delay additionally reveals a Support path instead of leaving an unexplained endless spinner. Show the failed-payment screen only after a definitive gateway failure; it confirms that the entity was not published or updated, preserves entered details, and offers **Try payment again** or **Edit listing details**. Any uncertain or possibly debited payment remains in delayed confirmation rather than being labelled failed.
+Razorpay Checkout is the final payment interaction, so a second Realrank review page would repeat information and add avoidable friction to a low-complexity, single-line-item purchase. The form must nevertheless keep entity name, public contact, city, Rank Amount, target position and legal consent visible and editable before the payment click. Use one common delayed-confirmation screen for an existing city, a city opened by its first listing, a new listing and a rank top-up; these cases change backend fulfilment, not the customer's recovery action. It automatically checks the server-authoritative payment state, clearly warns **Don't pay again yet**, and says that Realrank will publish or update the entity only after confirmation. Keep the order reference visible with a compact control that copies only the order ID and confirms success; a prolonged delay additionally reveals a Support path instead of leaving an unexplained endless spinner. Show the failed-payment screen only after a definitive gateway failure; it confirms that the entity was not published or updated, preserves entered details, and offers **Try payment again** or **Edit listing details**. Any uncertain or possibly debited payment remains in delayed confirmation rather than being labelled failed.
 
 Claim actions must distinguish **target total** from **owner top-up**. For an unidentified visitor, use wording such as **Claim #1 for ₹1,251**, where ₹1,251 is the full Rank Amount that will be submitted for the new entity. For a recognised, authenticated owner, use the same pattern only with the actual payable difference, calculated from the owner's current Rank total. Both values are estimates until the server revalidates them at order creation; never present a position as reserved before captured payment and fulfilment.
 
-The city selector's **Add a city** action opens a payment-first registration dialog that mirrors the hero's entity name, contact number and free-form Rank Amount fields, plus a searchable city-and-state picker. The picker must select a canonical city ID from RealRank's server-owned catalogue; free text alone cannot create a city or a URL. For a new entity, the server checks the selected city, duplicates, the applicable payment and safety rules, then creates the pending order. After the payment is captured, publish the minimal entity listing and, if this is the first valid listing for that city, create its public city index in the same fulfilment flow. The success screen then verifies the submitted number by WhatsApp OTP or SMS fallback before opening profile completion. A newly opened one-entity city is public but not automatically search-indexable; see the indexation policy.
+The city selector's **Add a city** action opens a payment-first registration dialog that mirrors the hero's entity name, contact number and free-form Rank Amount fields, plus a searchable city-and-state picker. The picker must select a canonical city ID from Realrank's server-owned catalogue; free text alone cannot create a city or a URL. For a new entity, the server checks the selected city, duplicates, the applicable payment and safety rules, then creates the pending order. After the payment is captured, publish the minimal entity listing and, if this is the first valid listing for that city, create its public city index in the same fulfilment flow. The success screen then verifies the submitted number by WhatsApp OTP or SMS fallback before opening profile completion. A newly opened one-entity city is public but not automatically search-indexable; see the indexation policy.
 
 The dialog CTA reads **Add your Entity**. After fresh server validation it opens Razorpay Checkout directly; clicking it alone must not claim that the listing or city is already live.
 
@@ -393,7 +412,7 @@ Store the verified owner phone separately from each listing's public contact pho
 
 ### MVP trust position
 
-RealRank does not offer formal entity verification at launch.
+Realrank does not offer formal entity verification at launch.
 
 - Do not show “Verified,” “Profile claimed,” “RERA verified,” or similar badges.
 - A ₹10 payment is an anti-spam and payment-pipeline gate, not identity verification.
@@ -426,7 +445,7 @@ The portfolio is optional and belongs to the entity profile, not to a temporary 
 
 - An entity may have zero or more portfolio items.
 - A company or marketer manages its own separate portfolio.
-- Multiple entities may legitimately market similar or identical projects; RealRank does not enforce project exclusivity in the MVP.
+- Multiple entities may legitimately market similar or identical projects; Realrank does not enforce project exclusivity in the MVP.
 - Portfolio completion does not affect rank.
 - The index does not display property count or price range.
 
@@ -442,6 +461,22 @@ The portfolio is optional and belongs to the entity profile, not to a temporary 
 - last updated time.
 
 Do not require complete property data before an entity can participate in the index.
+
+### Public profile and owner dashboard UX
+
+The public entity route remains city-independent because one entity may be active in multiple city indexes. Show every active city and its Realrank Index position directly in a compact, one-city-per-row list at every viewport width; do not hide cities behind a selector or create city-specific profile states. The three-city cap keeps the list short. Do not add a generic trending icon beside positions because it falsely implies measured movement. A directional icon may appear only when backed by real historical position data and accompanied by accessible text such as **Up 2 since yesterday**. Show the shared **Rank total** once, display the union of active-city categories, and show all published portfolio items with explicit city metadata.
+
+The public profile uses neutral entity language for companies and marketers without an extra profile-type eyebrow above the entity name. Reuse the owner Home view's identity-first visual language so editing closely resembles the published result, but expose no owner navigation or editing controls. Keep the public layout flat and sequential: entity identity, subtle position metadata, compact social-profile actions, a three-column desktop / two-column mobile visual portfolio grid and minimal details. Avoid nested cards, side panels, repeated divider rules and a floating conversion bar; use whitespace, typography and alignment to establish groups. The identity action row contains primary **Contact**, secondary **Follow**, and an icon-only notification control; following and notification preferences require a visitor account in production. Label the city list **Realrank Index positions**, show the monetary Rank total once, and include a quiet **How ranking works** link to Ranking Policy. Do not repeat sponsored or paid wording in the details or footer. The Ranking Policy carries the full explanation that position is determined by Rank total and is not a quality score or business verification. Use the familiar social-profile convention for trust: verification marks sit immediately beside the entity name as clean icons rather than pills or detached status rows. A precise **Phone verified** mark may appear only after OTP confirmation; it means control of that number and nothing more. Preserve the full meaning in its accessible label. Make portfolio items actionable and include applicable city, category and meaningful last-updated or last-confirmed context. Do not add a separate About section when it only repeats the short profile description. The signed-in preview mirrors the same logo → name and verification → description → categories → details hierarchy and uses one quiet **Edit profile** action.
+
+The authenticated experience is phone-first, but private owner identity must not compete with entity-management tasks. Use one progressive management page instead of a separate overview or tabbed dashboard: public-profile preview first, then Cities, Portfolio and Rank. Use whitespace rather than repeated horizontal rules between these sections, and present portfolio items as a three-column desktop / two-column mobile media grid with edit controls layered quietly over each item. Keep a persistent four-item bottom navigation—**Home**, **Portfolio**, **Rank** and **Account**—across responsive and desktop layouts. Cities stays directly after the profile in the Home flow because coverage changes are comparatively infrequent; removing it from global navigation lowers choice overload without hiding it. The default profile state mirrors the public profile and exposes one **Edit profile** action; only then should a focused editor appear. Show Cities as short rows with position metadata, opening one focused sheet for categories, city reassignment or removal. Keep Portfolio as a direct visual grid and Rank as a single-purpose total, city-position and top-up section. The header contains only the brand and a lightweight Help dropdown with Get help, Report an issue and policy access. Owner verification, public-profile access and sign-out live under Account at the far right of the bottom navigation. Use flat app sections instead of stacking dashboard cards, omit the marketing footer while signed in, keep one clear action per task and avoid duplicate links. Do not describe one city position as the entity's global rank. Categories are edited per active city. Keep the verified owner number separate from the public contact number, and require OTP verification before publishing a changed public number. Portfolio items select their applicable cities. Ranking top-ups increase the shared total and then recalculate every active city's position; do not promise email alerts when email is not part of MVP onboarding.
+
+On mobile, keep all owner content inside one consistent 14px page gutter. Left-align every section title and description to that grid, keep list rows and actions within the same edges, and separate major sections with 44px of whitespace rather than divider rules. The portfolio uses two visual columns and the persistent bottom navigation alone remains full-width.
+
+The public profile header contains Browse index and the same compact Help control used in the owner header. Do not show a city pill because the canonical profile is entity-wide and can cover multiple active cities. Its dropdown provides **Get help**, **Report an issue** and **Ranking policy**. Collapse only its visible text label on narrow screens; retain the icon, accessible name, keyboard focus and Escape/outside-click dismissal.
+
+Implement the signed-in profile from the same structural components and CSS classes as the public entity profile; do not maintain a separate owner-preview layout. Identity, verification, description, categories, public action preview, Realrank Index positions, portfolio grid and public details stay structurally aligned with the published page. The signed-in version adds contextual Edit controls for editable sections, followed by the owner-only Cities and Rank management sections.
+
+In the owner Rank section, the primary top-up action reads **Add ₹X to Rank total** and updates as the amount stepper changes. This communicates the exact outcome before Razorpay opens; do not use **Continue to payment**, **Add more amount** or **Add rank-up amount**.
 
 ---
 
@@ -469,7 +504,7 @@ Notifications should be opt-in, rate-limited and sent through the entity's chose
 
 ## 10. City expansion, routes and discoverability
 
-The brand and hero remain location-neutral. City context is supplied by the city selector and page metadata. RealRank has no All India entity listing, nationwide paid ranking, state index or state paid pool. The root page may later help people select a live city; ranking and category discovery always occur within a city.
+The brand and hero remain location-neutral. City context is supplied by the city selector and page metadata. Realrank has no All India entity listing, nationwide paid ranking, state index or state paid pool. The root page may later help people select a live city; ranking and category discovery always occur within a city.
 
 ### Rollout
 
@@ -481,9 +516,9 @@ The brand and hero remain location-neutral. City context is supplied by the city
 
 ### Canonical city catalogue and self-service opening
 
-- RealRank owns a searchable catalogue of accepted Indian cities, with stable internal IDs, canonical names, state/UT labels, aliases and unique reserved slugs. Seed and periodically reconcile it against official location references such as the [Government of India Local Government Directory](https://lgdirectory.gov.in/demo/downloadDirectory.do) and the [Census Location Code Directory](https://censusindia.gov.in/nada/index.php/catalog/42648/study-description). Neither raw source should be treated as a ready-made product-city list: town boundaries, aliases, merged urban areas and names can differ, and Census 2011 is historical.
+- Realrank owns a searchable catalogue of accepted Indian cities, with stable internal IDs, canonical names, state/UT labels, aliases and unique reserved slugs. Seed and periodically reconcile it against official location references such as the [Government of India Local Government Directory](https://lgdirectory.gov.in/demo/downloadDirectory.do) and the [Census Location Code Directory](https://censusindia.gov.in/nada/index.php/catalog/42648/study-description). Neither raw source should be treated as a ready-made product-city list: town boundaries, aliases, merged urban areas and names can differ, and Census 2011 is historical.
 - Show city and state together in autocomplete; add district or other disambiguation only where names collide. A user must choose a catalogue result. The server revalidates its canonical ID and status at checkout and again on fulfilment, rather than trusting a typed name, hidden field or stale browser response.
-- Keep city validity separate from RealRank publication. `catalog_status` is **AVAILABLE**, **REVIEW**, **BLOCKED** or **RETIRED**; only AVAILABLE cities can enter checkout. `realrank_status` is **UNOPENED**, **LIVE**, **EMPTY** or **SUSPENDED**. A first eligible listing changes an AVAILABLE city's RealRank status from UNOPENED/EMPTY to LIVE. A name absent from the catalogue goes to human review without payment or page creation.
+- Keep city validity separate from Realrank publication. `catalog_status` is **AVAILABLE**, **REVIEW**, **BLOCKED** or **RETIRED**; only AVAILABLE cities can enter checkout. `realrank_status` is **UNOPENED**, **LIVE**, **EMPTY** or **SUSPENDED**. A first eligible listing changes an AVAILABLE city's Realrank status from UNOPENED/EMPTY to LIVE. A name absent from the catalogue goes to human review without payment or page creation.
 - Opening a city is idempotent: use unique city identity and slug constraints, atomically upsert the public city state with the first fulfilled listing, and recalculate ranking from captured contributions. Two near-simultaneous buyers can both become listed; no checkout guarantees lasting #1. Delay publication only for a concrete safety or payment issue, and show a clear pending state instead of falsely reporting that the city is live.
 - Once its `realrank_status` is LIVE, include the city in the selector and root chooser. New public city pages start with `noindex` until the content threshold below is met; this avoids a large collection of thin search pages without hiding the service from users.
 
@@ -558,12 +593,12 @@ Pagination must use real sequential links and stable URLs such as `?page=2`. Eac
 Recommended patterns:
 
 ```text
-Home during launch: Real Estate Companies & Marketers in Indore | RealRank
-Home after expansion: RealRank — Real Estate Companies & Portfolio Discovery
-City: Real Estate Companies in Indore | RealRank
-Category: Auction Property Companies & Marketers in Indore | RealRank
-Entity: Apollo Realty — Portfolio & Contact | RealRank
-Portfolio item: Green Park Residences by Apollo Realty | RealRank
+Home during launch: Real Estate Companies & Marketers in Indore | Realrank
+Home after expansion: Realrank — Real Estate Companies & Portfolio Discovery
+City: Real Estate Companies in Indore | Realrank
+Category: Auction Property Companies & Marketers in Indore | Realrank
+Entity: Apollo Realty — Portfolio & Contact | Realrank
+Portfolio item: Green Park Residences by Apollo Realty | Realrank
 ```
 
 Do not use “best,” “top-rated,” “verified,” or an entity's sponsored position in title tags unless the visible page explains the paid nature immediately. A city/category page should contain a unique H1, short useful introduction, breadcrumb, actual matching entities and a visible sponsored-ranking explanation.
@@ -593,7 +628,7 @@ If Hindi pages are introduced later, use dedicated language routes such as `/hi/
 
 Structured data must describe visible facts and must never convert a sponsored position into a quality claim.
 
-- Home/About: `Organization` for RealRank and `WebSite` for the site identity.
+- Home/About: `Organization` for Realrank and `WebSite` for the site identity.
 - City/category pages: `CollectionPage`, a visible `ItemList` and `BreadcrumbList` where accurate. These clarify meaning but do not guarantee a rich result.
 - Entity page: `Organization`, or `LocalBusiness` only when a real public business location is shown. Do not use Google's `ProfilePage` feature markup for unrelated third-party businesses presented by a directory.
 - Portfolio item: use ordinary page markup and only applicable schema.org types whose properties are visible. Do not promise a Google rich result for a generic real-estate listing or auction property.
@@ -605,10 +640,10 @@ Validate representative templates before rolling markup out across every page.
 Treat GEO/AEO/LLMO as an extension of sound SEO, not a separate collection of hacks. Google states that its generative search features use the same crawlability, indexing and quality foundations as Search, while Bing applies the same principles to Copilot grounding.
 
 - Keep essential facts in readable server-rendered HTML: entity name, city/service area, categories, description, Rank total, sponsorship disclosure, contact method and profile-updated date.
-- Make `/ranking-policy`, `/how-it-works` and `/faq` concise, explicit and independently understandable. Explain exactly what Rank total means and what RealRank does not verify.
-- Separate RealRank-authored facts from entity-supplied claims. For auction portfolio items, display the auctioning authority, source URL, auction date, reserve-price status and last-confirmed time when supplied.
+- Make `/ranking-policy`, `/how-it-works` and `/faq` concise, explicit and independently understandable. Explain exactly what Rank total means and what Realrank does not verify.
+- Separate Realrank-authored facts from entity-supplied claims. For auction portfolio items, display the auctioning authority, source URL, auction date, reserve-price status and last-confirmed time when supplied.
 - Use semantic headings, tables only for real comparisons, descriptive link text and accurate image alt text.
-- Allow `OAI-SearchBot` in `robots.txt` if RealRank wants eligibility for ChatGPT search citations. The choice to allow or disallow `GPTBot` for model training is separate.
+- Allow `OAI-SearchBot` in `robots.txt` if Realrank wants eligibility for ChatGPT search citations. The choice to allow or disallow `GPTBot` for model training is separate.
 - Confirm that CDN/WAF bot protection does not block search crawlers from public pages.
 - Track referral traffic from AI search separately; ChatGPT search referrals include `utm_source=chatgpt.com`.
 - Do not add `llms.txt` to the MVP as an assumed ranking requirement. Google explicitly says it does not use such files for generative search, and OpenAI's publisher guidance does not require one.
@@ -657,7 +692,7 @@ Store money as integer paise and treat the payment ledger as immutable.
 - district name and official code, nullable and used to disambiguate duplicate names
 - slug, unique and checked against reserved route words
 - catalogue status: AVAILABLE, REVIEW, BLOCKED or RETIRED
-- RealRank status: UNOPENED, LIVE, EMPTY or SUSPENDED
+- Realrank status: UNOPENED, LIVE, EMPTY or SUSPENDED
 - source-active flag; an official-source removal must trigger review rather than automatically deleting a city or public URL
 - source updated time, nullable
 - last manually reviewed time
@@ -689,7 +724,7 @@ Examples include Gurgaon → Gurugram, Bangalore → Bengaluru and Bombay → Mu
 - source metadata needed for reconciliation, nullable
 - unique source + external code
 
-Use LGD Urban Local Bodies as the primary maintained source and Census town/location codes as a secondary cross-check. Import source data into staging first, compare additions, removals, mergers and renames, and then update canonical records. Never let synchronization silently change an established slug, delete a live city, or merge two RealRank indexes.
+Use LGD Urban Local Bodies as the primary maintained source and Census town/location codes as a secondary cross-check. Import source data into staging first, compare additions, removals, mergers and renames, and then update canonical records. Never let synchronization silently change an established slug, delete a live city, or merge two Realrank indexes.
 
 **city_listings**
 
@@ -808,7 +843,7 @@ Captured ranking payments, promotional credits and reversals update the cached *
 
 ## 12. Technical direction
 
-RealRank begins as a modular monolith: one web application, one transactional PostgreSQL database and one payment integration. Do not introduce microservices, a separate search service or multiple backend runtimes for the MVP.
+Realrank begins as a modular monolith: one web application, one transactional PostgreSQL database and one payment integration. Do not introduce microservices, a separate search service or multiple backend runtimes for the MVP.
 
 ### Locked implementation stack
 
@@ -838,7 +873,7 @@ RealRank begins as a modular monolith: one web application, one transactional Po
 | Hosting for paid public launch | Vercel Pro, with application compute located as close as practical to the Mumbai database |
 | Notifications | Authentication messages use explicitly requested WhatsApp or SMS OTP; separate marketing or outbid notifications require their own consent and policy |
 
-Vercel Hobby must not serve the commercial version of RealRank. Upgrade before enabling real ranking payments. Supabase Free and Cloudflare free allowances may be used during development and a controlled early launch, but payment data must always have a tested, recoverable backup. Supabase Free does not provide the production backup guarantees required for meaningful paid volume; upgrade or establish automated encrypted PostgreSQL backups before accepting material transaction volume.
+Vercel Hobby must not serve the commercial version of Realrank. Upgrade before enabling real ranking payments. Supabase Free and Cloudflare free allowances may be used during development and a controlled early launch, but payment data must always have a tested, recoverable backup. Supabase Free does not provide the production backup guarantees required for meaningful paid volume; upgrade or establish automated encrypted PostgreSQL backups before accepting material transaction volume.
 
 ### Rendering and component boundaries
 
@@ -863,16 +898,16 @@ Begin with an explicit event allowlist rather than automatic capture. Useful MVP
 ### Cloudflare responsibilities
 
 - Store logos, portfolio images and encrypted database backup files in R2.
-- Generate short-lived R2 presigned upload URLs on the RealRank server so files upload directly from the browser without exposing R2 credentials.
+- Generate short-lived R2 presigned upload URLs on the Realrank server so files upload directly from the browser without exposing R2 credentials.
 - Validate file type, size and ownership before issuing an upload URL; use unpredictable object keys.
 - Keep file metadata, ownership, moderation status and public URLs in PostgreSQL.
 - Publish only approved media through the configured public delivery domain.
 - Use Turnstile and rate limits to reduce automated pending-checkout and form abuse.
 - Use genuine analytics only; never turn estimated or sampled traffic into a live social-proof claim.
 
-Do not store payments, ranking totals, promotional credits, refunds, entity ownership, categories, contact details or webhook state in R2, KV or analytics systems. These records belong in PostgreSQL. Cloudflare D1 is not the MVP system of record because RealRank's ranking and financial ledger need one clearly authoritative transactional database.
+Do not store payments, ranking totals, promotional credits, refunds, entity ownership, categories, contact details or webhook state in R2, KV or analytics systems. These records belong in PostgreSQL. Cloudflare D1 is not the MVP system of record because Realrank's ranking and financial ledger need one clearly authoritative transactional database.
 
-Prefix RealRank-owned CSS classes with `rr-` to avoid collisions when wireframe patterns are moved into the production application. IDs, data attributes and third-party classes follow their own conventions.
+Prefix Realrank-owned CSS classes with `rr-` to avoid collisions when wireframe patterns are moved into the production application. IDs, data attributes and third-party classes follow their own conventions.
 
 The server is authoritative for rank. Client-side optimistic movement must not imply that an uncaptured payment has secured a position.
 
@@ -903,9 +938,9 @@ The server is authoritative for rank. Client-side optimistic movement must not i
 - one permanent cumulative Rank total per entity, reused in each active city/category view;
 - three editable active-city slots per entity and a separately priced, one-time fee for each additional simultaneous city slot once multi-city coverage is available;
 - city-slot editing in the owner profile, including correction of an initial valid-but-wrong city without another entry payment;
-- RealRank Index with category filters;
+- Realrank Index with category filters;
 - horizontal category rail and More category island;
-- Auction Properties as a secondary category inside More, with no auction conducted by RealRank;
+- Auction Properties as a secondary category inside More, with no auction conducted by Realrank;
 - balanced entity cards with name, description, categories, compact Contact action, rank, top-right Rank total and compact Claim badge;
 - entity profile with optional portfolio;
 - direct-to-Razorpay checkout from the validated listing or Claim action, plus responsive delayed-confirmation and failure exception states;
@@ -942,13 +977,13 @@ The server is authoritative for rank. Client-side optimistic movement must not i
 
 | Use | Avoid |
 |---|---|
-| RealRank Index | Leaderboard or best real-estate company as the public section label |
-| Sponsored position | Verified rank |
+| Realrank Index | Leaderboard or best real-estate company as the public section label |
+| Realrank Index position | Verified rank or unqualified best/top claim |
 | Rank Amount (payment control) / Rank total (public cumulative amount) | Bid Amount, Active Rank, Ranking Value or quality score |
 | Additional-city slot fee (separate from Rank total) | City bid, city Rank Amount or an unexplained extra charge |
 | Entity, company, marketer | Broker as the default umbrella term |
 | Entity profile and optional portfolio | Mandatory live inventory |
-| Contact | Lead sold by RealRank |
+| Contact | Lead sold by Realrank |
 | Promotional ranking credit | Paid ₹10 when a coupon funded it |
 
 ---

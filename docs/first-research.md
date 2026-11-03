@@ -1,4 +1,4 @@
-> **Historical research note:** This document records the initial Outbid analysis and early recommendations. Several recommendations—particularly locality pools, rolling 30-day contributions, launch verification and required property examples—were later rejected or deferred. The current [RealRank master product plan](../realrank_master_product_plan.md) is the authoritative source of product and business rules.
+> **Historical research note:** This document records the initial Outbid analysis and early recommendations. Several recommendations—particularly locality pools, rolling 30-day contributions, launch verification and required property examples—were later rejected or deferred. The current [Realrank master product plan](../realrank_master_product_plan.md) is the authoritative source of product and business rules.
 
 ## Locked product direction — 9 September 2026
 
@@ -10,11 +10,11 @@ The current locked implementation reference is the [Terracotta landing wireframe
 - The conversion form contains Entity Name, Contact or WhatsApp Number and **Rank Amount**, with a ₹10 minimum and **List your Entity** as the action. Typed amounts may be any whole-rupee value; `+` moves to the next higher ₹10 multiple and `−` to the next lower ₹10 multiple. The primary action is end-aligned within its responsive grid area.
 - A small bottom-centred **List Your Entity** CTA appears only after the hero has fully scrolled away, returns the user to the form, and hides when the hero or footer is visible.
 - Account setup remains post-payment: after capture, the success screen reuses the submitted contact number, sends a phone OTP by WhatsApp with SMS fallback, and links the verified phone account to the paid listing through the payment-success session. The owner phone and public contact number remain separate fields even when initially equal.
-- The public section is called **RealRank Index** and is introduced with **“Discover real estate companies and marketers, explore portfolios, and connect directly.”** Indore is not repeated in the section heading because the city selector and launch-status pill already establish the location.
+- The public section is called **Realrank Index** and is introduced with **“Discover real estate companies and marketers, explore portfolios, and connect directly.”** Indore is not repeated in the section heading because the city selector and launch-status pill already establish the location.
 - The launch index is city-wide and category-filtered. It does not use sub-locality pools or a locality filter.
 - Categories appear in a horizontally scrollable icon-chip rail with a persistent More category island.
 - The selected category uses a white surface with a thin terracotta outline and terracotta icon and text instead of a solid orange or black fill.
-- **Auction Properties** is included as a secondary category inside More. It describes entities that handle auction opportunities; RealRank does not conduct property auctions or accept property-auction bids.
+- **Auction Properties** is included as a secondary category inside More. It describes entities that handle auction opportunities; Realrank does not conduct property auctions or accept property-auction bids.
 - Results are grouped as Top 3, Top 10, Top 20 and All listings.
 - The balanced card keeps the description and categories below the entity name, places a compact light-grey Contact action inside the company-information area, and places **Rank total** in the top-right.
 - Mobile cards hide the desktop logo column and use a separate 28 × 28px logo or initials fallback inside the company title row immediately before the name. Rank stays in the narrow left column, aligned with that logo, so no additional mobile grid column is introduced.
@@ -23,22 +23,22 @@ The current locked implementation reference is the [Terracotta landing wireframe
 - **Claim #N for ₹X** is a small badge below Rank total. It shows the target amount and leads into the existing listing form without an intermediate review dialog.
 - Cards do not show verification/profile-claimed badges, email-confirmation signals, property counts, portfolio counts, price ranges or sub-locality labels.
 - The launch page does not include a recent-activity feed or a ranking-rules strip above the cards. A concise sponsored-ranking disclosure remains part of the page and policy.
-- The footer is deliberately small: RealRank © 2026, a one-line transparency statement, and How it works, Ranking Policy, FAQ, Terms, Privacy, Refund Policy and Contact links.
+- The footer is deliberately small: Realrank © 2026, a one-line transparency statement, and How it works, Ranking Policy, FAQ, Terms, Privacy, Refund Policy and Contact links.
 - During the Indore-only launch, `/` is the self-canonical Indore landing page and index; there is no duplicate `/indore` page. Category URLs are city-qualified from day one, such as `/indore/category/auction-properties`, while entity profiles remain city-independent at `/entity/{entity-slug}`. When a second city launches, `/` becomes national discovery and Indore moves to `/indore`; category and entity URLs remain unchanged. Thin combinations and transient filters are not indexable.
 - Categories are attached to each city listing rather than globally to the entity. Rank totals and ranking payments are also city-specific, while the owner account and canonical entity profile remain shared.
-- RealRank-owned CSS classes use the `rr-` prefix throughout the locked wireframe; IDs, data attributes and third-party classes retain their own naming conventions.
-- The locked low-cost stack is Next.js App Router and TypeScript on Vercel, CSS Modules and design tokens, Lucide React, Zod, Supabase PostgreSQL/Auth in Mumbai, Drizzle ORM, Razorpay, Cloudflare R2/Turnstile/DNS, PostHog, Vitest, Playwright and GitHub Actions. Public content is server-rendered by default; Client Components are limited to interactive controls. Vercel Hobby is limited to non-commercial development, and RealRank moves to Vercel Pro before enabling real ranking payments. R2 stores media and encrypted backups only, while PostgreSQL remains authoritative for payments, ranking, ownership and contact data.
+- Realrank-owned CSS classes use the `rr-` prefix throughout the locked wireframe; IDs, data attributes and third-party classes retain their own naming conventions.
+- The locked low-cost stack is Next.js App Router and TypeScript on Vercel, CSS Modules and design tokens, Lucide React, Zod, Supabase PostgreSQL/Auth in Mumbai, Drizzle ORM, Razorpay, Cloudflare R2/Turnstile/DNS, PostHog, Vitest, Playwright and GitHub Actions. Public content is server-rendered by default; Client Components are limited to interactive controls. Vercel Hobby is limited to non-commercial development, and Realrank moves to Vercel Pro before enabling real ranking payments. R2 stores media and encrypted backups only, while PostgreSQL remains authoritative for payments, ranking, ownership and contact data.
 - PostHog is the primary product and funnel analytics system, with Cloudflare Web Analytics retained only as an optional aggregate traffic view. Analytics uses an explicit event allowlist, excludes personal/payment data and keeps session replay disabled at launch.
 
 Everything below this point is retained as research history and should not be treated as an implementation specification when it conflicts with the master plan or locked wireframe.
 
-I reviewed the live Outbid product, its rules, category and detail pages, bidding interactions, responsive structure, and the original RealRank plan. No implementation changes were made during that research stage.
+I reviewed the live Outbid product, its rules, category and detail pages, bidding interactions, responsive structure, and the original Realrank plan. No implementation changes were made during that research stage.
 
 ## Executive verdict
 
-RealRank has a promising mechanic, but the current plan transfers Outbid’s model too literally into a market where “rank” carries much more trust and legal weight.
+Realrank has a promising mechanic, but the current plan transfers Outbid’s model too literally into a market where “rank” carries much more trust and legal weight.
 
-Outbid is fundamentally an attention auction. RealRank needs to become a trusted real-estate discovery product with a transparent paid-placement layer.
+Outbid is fundamentally an attention auction. Realrank needs to become a trusted real-estate discovery product with a transparent paid-placement layer.
 
 The most important changes are:
 
@@ -220,7 +220,7 @@ Real estate is different:
 - A lead may take weeks to convert, so bidder ROI is harder to establish.
 - The highest bidder may be less relevant than a lower-ranked specialist.
 
-RealRank therefore cannot let the auction become the complete discovery algorithm.
+Realrank therefore cannot let the auction become the complete discovery algorithm.
 
 ## 4. Existing plan → recommendation → reason
 
@@ -245,7 +245,7 @@ RealRank therefore cannot let the auction become the complete discovery algorith
 | Next.js 15 fixed in the specification | Select a supported, patched version at implementation time | Next.js 16.3 is current, while both 16.3 and 15.5 have an announced August 2026 security update. Pinning an old major in the product plan is unnecessary. [Next.js releases](https://nextjs.org/blog) |
 | Vercel + Cloudflare for sub-50 ms TTFB | Start with one delivery/cache layer and measure actual Indian performance | Dual CDN configuration adds caching and invalidation complexity without proving user value. |
 | Realtime animated reorder | Keep the server authoritative; show a restrained “rankings updated” state | Cards moving while someone is reading or contacting a business is disorienting, particularly on mobile. |
-| QR standee saying “Ranked #1 Real Estate Agency” | Say “#1 sponsored position in [pool], as of [date]” | The current wording could be interpreted as RealRank endorsing overall quality. |
+| QR standee saying “Ranked #1 Real Estate Agency” | Say “#1 sponsored position in [pool], as of [date]” | The current wording could be interpreted as Realrank endorsing overall quality. |
 | Four categories and many pools at launch | Launch one vertical with two or three localities | Thin pools produce meaningless rankings and weak bidding pressure. |
 
 ## 5. Specific problems in the proposed schema
@@ -277,7 +277,7 @@ RERA also should not be reduced to a boolean. The Ministry’s RERA FAQ says age
 
 My current recommendation is:
 
-> RealRank should be a verified Indore real-estate directory where businesses can transparently buy sponsored visibility, while consumers browse accurate, current inventory without logging in.
+> Realrank should be a verified Indore real-estate directory where businesses can transparently buy sponsored visibility, while consumers browse accurate, current inventory without logging in.
 
 ### Separate the product into two layers
 
@@ -399,7 +399,7 @@ Please answer these before I finalize the revised product specification:
 
 3. Should the ranked object always be an entity, or do you want developers to rank projects while brokers rank their businesses? Supporting both creates a materially different marketplace.
 
-4. When several brokers are authorized to market the same project, should RealRank show multiple broker offers under one canonical project, or do you want exclusivity for one representative?
+4. When several brokers are authorized to market the same project, should Realrank show multiple broker offers under one canonical project, or do you want exclusivity for one representative?
 
 5. For the 30-day mechanism, do you prefer:
    - rolling 30-day contribution expiry, as recommended; or

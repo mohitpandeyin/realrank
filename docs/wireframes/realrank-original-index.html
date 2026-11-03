@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RealRank — Original Index Wireframe</title>
+  <meta name="theme-color" content="#20201E">
+  <title>Realrank — Original Index Wireframe</title>
+  <link rel="icon" href="../brand/final/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="../brand/final/svg/realrank-icon-micro.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../brand/final/favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../brand/final/favicon/apple-touch-icon.png">
   <style>
     :root {
       color-scheme: light;
@@ -37,7 +42,8 @@
 
     .site-header { background: var(--page); }
     .nav { display: flex; align-items: center; justify-content: space-between; min-height: 76px; gap: 24px; }
-    .brand { color: var(--text); text-decoration: none; font-size: 20px; font-weight: 650; letter-spacing: -.05em; }
+    .brand { display: inline-flex; align-items: center; flex: 0 0 auto; text-decoration: none; }
+    .brand-logo { display: block; width: 188px; height: auto; }
     .nav-links { display: flex; align-items: center; gap: 28px; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; }
     .nav-links a:hover { color: var(--text); }
@@ -121,6 +127,7 @@
       .amount { grid-column: 3; justify-self: start; }
     }
     @media (max-width: 620px) {
+      .brand-logo { width: 172px; }
       .container { width: min(100% - 28px, 1080px); }
       .nav { min-height: 66px; }
       .nav-links a:not(:last-child) { display: none; }
@@ -139,7 +146,7 @@
 <body>
   <header class="site-header">
     <nav class="container nav" aria-label="Primary navigation">
-      <a class="brand" href="#">RealRank</a>
+      <a class="brand" href="#" aria-label="Realrank home"><img class="brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" width="188" height="47" alt="Realrank"></a>
       <div class="nav-links">
         <a href="#rankings">Categories</a><a href="#how-it-works">How it works</a><a href="#">Login</a>
         <div class="city-picker">

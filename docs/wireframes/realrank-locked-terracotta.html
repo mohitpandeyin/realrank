@@ -3,7 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RealRank — Locked Terracotta Wireframe</title>
+  <meta name="theme-color" content="#20201E">
+  <title>Realrank — Locked Terracotta Wireframe</title>
+  <link rel="icon" href="../brand/final/favicon/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="../brand/final/svg/realrank-icon-micro.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="../brand/final/favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../brand/final/favicon/apple-touch-icon.png">
   <style>
     :root {
       color-scheme: light;
@@ -32,8 +37,8 @@
 
     .rr-site-header { border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, .72); backdrop-filter: blur(12px); }
     .rr-nav { display: flex; align-items: center; justify-content: space-between; min-height: 74px; gap: 24px; }
-    .rr-wordmark { display: inline-flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-size: 18px; font-weight: 650; letter-spacing: -.04em; }
-    .rr-mark { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 10px; color: #fff; background: var(--accent); font-size: 13px; }
+    .rr-wordmark { display: inline-flex; align-items: center; flex: 0 0 auto; text-decoration: none; }
+    .rr-brand-logo { display: block; width: 188px; height: auto; }
     .rr-nav-links { display: flex; align-items: center; gap: 24px; }
     .rr-nav-links a { color: var(--muted); text-decoration: none; font-size: 12px; }
     .rr-nav-links a:hover { color: var(--text); }
@@ -202,6 +207,7 @@
       .rr-company { grid-template-columns: 46px 54px minmax(0, 1fr); padding-right: 142px; }
     }
     @media (max-width: 680px) {
+      .rr-brand-logo { width: 172px; }
       .rr-container { width: min(100% - 28px, 1120px); }
       .rr-nav { min-height: 66px; }
       .rr-nav-links > a { display: none; }
@@ -229,21 +235,20 @@
       .rr-category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .rr-rankings { gap: 9px; margin-top: 16px; }
       .rr-rank-group { margin-top: 6px; }
-      .rr-company, .rr-company.rr-top-ten, .rr-company.rr-top-three, .rr-company.rr-rank-one { grid-template-columns: 34px minmax(0, 1fr) auto; gap: 10px; min-height: 0; padding: 14px; border-radius: 17px; }
+      .rr-company, .rr-company.rr-top-ten, .rr-company.rr-top-three, .rr-company.rr-rank-one { grid-template-columns: 34px minmax(0, 1fr); grid-auto-rows: auto; column-gap: 10px; row-gap: 5px; min-height: 0; padding: 14px; border-radius: 17px; }
       .rr-company.rr-rank-one { padding-block: 16px; }
       .rr-rank { grid-column: 1; grid-row: 1; align-self: start; width: 34px; margin-top: 6px; }
       .rr-logo { display: none; }
-      .rr-company-main { grid-column: 2; grid-row: 1; }
-      .rr-company-title-row { align-items: flex-start; flex-wrap: nowrap; }
+      .rr-company-main, .rr-company-side, .rr-rank-competition { display: contents; }
+      .rr-company-title-row { grid-column: 2; grid-row: 1; align-items: flex-start; flex-wrap: nowrap; padding-right: 76px; }
       .rr-mobile-logo { display: grid; flex: 0 0 28px; place-items: center; width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); font-size: 8px; font-weight: 700; }
       .rr-company-link { min-width: 0; font-size: 14px; }
       .rr-top-three .rr-company-link { font-size: 15px; }
-      .rr-description { margin-top: 5px; font-size: 10px; -webkit-line-clamp: 2; }
-      .rr-entity-categories { margin-top: 5px; }
-      .rr-company-side { position: static; display: contents; width: auto; }
-      .rr-rank-competition { grid-column: 3; grid-row: 1; align-self: start; margin-top: 1px; }
-      .rr-contact { width: auto; min-height: 32px; padding-inline: 10px; }
-      .rr-claim-position { width: auto; min-height: 26px; padding-inline: 9px; }
+      .rr-description { grid-column: 2; grid-row: 2; margin-top: 3px; font-size: 10px; -webkit-line-clamp: 2; }
+      .rr-entity-categories { grid-column: 2; grid-row: 3; margin-top: 3px; }
+      .rr-rank-total { position: absolute; top: 14px; right: 14px; }
+      .rr-contact { grid-column: 2; grid-row: 4; justify-self: start; width: auto; min-height: 34px; margin-top: 7px; padding-inline: 10px; }
+      .rr-claim-position { grid-column: 2; grid-row: 4; justify-self: end; align-self: end; width: auto; min-height: 32px; margin-top: 7px; padding-inline: 9px; }
       .rr-pagination-wrap { align-items: flex-start; flex-direction: column-reverse; gap: 11px; }
       .rr-pagination { width: 100%; }
       .rr-page-button:first-child, .rr-page-button:last-child { flex: 1; }
@@ -266,7 +271,7 @@
 <body>
   <header class="rr-site-header">
     <nav class="rr-container rr-nav" aria-label="Primary navigation">
-      <a class="rr-wordmark" href="#"><span class="rr-mark">RR</span>RealRank</a>
+      <a class="rr-wordmark" href="#" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" width="188" height="47" alt="Realrank"></a>
       <div class="rr-nav-links">
         <a href="#rr-rankings">Categories</a><a href="#how-it-works">How it works</a><a href="#">Login</a>
         <div class="rr-city-picker">
@@ -313,12 +318,12 @@
       <div class="rr-ranking-toolbar">
         <div class="rr-container">
           <div class="rr-section-head">
-            <div><h2>RealRank Index</h2><p>Discover real estate companies and marketers, explore portfolios, and connect directly.</p></div>
-            <p class="rr-section-disclosure">Sponsored ranking · not a quality score or recommendation</p>
+            <div><h2>Realrank Index</h2><p>Discover real estate companies and marketers, explore portfolios, and connect directly.</p></div>
+            <p class="rr-section-disclosure">Paid ranking · not a quality score or recommendation</p>
           </div>
           <div class="rr-ranking-controls">
             <div class="rr-category-rail">
-              <div class="rr-filters" aria-label="Filter the RealRank Index by category">
+              <div class="rr-filters" aria-label="Filter the Realrank Index by category">
                 <button class="rr-filter" type="button" data-filter="All" aria-pressed="true"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="6" height="6"/></svg>All</button>
                 <button class="rr-filter" type="button" data-filter="Residential" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5V20H6v-8"/><path d="M9 20v-6h6v6"/></svg>Residential</button>
                 <button class="rr-filter" type="button" data-filter="Commercial" aria-pressed="false"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V5h10v16M15 9h4v12M8 9h4M8 13h4M8 17h4"/></svg>Commercial</button>
@@ -362,7 +367,7 @@
 
   <footer class="rr-site-footer">
     <div class="rr-container rr-footer-inner">
-      <div class="rr-footer-brand"><strong>RealRank © 2026</strong><span>Transparent sponsored discovery for real estate.</span></div>
+      <div class="rr-footer-brand"><strong>Realrank © 2026</strong><span>Real estate discovery index.</span></div>
       <nav class="rr-footer-links" aria-label="Footer navigation">
         <a href="#how-it-works">How it works</a>
         <a href="#">Ranking Policy</a>
@@ -379,7 +384,7 @@
 
   <dialog class="rr-add-city-dialog" aria-labelledby="rr-add-city-title">
     <div class="rr-add-city-inner">
-      <div class="rr-add-city-head"><div><p class="rr-dialog-kicker">Open a new city</p><h3 id="rr-add-city-title">Add your city to RealRank</h3><p class="rr-add-city-copy">Choose a recognised city and list your entity. After confirmed payment, its public index opens if needed; then complete your profile.</p></div><button class="rr-dialog-close rr-add-city-close" type="button" aria-label="Close add-city form"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <div class="rr-add-city-head"><div><p class="rr-dialog-kicker">Open a new city</p><h3 id="rr-add-city-title">Add your city to Realrank</h3><p class="rr-add-city-copy">Choose a recognised city and list your entity. After confirmed payment, its public index opens if needed; then complete your profile.</p></div><button class="rr-dialog-close rr-add-city-close" type="button" aria-label="Close add-city form"><svg class="rr-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
       <form class="rr-add-city-form" id="rr-add-city-form" novalidate>
         <div class="rr-add-city-field">
           <label class="rr-sr-only" for="rr-city-search">Search city</label>
@@ -455,7 +460,7 @@
       const formatRupees = (value) => `₹${Number(value).toLocaleString('en-IN')}`;
       const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase();
       const groupForRank = (rank, total) => {
-        if (rank <= 3) return { key: 'leaders', label: 'Top 3', range: 'Highest sponsored positions' };
+        if (rank <= 3) return { key: 'leaders', label: 'Top 3', range: 'Highest Rank totals' };
         if (rank <= 10) return { key: 'top-10', label: 'Top 10', range: '#4–10' };
         if (rank <= 20) return { key: 'top-20', label: 'Top 20', range: '#11–20' };
         return { key: 'more', label: 'All listings', range: `#21–${total}` };
