@@ -130,7 +130,7 @@ The entity may then complete account setup and add:
 
 ### Property taxonomy
 
-Keep entity discovery categories separate from individual-property attributes. This avoids mixing a market segment such as Residential with a transaction such as Rent or a subtype such as Warehouse.
+Keep the profile's entity discovery labels separate from individual-property attributes. The public listing page intentionally presents a simple unified discovery vocabulary, while the backend preserves whether each option maps to a primary property category, purpose, type or specialisation.
 
 The three primary entity and city-index categories are:
 
@@ -138,7 +138,7 @@ The three primary entity and city-index categories are:
 - **Commercial**
 - **Land & Plot**
 
-An entity may select one or more of these primary categories for each active city. Individual portfolio items then add their own dependent fields:
+The homepage keeps those three values as its stable primary filter rail. In the profile, an entity must select at least one and may select any three from the complete discovery set used by the listing page: **Residential, Commercial, Land & Plot, Rentals, New Projects, Luxury, Industrial, Warehouses, Co-working, Agricultural, PG & Hostels, Farmhouses** and **Auction Properties**. The same stable selection applies across every active city. Individual portfolio items still use the canonical dependent fields below:
 
 | Level | Values | Rule |
 |---|---|---|
@@ -146,11 +146,12 @@ An entity may select one or more of these primary categories for each active cit
 | Residential type | Flat/Apartment, Independent House, Villa, Builder Floor, Row House, Penthouse, Studio Apartment, Serviced Apartment, Farmhouse, PG/Co-living, Other | Show configuration only for home types where RK/BHK is meaningful. |
 | Residential configuration | 1 RK, 1 BHK, 2 BHK, 3 BHK, 4 BHK, 4 BHK+ | Store normalized room data, not only the display label, so more configurations can be added later. |
 | Commercial type | Office, Shop/Retail, Showroom, Warehouse/Godown, Co-working, Industrial Building/Shed, Factory/Manufacturing, Restaurant/Cafe, Hotel/Resort, Other | Lease is available here. Do not ask for BHK. |
-| Land & Plot type | Residential Plot, Commercial Plot, Industrial Plot, Agricultural Land, Farm Land, Other | Area is required. Do not ask for carpet/built-up area type. |
+| Land & Plot type | Plot / Land parcel, Agricultural Land, Farm Land, Other Land | Do not ask for carpet/built-up area type. Area is strongly encouraged for discovery but may be completed after an initial portfolio post. |
+| Plot use | Residential, Commercial, Industrial | Show only for Plot / Land parcel. Allow one or more because a legitimately mixed-use parcel can support multiple uses. This does not change the item's single primary category. |
 | Area | Positive decimal plus unit | Built properties support sq. ft. and sq. m.; land also supports sq. yd., acre and hectare. Preserve the entered value/unit and store canonical square metres for search and comparison. |
 | Built-property area type | Carpet, Built-up, Super built-up | Optional for built property; hidden for land. Carpet area must follow the RERA meaning when used. |
 | Price | Optional amount plus period/context | Sale is total price; Rent is per month; Lease is displayed as the agreed lease amount/context. Never force a price when the entity wants enquiries. |
-| Locality, city coverage, description, image | Contextual item details | City choices are limited to the entity's active cities. Optional fields may be completed later. |
+| Locality, city coverage, description, images | Contextual item details | One active city is required; locality, additional cities, description and up to ten ordered images may be completed later. |
 
 Secondary specialisations may remain as discovery refinements or tags in the **More** island: New Projects, Luxury, Industrial, Warehouses, Co-working, Agricultural, PG & Hostels, Farmhouses and Auction Properties. They do not replace the primary category or listing-purpose fields. **Rentals** is a legacy purpose filter, not a primary category.
 
@@ -161,6 +162,7 @@ Compatibility mapping for existing listings:
 - Residential → Residential
 - Commercial, Industrial, Warehouses and Co-working → Commercial, while retaining the original value as a specialisation
 - Plots & Land → Land & Plot
+- Residential Plot, Commercial Plot and Industrial Plot → Land & Plot + Plot / Land parcel, with the corresponding Residential, Commercial or Industrial plot-use value
 - Agricultural → Land & Plot plus Agricultural specialisation
 - PG & Hostels → Residential plus PG/Co-living specialisation
 - Farmhouses → Residential by default and flag for review when the old record represents undeveloped land
@@ -193,10 +195,10 @@ Detailed properties belong on the optional entity profile, not in the minimum in
 - The launch product has one sponsored index for the selected city.
 - A city is the only geographic ranking context. There are no state, nationwide or sub-locality indexes or paid ranking pools.
 - **All** shows every listed entity in the selected city.
-- Category filters show only city listings that selected that category.
+- Category filters show active city listings whose entity selected that category.
 - Rank is recalculated inside the active city/category view using the entity's **one shared Rank total**.
 - An entity may have one active listing per city it actually serves. Three active-city slots are included with entry; a fourth or later simultaneous city requires a purchased additional slot.
-- Categories are eligibility and discovery filters, not separate paid balances or pools. Category selection may differ by city.
+- Categories are entity-level eligibility and discovery filters, not separate paid balances or pools. Each entity selects one to three values from the full fixed discovery set, and that stable selection applies in every active city.
 
 Example: an entity with a ₹500 shared Rank total may be #3 in Indore and #1 in Bhopal because each city contains different competitors. A ₹200 top-up raises its shared Rank total to ₹700 in both views. Realrank must not show a paid nationwide or state-wide ordinal rank.
 
@@ -207,9 +209,9 @@ Example: an entity with a ₹500 shared Rank total may be #3 in Indore and #1 in
 - Itemize any additional-city slot fee separately from an optional Rank Amount top-up. Changing or buying city coverage alone must not move the entity above a competitor.
 - A city need not already be live. A first valid entity may open a recognised city index as soon as its payment or included-city entitlement is confirmed and safety checks pass. The entity must genuinely serve the selected city; payment is not proof of local presence. Review implausibly broad coverage and provide a way to report it.
 - Opening a city with one entity gives that entity the first displayed position at publication, not an exclusive or permanent #1. Later entries and top-ups reorder the city index under the normal shared-Rank-total rules. If two first-listing checkouts finish close together, both may publish and ranking is calculated from the captured records; do not promise either buyer sole first place.
-- A move from City A to City B removes that entity's eligibility from A and starts a new eligibility/tie-break timestamp in B; the shared Rank total is unchanged. Do not silently carry city-specific categories, portfolio location tags, city contact overrides or position claims to B. Show the effect before saving, keep an audit trail and apply sensible rate limits or review to repeated implausible moves.
+- A move from City A to City B removes that entity's eligibility from A and starts a new eligibility/tie-break timestamp in B; the shared Rank total is unchanged. The entity's global categories continue to apply, while portfolio location tags, city contact overrides and position claims do not silently move to B. Show the effect before saving, keep an audit trail and apply sensible rate limits or review to repeated implausible moves.
 - If the last entity leaves a city, remove that city from live discovery and sitemaps and return its page to a truthful empty `noindex` state; retain the canonical city record and assignment history so it can reopen later. Do not invent a continuing leaderboard with zero entities.
-- A category- or city-specific **Claim #N** action carries its context into checkout. If the entity is not yet active in that city or category, show the required activation or category-selection step. Recompute the target against that view immediately before payment; a global top-up may also improve positions elsewhere.
+- A category- or city-specific **Claim #N** action carries its context into checkout. If the entity is not yet active in that city, show the required city-activation step. If its entity-level categories do not include the current category, explain that profile categories can be updated separately rather than adding a city-specific category. Recompute the target against that view immediately before payment; a global top-up may also improve positions elsewhere.
 
 ### Permanent cumulative ranking
 
@@ -411,11 +413,11 @@ Razorpay Checkout is the final payment interaction, so a second Realrank review 
 
 Claim actions must distinguish **target total** from **owner top-up**. For an unidentified visitor, use wording such as **Claim #1 for ₹1,251**, where ₹1,251 is the full Rank Amount that will be submitted for the new entity. For a recognised, authenticated owner, use the same pattern only with the actual payable difference, calculated from the owner's current Rank total. Both values are estimates until the server revalidates them at order creation; never present a position as reserved before captured payment and fulfilment.
 
-The city selector's **Add a city** action opens a payment-first registration dialog that mirrors the hero's entity name, contact number and free-form Rank Amount fields, plus a searchable city-and-state picker. Do not ask for property categories in the Add-a-city registration dialog or the signed-in Add-city sheet. Category selection belongs to city management after the city is active; until then the entity may appear under **All** only. The picker must select a canonical city ID from Realrank's server-owned catalogue; free text alone cannot create a city or a URL. For a new entity, the server checks the selected city, duplicates, the applicable payment and safety rules, then creates the pending order. After the payment is captured, publish the minimal entity listing and, if this is the first valid listing for that city, create its public city index in the same fulfilment flow. The success screen then verifies the submitted number by WhatsApp OTP or SMS fallback before opening profile completion. A newly opened one-entity city is public but not automatically search-indexable; see the indexation policy.
+The city selector's **Add a city** action opens a payment-first registration dialog that mirrors the hero's entity name, contact number and free-form Rank Amount fields, plus a searchable city-and-state picker. Do not ask for property categories in the Add-a-city registration dialog or the signed-in Add-city sheet. Categories are independent entity-level profile data, limited to three, and automatically apply in every active city. The picker must select a canonical city ID from Realrank's server-owned catalogue; free text alone cannot create a city or a URL. For a new entity, the server checks the selected city, duplicates, the applicable payment and safety rules, then creates the pending order. After the payment is captured, publish the minimal entity listing and, if this is the first valid listing for that city, create its public city index in the same fulfilment flow. The success screen then verifies the submitted number by WhatsApp OTP or SMS fallback before opening profile completion. A newly opened one-entity city is public but not automatically search-indexable; see the indexation policy.
 
 The dialog CTA reads **Add your Entity**. After fresh server validation it opens Razorpay Checkout directly; clicking it alone must not claim that the listing or city is already live.
 
-For an existing owned entity, **Add a city** should authenticate or recover ownership and enter a coverage-management flow, not create another entity or charge a second ₹10 entry. Up to three active city slots are included; additional simultaneous cities require separately disclosed, one-time slot purchases. A slot change is not another charge. An additional-city fee does not add to Rank total. City coverage, category selection and contact overrides remain editable subject to moderation. The public wireframe demonstrates the new-entity payment branch; production must also route recognised existing owners to the no-duplicate branch.
+For an existing owned entity, **Add a city** should authenticate or recover ownership and enter a coverage-management flow, not create another entity or charge a second ₹10 entry. Up to three active city slots are included; additional simultaneous cities require separately disclosed, one-time slot purchases. A slot change is not another charge. An additional-city fee does not add to Rank total. City coverage and contact overrides remain editable subject to moderation; entity categories are managed once in the profile and apply to all coverage. The public wireframe demonstrates the new-entity payment branch; production must also route recognised existing owners to the no-duplicate branch.
 
 An unknown, ambiguous or unsupported city must not enter checkout. Offer a catalogue-review request without charging or creating a city page. Do not use a payment-gateway phone number, typed city string or client-side catalogue result as the sole authority for ownership or city validation.
 
@@ -473,10 +475,19 @@ The portfolio is optional and belongs to the entity profile, not to a temporary 
 - Multiple entities may legitimately market similar or identical projects; Realrank does not enforce project exclusivity in the MVP.
 - Portfolio completion does not affect rank.
 - The index does not display property count or price range.
-- Adding or editing an item uses one progressive form: title, primary category, listing purpose and property type first; then reveal only relevant configuration, area, price and city fields. Do not show every real-estate field at once.
+- Adding or editing an item uses a social-style composer. Keep Photos, Title, Description, Price, one primary City, Locality and a horizontal rail of controlled Helpful tags visible. Only Title and an active City are required for immediate publication; everything else can be completed later.
+- Put Property category, Listing purpose, Property type, configuration, furnishing, plot use, area and additional cities inside one collapsed **Add more details** disclosure. Do not make owners pass through taxonomy before they can post.
+- Primary category and property type remain single-select structured values when supplied. Checkboxes are reserved for genuinely multi-valued attributes. For Land & Plot, selecting **Plot / Land parcel** reveals the compact **Plot use** checkbox group—Residential, Commercial and Industrial. Agricultural Land, Farm Land and Other Land do not show that extra question.
+- Property category and Listing purpose use native radio inputs styled as compact cards rather than tabs. Do not preselect either field. When a category is selected, render only its valid purposes and types; incompatible values are cleared explicitly.
+- Helpful tags are controlled aliases backed by canonical dimensions. Apartment, Office and Plot populate property type plus their implied category; 2 BHK and 3 BHK populate normalized configuration; Furnished populates furnishing; For sale, For rent and For lease populate purpose; Industrial remains an auditable specialisation. Only one tag per single-value dimension can be active.
+- A minimally classified item appears in the entity portfolio and general discovery. It enters category-, purpose-, type- and configuration-specific filters only when the corresponding canonical value is present. Never guess ambiguous attributes silently.
+- Never assign one portfolio item multiple primary categories. A commercial or industrial plot remains a Land & Plot item; its plot-use values provide the additional discovery facets without duplicating records or creating conflicting conditional fields.
 - Category, purpose and type selectors must be operable by keyboard, have at least a 44px touch target in production, retain visible focus and communicate selected state programmatically.
 - Mobile selectors may scroll horizontally only when every option remains discoverable; ordinary selects are preferred for long subtype lists. Preserve entered values when a compatible parent option changes, and clearly reset values that become invalid.
 - Server validation owns the dependency rules and unit conversion. Browser behavior is a convenience, not the authority.
+- The owner and public portfolio grids share one visual hierarchy: image, optional price overlay, title, location, up to three controlled tags and update time. Use three columns on desktop and two on mobile. Owner edit affordances overlay the image so signed-in and public cards keep identical geometry.
+- Keep the portfolio filter order stable as All, Residential, Commercial and Land & Plot. Unclassified items appear only in All. Filters never rewrite URLs or create indexable thin combinations on the entity profile.
+- The entity profile may expose every published portfolio post, but an individual portfolio-item URL becomes search-indexable only after it has a useful title, original description, primary city, at least one approved image and sufficient confirmed classification for truthful metadata. Generate structured data from canonical fields rather than repeating display tags as keywords. Thin or unclassified item pages remain accessible to users but use `noindex` until the quality threshold is met.
 
 ### Suggested optional portfolio fields
 
@@ -493,11 +504,11 @@ Do not require complete property data before an entity can participate in the in
 
 ### Public profile and owner dashboard UX
 
-The public entity route remains city-independent because one entity may be active in multiple city indexes. Show every active city and its Realrank Index position directly in a compact, one-city-per-row list at every viewport width; do not hide cities behind a selector or create city-specific profile states. The three-city cap keeps the list short. Do not add a generic trending icon beside positions because it falsely implies measured movement. A directional icon may appear only when backed by real historical position data and accompanied by accessible text such as **Up 2 since yesterday**. Show the shared **Rank total** once, display the union of active-city categories, and show all published portfolio items with explicit city metadata.
+The public entity route remains city-independent because one entity may be active in multiple city indexes. Show every active city and its Realrank Index position directly in a compact, one-city-per-row list at every viewport width; do not hide cities behind a selector or create city-specific profile states. The three-city cap keeps the list short. Do not add a generic trending icon beside positions because it falsely implies measured movement. A directional icon may appear only when backed by real historical position data and accompanied by accessible text such as **Up 2 since yesterday**. Show the shared **Rank total** once, display the entity's one-to-three global discovery categories once, and show all published portfolio items with explicit city metadata.
 
 The public profile uses neutral entity language for companies and marketers without an extra profile-type eyebrow above the entity name. Reuse the owner Home view's identity-first visual language so editing closely resembles the published result, but expose no owner navigation or editing controls. Keep the public layout flat and sequential: entity identity, subtle position metadata, one clear Contact action, a three-column desktop / two-column mobile visual portfolio grid and minimal details. Avoid nested cards, side panels, repeated divider rules and a floating conversion bar; use whitespace, typography and alignment to establish groups. Follow and notification controls are deferred from MVP because they require visitor accounts, preference management and a notification-consent model that the core discovery journey does not yet need. Label the city list **Realrank Index positions**, show the monetary Rank total once, and include a quiet **How ranking works** link to Ranking Policy. Do not repeat sponsored or paid wording in the details or footer. The Ranking Policy carries the full explanation that position is determined by Rank total and is not a quality score or business verification. Use the familiar social-profile convention for trust: verification marks sit immediately beside the entity name as clean icons rather than pills or detached status rows. A precise **Phone verified** mark may appear only after OTP confirmation; it means control of that number and nothing more. Preserve the full meaning in its accessible label. Make portfolio items actionable and include applicable city, category and meaningful last-updated or last-confirmed context. Do not add a separate About section when it only repeats the short profile description. The signed-in preview mirrors the same logo → name and verification → description → categories → details hierarchy and uses one quiet **Edit profile** action.
 
-The authenticated experience is phone-first, but private owner identity must not compete with entity-management tasks. Use one progressive management page instead of a separate overview or tabbed dashboard: public-profile preview first, then Cities, Portfolio and Rank. Use whitespace rather than repeated horizontal rules between these sections, and present portfolio items as a three-column desktop / two-column mobile media grid with edit controls layered quietly over each item. Keep a persistent four-item bottom navigation—**Home**, **Portfolio**, **Rank** and **Account**—across responsive and desktop layouts. Cities stays directly after the profile in the Home flow because coverage changes are comparatively infrequent; removing it from global navigation lowers choice overload without hiding it. The default profile state mirrors the public profile and exposes one **Edit profile** action; only then should a focused editor appear. In that editor, show the combined active-city category set directly after Description as read-only chips with a **Manage by city** action. This makes the public category output understandable without duplicating category controls; edits still happen in the relevant city sheet. Show Cities as short rows with position metadata and selected category names, opening one focused sheet for categories, city reassignment or removal. When an active city has no selected category, replace the category summary with an accent-coloured **Add categories** incomplete state. Keep Portfolio as a direct visual grid and Rank as a single-purpose total, city-position and top-up section. The header contains only the brand and a lightweight Help dropdown with Get help, Report an issue and policy access. Owner verification, public-profile access and sign-out live under Account at the far right of the bottom navigation. Use flat app sections instead of stacking dashboard cards, omit the marketing footer while signed in, keep one clear action per task and avoid duplicate links. Do not describe one city position as the entity's global rank. Categories are edited per active city. Keep the verified owner number separate from the public contact number, and require OTP verification before publishing a changed public number. Portfolio items select their applicable cities. Ranking top-ups increase the shared total and then recalculate every active city's position; do not promise email alerts when email is not part of MVP onboarding.
+The authenticated experience is phone-first, but private owner identity must not compete with entity-management tasks. Use one progressive management page instead of a separate overview or tabbed dashboard: public-profile preview first, then Cities, Portfolio and Rank. Use whitespace rather than repeated horizontal rules between these sections, and present portfolio items as a three-column desktop / two-column mobile media grid with edit controls layered quietly over each item. Keep a persistent four-item bottom navigation—**Home**, **Portfolio**, **Rank** and **Account**—across responsive and desktop layouts. Cities stays directly after the profile in the Home flow because coverage changes are comparatively infrequent; removing it from global navigation lowers choice overload without hiding it. The default profile state mirrors the public profile and exposes one **Edit profile** action; only then should a focused editor appear. In that editor, place Categories directly after Description as an independent, selectable entity field. Require at least one and allow any three from the complete 13-option listing-page discovery set, with a visible selected count. The same selection applies in every active city. Show Cities as short rows with only coverage and position metadata, opening one focused sheet for city reassignment or removal; never duplicate category controls inside the city flow. Keep Portfolio as a direct visual grid and Rank as a single-purpose total, city-position and top-up section. The header contains only the brand and a lightweight Help dropdown with Get help, Report an issue and policy access. Owner verification, public-profile access and sign-out live under Account at the far right of the bottom navigation. Use flat app sections instead of stacking dashboard cards, omit the marketing footer while signed in, keep one clear action per task and avoid duplicate links. Do not describe one city position as the entity's global rank. Keep the verified owner number separate from the public contact number, and require OTP verification before publishing a changed public number. Portfolio items retain their own canonical category and applicable cities. Ranking top-ups increase the shared total and then recalculate every active city's position; do not promise email alerts when email is not part of MVP onboarding.
 
 ### Help and issue-reporting UX
 
@@ -545,7 +556,7 @@ The brand and hero remain location-neutral. City context is supplied by the city
 
 - At launch, `/` directly serves the complete Indore landing page and index. It is self-canonical; do not redirect visitors to `/indore` and do not publish a duplicate `/indore` page yet.
 - Let the first valid paid or included activation open a recognised city immediately. A city does not need five entities to be publicly usable; the five-entity threshold governs search indexation, not product launch. Do not display a fake Coming soon state for a city eligible for self-service opening.
-- Keep the launch city listing and category records scoped to Indore's city ID even though the public page is `/`. Ranking contributions and the public Rank total belong to the entity, not to Indore.
+- Keep the launch city listing scoped to Indore's city ID even though the public page is `/`. Entity discovery-filter records and ranking contributions belong to the entity, not to Indore, and therefore apply when the same entity activates another city.
 - When the second city opens, move the Indore city experience to `/indore`, turn `/` into a compact live-city chooser—not an All India listing—and add the new `/{city}` page in the same fulfilment flow. The routing and canonical switch must be deployment-ready before self-service city activation is enabled; it cannot wait for a later manual release.
 - Expand city by city across India without changing the core headline or entity URLs.
 
@@ -799,11 +810,25 @@ City slots are capacity entitlements; the city assigned to a slot is editable. K
 
 Only the three broad property categories belong in this table for MVP. Purpose, subtype and specialisation are separate dimensions.
 
+**discovery_filters**
+
+- id
+- stable code such as RESIDENTIAL, COMMERCIAL, LAND_PLOT, RENTALS, NEW_PROJECTS, LUXURY, INDUSTRIAL, WAREHOUSES, CO_WORKING, AGRICULTURAL, PG_HOSTELS, FARMHOUSES or AUCTION_PROPERTIES
+- public name
+- slug
+- icon key
+- source dimension: PRIMARY_CATEGORY, PURPOSE, PROPERTY_TYPE or SPECIALISATION
+- source record id or canonical query mapping
+- display group and display order
+- active status
+
+This is the curated discovery vocabulary shared by the homepage and entity profile. It gives users one understandable list while preserving the canonical dimension used by search and portfolio-item data. Do not flatten portfolio-item fields into this table.
+
 **property_types**
 
 - id
 - parent category id
-- stable code such as APARTMENT, VILLA, OFFICE, WAREHOUSE or RESIDENTIAL_PLOT
+- stable code such as APARTMENT, VILLA, OFFICE, WAREHOUSE, PLOT, AGRICULTURAL_LAND or FARM_LAND
 - public name
 - display order
 - supports configuration flag
@@ -818,12 +843,24 @@ Use lookup rows instead of a database enum so types can be retired or added with
 - public name
 - active status
 
-**city_listing_categories**
+**land_use_types**
 
-- city listing id
-- category id
+- id
+- stable code: RESIDENTIAL, COMMERCIAL or INDUSTRIAL
+- public name
+- display order
+- active status
+
+Keep these as lookup rows rather than embedding them in property-type names. This allows a Plot / Land parcel to carry more than one legitimate use while retaining one primary category and one physical property type.
+
+**entity_discovery_filters**
+
+- entity id
+- discovery filter id
 - selection time, retained for fair category-specific tie-breaking
-- unique city listing + category
+- unique entity + discovery filter
+
+An entity must have at least one and may have no more than three active rows. Enforce the maximum in the same transaction that changes discovery membership. These rows apply to every active city listing for the entity; city listings never duplicate discovery assignments.
 
 **ranking_contributions**
 
@@ -867,27 +904,54 @@ The three included city slots have no city-fee payment line item. When a checkou
 - entity id
 - title
 - public slug
-- primary category id
-- property type id
-- listing purpose: SALE, RENT or LEASE
+- primary category id, nullable until classified
+- property type id, nullable until classified
+- listing purpose: SALE, RENT or LEASE, nullable until classified
+- classification source: USER_SELECTED, CONTROLLED_TAG, LEGACY_MAPPED or INFERRED, nullable
+- classification confirmation status and confirmed time, nullable
 - residential configuration kind: RK or BHK, nullable
 - residential room count, nullable
 - residential room-count-plus flag, default false
-- original area value and unit, nullable for built properties and required for Land & Plot
-- canonical area in square metres, nullable for built properties and required for Land & Plot
+- furnishing status: UNFURNISHED, SEMI_FURNISHED or FURNISHED, nullable
+- original area value and unit, nullable
+- canonical area in square metres, nullable
 - area type: CARPET, BUILT_UP, SUPER_BUILT_UP or PLOT, nullable where not applicable
 - price amount in paise, nullable
 - price period/context: TOTAL, MONTH or LEASE, nullable
 - locality, nullable
 - description, nullable
-- image and external URL fields, nullable
+- external URL, nullable
 - publication status
 - moderation status
 - legacy category values, nullable JSON/text array retained during migration
 - last updated time
 - auctioning authority, source URL, auction date, reserve-price display and last-confirmed time, all nullable and used only for auction opportunities
 
-Validate dependencies on the server as well as in the interface. For example, BHK is invalid for a warehouse; Lease is invalid for a Residential MVP item; a Land & Plot item requires a positive area; and every assigned city must already be an active city for that entity. Store both the owner's original area value/unit and canonical square metres. Use exact conversion constants—1 square foot equals 0.09290304 square metres—and always recalculate display conversions from the canonical value rather than repeatedly converting rounded display values.
+Validate supplied dependencies on the server as well as in the interface. For example, BHK is invalid for a warehouse and Lease is invalid for a Residential MVP item. Missing optional classification does not block a portfolio post, but it prevents entry into filters that depend on the missing value. Every primary or additional city must already be active for the entity. Store both the owner's original area value/unit and canonical square metres whenever area is supplied. Use exact conversion constants—1 square foot equals 0.09290304 square metres—and always recalculate display conversions from the canonical value rather than repeatedly converting rounded display values.
+
+**portfolio_item_media**
+
+- id
+- portfolio item id
+- storage object key
+- display order
+- media role: COVER or GALLERY
+- alt text, nullable at upload and required before an individually indexable item page
+- width, height and MIME type
+- moderation status
+- created time
+
+Allow up to ten images in the MVP composer. The first image is the cover until the owner reorders media. Existing single-image fields migrate into one COVER row; retain old references during the additive migration.
+
+**portfolio_item_tags**
+
+- portfolio item id
+- controlled tag id
+- source: USER_SELECTED, CONTROLLED_TAG, LEGACY_MAPPED or INFERRED
+- confirmed time, nullable
+- unique portfolio item + controlled tag
+
+Controlled tags carry a dimension and optional canonical mapping. Enforce one active value for single-value dimensions such as purpose, property type, configuration and furnishing. Store future free-form display tags in a separate table and exclude them from structured filters until reviewed.
 
 **portfolio_item_specialisations**
 
@@ -895,10 +959,19 @@ Validate dependencies on the server as well as in the interface. For example, BH
 - property specialisation id
 - unique portfolio item + specialisation
 
+**portfolio_item_land_uses**
+
+- portfolio item id
+- land use type id
+- unique portfolio item + land use type
+
+Rows are valid only when the portfolio item's primary category is LAND_PLOT and its property type is PLOT. At least one row is required for that combination; no rows are stored for Agricultural Land, Farm Land or Other Land.
+
 **portfolio_item_cities**
 
 - portfolio item id
 - city id
+- is primary, with exactly one primary city per published item
 - unique portfolio item + city
 
 ### Derived ranking
@@ -912,7 +985,7 @@ ORDER BY entities.shared_total_ranking_credit_paise DESC,
          city_listing_id ASC
 ```
 
-Category ranking filters through `city_listing_categories` and also considers its selection time in the tie-break, so joining a category later cannot inherit an earlier tie priority. The exact query can use the database's equivalent of `GREATEST(...)`.
+Category and refinement ranking joins the active city listing to `entity_discovery_filters` and also considers the selection time in the tie-break, so joining a discovery filter later cannot inherit an earlier tie priority. The exact query can use the database's equivalent of `GREATEST(...)`.
 
 Captured ranking payments, promotional credits and reversals update the cached **entity-level** total inside one database transaction. City-activation payments update city eligibility separately. The immutable contribution and payment-allocation records remain the financial source of truth; rank is derived from the entity total within each active city/category view.
 
