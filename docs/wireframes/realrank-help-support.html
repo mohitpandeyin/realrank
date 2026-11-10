@@ -10,7 +10,7 @@
   <link rel="icon" type="image/svg+xml" href="../brand/final/svg/realrank-icon-micro.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="../brand/final/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../brand/final/favicon/apple-touch-icon.png">
-  <link rel="stylesheet" href="./realrank-flow.css">
+  <link rel="stylesheet" href="./realrank-flow.css?v=20261110-support-qa">
 </head>
 <body class="rr-owner-app rr-help-page">
   <header class="rr-site-header">
@@ -44,7 +44,7 @@
           <p>Choose the topic closest to what you need.</p>
         </div>
         <div class="rr-help-questions">
-          <details class="rr-help-question">
+          <details class="rr-help-question" data-rr-owner-help>
             <summary>Payment is pending or not confirmed <span aria-hidden="true">+</span></summary>
             <div><p>If money may have been deducted, do not pay again. Keep the order ID and allow the payment status to update. Report the payment below if it remains pending.</p><a href="?intent=report&amp;type=payment#rr-report-issue">Report this payment</a></div>
           </details>
@@ -52,15 +52,15 @@
             <summary>How Rank total and positions work <span aria-hidden="true">+</span></summary>
             <div><p>An entity has one Rank total shared across its active cities. Within each city, a higher Rank total appears above a lower one. Position is not a quality score or business verification.</p><button type="button" data-rr-ranking-policy>Read the Ranking Policy</button></div>
           </details>
-          <details class="rr-help-question">
+          <details class="rr-help-question" data-rr-owner-help>
             <summary>Manage a listing or public profile <span aria-hidden="true">+</span></summary>
             <div><p>Use Home to update public details, cities and portfolio items. A changed public contact number must be verified before it is published.</p><a href="./realrank-owner-dashboard.html">Open entity Home</a></div>
           </details>
-          <details class="rr-help-question">
+          <details class="rr-help-question" data-rr-owner-help>
             <summary>Change cities or categories <span aria-hidden="true">+</span></summary>
-            <div><p>Each entity includes up to three active city slots. Cities and their categories can be updated from the Cities section without changing the shared Rank total.</p><a href="./realrank-owner-dashboard.html#rr-owner-cities">Manage cities</a></div>
+            <div><p>Each entity includes up to three active city slots. Manage city coverage in Cities. Update profile categories separately through Edit profile; the same categories apply in every active city.</p><a href="./realrank-owner-dashboard.html#rr-owner-cities">Manage cities</a></div>
           </details>
-          <details class="rr-help-question">
+          <details class="rr-help-question" data-rr-owner-help>
             <summary>Phone verification or account access <span aria-hidden="true">+</span></summary>
             <div><p>Realrank uses the verified owner number for account access. WhatsApp is the primary OTP channel and SMS is available as a fallback.</p><a href="?intent=report&amp;type=account#rr-report-issue">Get account help</a></div>
           </details>
@@ -78,7 +78,7 @@
       <section class="rr-help-section" id="rr-report-issue" aria-labelledby="rr-report-title">
         <div class="rr-help-section-head">
           <h2 id="rr-report-title">Report an issue</h2>
-          <p>Tell us what happened. We will include the current page and signed-in entity automatically.</p>
+          <p data-rr-report-context-copy>Tell us what happened. We will include the current page and signed-in entity automatically.</p>
         </div>
         <form class="rr-issue-form" data-rr-issue-form novalidate>
           <div>
@@ -121,7 +121,7 @@
           <div>
             <label class="rr-label" for="rr-support-phone">Mobile number</label>
             <div class="rr-phone-input"><span>+91</span><input class="rr-phone-number" id="rr-support-phone" name="phone" type="tel" inputmode="numeric" value="9876543210" maxlength="10" pattern="[6-9][0-9]{9}" autocomplete="tel-national" required></div>
-            <p class="rr-field-hint">We will use this verified number to reply about this issue.</p>
+            <p class="rr-field-hint" data-rr-support-phone-hint>We will use this verified number to reply about this issue.</p>
           </div>
 
           <p class="rr-support-privacy"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="M12 8v4M12 16h.01"/></svg><span>Never include an OTP, password, UPI PIN or card details.</span></p>
@@ -131,7 +131,7 @@
         <div class="rr-issue-success" role="status" tabindex="-1" data-rr-issue-success hidden>
           <span class="rr-status-icon rr-success"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>
           <div><h3>Issue submitted</h3><p>We received your report. Keep reference <strong>RR-10428</strong> if you contact support again.</p></div>
-          <a class="rr-button rr-button-secondary" href="./realrank-owner-dashboard.html">Back to Home</a>
+          <a class="rr-button rr-button-secondary" href="./realrank-owner-dashboard.html" data-rr-success-back>Back to Home</a>
         </div>
       </section>
     </div>
@@ -182,6 +182,8 @@
     const rrFileInput = document.querySelector('[data-rr-issue-file]');
     const rrFileName = document.querySelector('[data-rr-file-name]');
     const rrIssueSuccess = document.querySelector('[data-rr-issue-success]');
+    const rrSupportPhone = document.querySelector('#rr-support-phone');
+    const rrAllowedImageTypes = new Set(['image/png', 'image/jpeg', 'image/webp']);
 
     function rrUpdateIssueType() {
       const rrIsPayment = rrIssueType.value === 'payment';
@@ -192,6 +194,12 @@
     rrFileInput.addEventListener('change', () => {
       const rrFile = rrFileInput.files[0];
       if (!rrFile) { rrFileName.textContent = 'Choose an image'; return; }
+      if (!rrAllowedImageTypes.has(rrFile.type)) {
+        rrFileInput.value = '';
+        rrFileName.textContent = 'Choose an image';
+        rrShowToast('Choose a PNG, JPG or WebP image.');
+        return;
+      }
       if (rrFile.size > 5 * 1024 * 1024) {
         rrFileInput.value = '';
         rrFileName.textContent = 'Choose an image';
@@ -202,13 +210,28 @@
     });
 
     const rrParams = new URLSearchParams(window.location.search);
-    if (rrParams.get('context') === 'public') {
+    const rrIsPublicContext = rrParams.get('context') === 'public';
+    if (rrIsPublicContext) {
       document.body.classList.remove('rr-owner-app');
       document.body.classList.add('rr-help-public-context');
       document.querySelector('[data-rr-help-owner-nav]').hidden = true;
+      document.querySelectorAll('[data-rr-owner-help]').forEach((rrTopic) => { rrTopic.hidden = true; });
       const rrBack = document.querySelector('[data-rr-help-back]');
       rrBack.href = './realrank-entity-profile.html';
       rrBack.querySelector('span').textContent = 'Back to listing';
+      document.querySelector('[data-rr-report-context-copy]').textContent = 'Tell us what happened. We will include the current page and listing context automatically.';
+      rrSupportPhone.value = '';
+      document.querySelector('[data-rr-support-phone-hint]').textContent = 'Enter a number where support can reply about this issue.';
+      const rrSuccessBack = document.querySelector('[data-rr-success-back]');
+      rrSuccessBack.href = './realrank-entity-profile.html';
+      rrSuccessBack.textContent = 'Back to listing';
+      document.querySelectorAll('a[href*="intent=report"]').forEach((rrLink) => {
+        const rrReportUrl = new URL(rrLink.href, window.location.href);
+        rrReportUrl.searchParams.set('context', 'public');
+        const rrEntity = rrParams.get('entity');
+        if (rrEntity) rrReportUrl.searchParams.set('entity', rrEntity);
+        rrLink.href = rrReportUrl.href;
+      });
     }
     const rrRequestedType = rrParams.get('type');
     const rrAllowedTypes = [...rrIssueType.options].map((rrOption) => rrOption.value);
