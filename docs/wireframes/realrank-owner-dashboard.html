@@ -10,7 +10,7 @@
   <link rel="icon" type="image/svg+xml" href="../brand/final/svg/realrank-icon-micro.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="../brand/final/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../brand/final/favicon/apple-touch-icon.png">
-  <link rel="stylesheet" href="./realrank-flow.css">
+  <link rel="stylesheet" href="./realrank-flow.css?v=20261109-rank-cue-center">
 </head>
 <body class="rr-owner-app">
   <header class="rr-site-header">
@@ -47,49 +47,49 @@
 
       <div class="rr-dashboard-main">
         <section class="rr-owner-flow-section rr-owner-flow-home" id="rr-owner-home" data-rr-flow-section="home">
-          <div class="rr-owner-profile-tools">
-            <a class="rr-public-back" href="./realrank-entity-profile.html"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>View public profile</a>
-            <button class="rr-profile-action rr-profile-action-secondary" type="button" data-rr-edit-profile>Edit profile</button>
-          </div>
           <div class="rr-public-identity-grid">
-            <button class="rr-profile-logo rr-owner-edit-logo" type="button" aria-label="Change company logo" data-rr-upload>AR<span class="rr-owner-edit-cue" aria-hidden="true">Edit</span></button>
+            <div class="rr-profile-logo" aria-hidden="true">AR</div>
             <div class="rr-public-identity-copy">
               <div class="rr-public-title-row"><h1 class="rr-profile-title" data-rr-profile-preview-name>Aarambh Realty</h1><div class="rr-profile-trust-badges" aria-label="Profile verification"><span class="rr-verification-mark" role="img" aria-label="Phone verified" title="Phone verified"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V5l8-3 8 3Z"/><path d="m9 12 2 2 4-4"/></svg></span></div></div>
               <p class="rr-profile-description" data-rr-profile-preview-description>Residential and commercial property marketing with a curated portfolio of current opportunities.</p>
-              <div class="rr-profile-categories" aria-label="Deals in"><span class="rr-category-tag">Residential</span><span class="rr-category-tag">Commercial</span><span class="rr-category-tag">New Projects</span></div>
-              <div class="rr-public-social-actions rr-public-social-actions-single" aria-label="Public profile action preview">
-                <button class="rr-profile-action rr-profile-action-primary" type="button" title="Public contact: +91 98765 43210" data-rr-owner-contact data-rr-profile-preview-phone>Contact</button>
+              <div class="rr-profile-category-line" aria-label="Deals in"><span>Residential</span><span>Commercial</span><span>New Projects</span></div>
+              <div class="rr-profile-social-row"><div class="rr-profile-social-links" aria-label="Social links" data-rr-social-preview><a class="rr-profile-social-link" href="https://instagram.com/aarambhrealty" target="_blank" rel="noopener" aria-label="Instagram @aarambhrealty"><span class="rr-social-platform-mark" aria-hidden="true">IG</span><span>@aarambhrealty</span></a></div><button class="rr-social-add" type="button" data-rr-add-social-profile>+ Add</button></div>
+              <div class="rr-public-social-actions rr-public-social-actions-compact" aria-label="Profile management">
+                <button class="rr-profile-action rr-profile-action-secondary" type="button" data-rr-edit-profile>Edit profile</button>
+                <a class="rr-profile-action rr-profile-action-secondary" href="./realrank-entity-profile.html">View public ↗</a>
               </div>
             </div>
-            <aside class="rr-public-actions">
-              <div class="rr-public-position">
-                <div class="rr-public-position-head"><span class="rr-sponsored-label">Realrank Index positions</span><span class="rr-public-rank-total"><strong>₹1,260</strong><small>Rank total</small></span></div>
-                <div class="rr-public-city-positions" aria-label="City positions"><div><span>Bhopal</span><strong>#1</strong></div><div><span>Indore</span><strong>#3</strong></div></div>
-                <button class="rr-text-button rr-owner-edit-positions" type="button" data-rr-edit-cities>Edit cities</button>
-              </div>
-            </aside>
           </div>
+          <button class="rr-public-index-strip rr-owner-index-strip" type="button" data-rr-open-rank aria-label="Manage Realrank Index positions"><span><small>Bhopal</small><strong>#1</strong></span><span><small>Indore</small><strong>#3</strong></span><span class="rr-public-index-total"><small>Rank total</small><strong>₹1,260</strong></span><span aria-hidden="true">›</span></button>
         </section>
 
         <section class="rr-owner-flow-section rr-public-flow-section" id="rr-owner-portfolio" data-rr-flow-section="portfolio">
-          <div class="rr-public-section-head"><div><h2>Portfolio</h2><p>Share current properties and opportunities.</p></div><button class="rr-profile-action rr-profile-action-primary" type="button" data-rr-add-item>Add item</button></div>
-          <div class="rr-portfolio-filter-rail" role="group" aria-label="Filter portfolio">
-            <button class="rr-portfolio-filter" type="button" aria-pressed="true" data-rr-portfolio-filter="all">All</button>
-            <button class="rr-portfolio-filter" type="button" aria-pressed="false" data-rr-portfolio-filter="residential">Residential</button>
-            <button class="rr-portfolio-filter" type="button" aria-pressed="false" data-rr-portfolio-filter="commercial">Commercial</button>
-            <button class="rr-portfolio-filter" type="button" aria-pressed="false" data-rr-portfolio-filter="land-plot">Land &amp; Plot</button>
-          </div>
+          <div class="rr-public-section-head"><div><h2>Portfolio</h2></div><button class="rr-profile-action rr-profile-action-secondary" type="button" data-rr-add-item>+ Add</button></div>
           <div class="rr-public-portfolio-list" data-rr-portfolio-list>
-            <article class="rr-public-portfolio-item rr-owner-portfolio-item" data-rr-item-title="MP Nagar office collection" data-rr-item-category="commercial" data-rr-item-purpose="lease" data-rr-item-type="office" data-rr-item-area="1800" data-rr-item-unit="sqft" data-rr-item-price="85000" data-rr-item-locality="MP Nagar" data-rr-item-cities="Bhopal" data-rr-item-description="Selected commercial office opportunities for growing teams and investors." data-rr-item-tags="Office|For lease"><span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg><span class="rr-portfolio-price-tag">₹85,000/mo</span></span><span class="rr-public-portfolio-copy"><strong>MP Nagar office collection</strong><span class="rr-portfolio-card-location">MP Nagar, Bhopal</span><span class="rr-portfolio-card-tags"><span>Office</span><span>For lease</span></span><small>Updated 2 days ago</small></span><button class="rr-icon-button rr-owner-portfolio-edit" type="button" aria-label="Edit MP Nagar office collection" data-rr-edit-item><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button></article>
-            <article class="rr-public-portfolio-item rr-owner-portfolio-item" data-rr-item-title="Current launch opportunities" data-rr-item-category="residential" data-rr-item-purpose="sale" data-rr-item-type="apartment" data-rr-item-configuration="3bhk" data-rr-item-area="1450" data-rr-item-unit="sqft" data-rr-item-price="7800000" data-rr-item-locality="" data-rr-item-cities="Bhopal|Indore" data-rr-item-description="Residential project options from Aarambh Realty's current portfolio." data-rr-item-tags="3 BHK|Apartment|For sale"><span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V9l9-6 9 6v12M9 21v-6h6v6"/><path d="M7 11h2M15 11h2"/></svg><span class="rr-portfolio-price-tag">₹78 lakh</span></span><span class="rr-public-portfolio-copy"><strong>Current launch opportunities</strong><span class="rr-portfolio-card-location">Bhopal + Indore</span><span class="rr-portfolio-card-tags"><span>3 BHK</span><span>Apartment</span></span><small>Updated today</small></span><button class="rr-icon-button rr-owner-portfolio-edit" type="button" aria-label="Edit current launch opportunities" data-rr-edit-item><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button></article>
-            <article class="rr-public-portfolio-item rr-owner-portfolio-item" data-rr-item-title="Vijay Nagar residential selection" data-rr-item-category="residential" data-rr-item-purpose="sale" data-rr-item-type="independent-house" data-rr-item-configuration="4plus" data-rr-item-area="2400" data-rr-item-unit="sqft" data-rr-item-price="14500000" data-rr-item-locality="Vijay Nagar" data-rr-item-cities="Indore" data-rr-item-description="A curated selection of homes shared for direct buyer enquiries." data-rr-item-tags="4 BHK+|Independent House|For sale"><span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20V8l6-4 6 4v12M9 11h6M9 15h6"/></svg><span class="rr-portfolio-price-tag">₹1.45 crore</span></span><span class="rr-public-portfolio-copy"><strong>Vijay Nagar residential selection</strong><span class="rr-portfolio-card-location">Vijay Nagar, Indore</span><span class="rr-portfolio-card-tags"><span>4 BHK+</span><span>House</span></span><small>Updated 4 days ago</small></span><button class="rr-icon-button rr-owner-portfolio-edit" type="button" aria-label="Edit Vijay Nagar residential selection" data-rr-edit-item><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button></article>
+            <article class="rr-public-portfolio-item rr-owner-portfolio-item" tabindex="0" data-rr-edit-item data-rr-item-title="MP Nagar office collection" data-rr-item-category="commercial" data-rr-item-purpose="lease" data-rr-item-type="office" data-rr-item-area="1800" data-rr-item-unit="sqft" data-rr-item-price="85000" data-rr-item-locality="MP Nagar" data-rr-item-cities="Bhopal" data-rr-item-description="Selected commercial office opportunities for growing teams and investors." data-rr-item-tags="Office|For lease"><span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg><span class="rr-portfolio-price-tag">₹85,000/mo</span></span><span class="rr-public-portfolio-copy"><strong>MP Nagar office collection</strong><span class="rr-portfolio-card-meta">MP Nagar, Bhopal · Updated 2d</span></span></article>
+            <article class="rr-public-portfolio-item rr-owner-portfolio-item" tabindex="0" data-rr-edit-item data-rr-item-title="Current launch opportunities" data-rr-item-category="residential" data-rr-item-purpose="sale" data-rr-item-type="apartment" data-rr-item-configuration="3bhk" data-rr-item-area="1450" data-rr-item-unit="sqft" data-rr-item-price="7800000" data-rr-item-locality="" data-rr-item-cities="Bhopal|Indore" data-rr-item-description="Residential project options from Aarambh Realty's current portfolio." data-rr-item-tags="3 BHK|Apartment|For sale"><span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V9l9-6 9 6v12M9 21v-6h6v6"/><path d="M7 11h2M15 11h2"/></svg><span class="rr-portfolio-price-tag">₹78 lakh</span></span><span class="rr-public-portfolio-copy"><strong>Current launch opportunities</strong><span class="rr-portfolio-card-meta">Bhopal + Indore · Updated today</span></span></article>
+            <article class="rr-public-portfolio-item rr-owner-portfolio-item" tabindex="0" data-rr-edit-item data-rr-item-title="Vijay Nagar residential selection" data-rr-item-category="residential" data-rr-item-purpose="sale" data-rr-item-type="independent-house" data-rr-item-configuration="4plus" data-rr-item-area="2400" data-rr-item-unit="sqft" data-rr-item-price="14500000" data-rr-item-locality="Vijay Nagar" data-rr-item-cities="Indore" data-rr-item-description="A curated selection of homes shared for direct buyer enquiries." data-rr-item-tags="4 BHK+|Independent House|For sale"><span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20V8l6-4 6 4v12M9 11h6M9 15h6"/></svg><span class="rr-portfolio-price-tag">₹1.45 crore</span></span><span class="rr-public-portfolio-copy"><strong>Vijay Nagar residential selection</strong><span class="rr-portfolio-card-meta">Vijay Nagar, Indore · Updated 4d</span></span></article>
           </div>
-          <p class="rr-portfolio-empty" data-rr-portfolio-empty hidden>No items in this category yet.</p>
+          <p class="rr-portfolio-empty" data-rr-portfolio-empty hidden>No portfolio items yet.</p>
         </section>
-
-        <section class="rr-owner-flow-section rr-public-flow-section rr-public-details" aria-labelledby="rr-owner-details-title">
-          <div class="rr-public-section-head"><div><h2 id="rr-owner-details-title">Details</h2></div><button class="rr-profile-action rr-profile-action-secondary" type="button" data-rr-edit-profile>Edit details</button></div>
-          <div class="rr-public-detail-list"><div><span>Serves</span><strong>Bhopal and Indore</strong></div><div><span>Website</span><strong data-rr-profile-preview-url>aarambhrealty.in</strong></div></div>
+        <section class="rr-owner-flow-section" id="rr-owner-rank" data-rr-flow-section="rank">
+          <div class="rr-dashboard-head rr-rank-section-head"><h2>Realrank Index</h2><span class="rr-rank-total-inline"><small>Rank total</small><strong>₹1,260</strong></span></div>
+          <div class="rr-city-position-list" aria-label="Current city positions">
+            <div class="rr-city-position-row"><strong>Bhopal</strong><span class="rr-city-rank-end"><strong>#1</strong></span></div>
+            <div class="rr-city-position-row"><strong>Indore</strong><span class="rr-city-rank-end"><strong>#3</strong></span></div>
+          </div>
+          <div class="rr-rank-topup">
+            <div class="rr-rank-amount-control">
+              <button class="rr-rank-claim-first" type="button" data-rr-claim-first data-rr-claim-amount="640" aria-label="Set 640 rupees to claim rank 1 in Indore"><svg class="rr-rank-claim-arrow" aria-hidden="true" viewBox="0 0 34 24"><path d="M31 2C20 3 12 8 7 19M7 19l1-7M7 19l7-3"/></svg><span><strong>₹640</strong> to claim Indore #1</span></button>
+              <div class="rr-amount-stepper" role="group" aria-label="Choose amount to add">
+                <button class="rr-step-button" type="button" aria-label="Decrease amount by 10 rupees" data-rr-topup-minus>−</button>
+                <output class="rr-step-value" aria-live="polite" data-rr-topup-value>₹10</output>
+                <button class="rr-step-button" type="button" aria-label="Increase amount by 10 rupees" data-rr-topup-plus>+</button>
+              </div>
+            </div>
+            <button class="rr-button rr-button-primary" type="button" data-rr-topup>Add ₹10 to Rank total</button>
+          </div>
+          <p class="rr-rank-note">Ranks update after confirmed payment.</p>
         </section>
 
         <section class="rr-owner-flow-section" id="rr-owner-cities">
@@ -99,17 +99,6 @@
             <button class="rr-city-manage-row" type="button" data-rr-city-row data-rr-city-slot="2" data-rr-city-id="indore-mp" data-rr-city-name="Indore, Madhya Pradesh" data-rr-city-position="#3"><span><strong data-rr-city-row-name>Indore</strong><small data-rr-city-row-status>Active city</small></span><span class="rr-city-manage-end"><strong data-rr-city-row-position>#3</strong><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></button>
             <button class="rr-city-manage-row rr-city-manage-add" type="button" data-rr-city-row data-rr-city-slot="3"><span><strong data-rr-city-row-name>Add another city</strong><small data-rr-city-row-status>One included slot available</small></span><span class="rr-city-manage-end"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></button>
           </div>
-        </section>
-
-        <section class="rr-owner-flow-section" id="rr-owner-rank" data-rr-flow-section="rank">
-          <div class="rr-dashboard-head"><div><h2>Rank</h2><p>One total shared across active cities.</p></div></div>
-          <div class="rr-rank-total-view"><span>Rank total</span><strong>₹1,260</strong></div>
-          <div class="rr-city-position-list" aria-label="Current city positions"><div class="rr-city-position-row"><span><strong>Bhopal</strong><small>Current position</small></span><span><strong>#1</strong></span></div><div class="rr-city-position-row"><span><strong>Indore</strong><small>Current position</small></span><span><strong>#3</strong></span></div></div>
-          <div class="rr-rank-topup">
-            <div><span class="rr-label">Add to Rank total</span><div class="rr-amount-stepper"><button class="rr-step-button" type="button" data-rr-minus aria-label="Decrease amount">−</button><span class="rr-step-value" data-rr-topup-value>₹100</span><button class="rr-step-button" type="button" data-rr-plus aria-label="Increase amount">+</button></div></div>
-            <button class="rr-button rr-button-primary" type="button" data-rr-topup>Add ₹100 to Rank total</button>
-          </div>
-          <p class="rr-rank-note">New total after payment: <strong data-rr-new-total>₹1,360</strong></p>
         </section>
       </div>
     </div>
@@ -141,6 +130,13 @@
           </div>
           <p class="rr-field-hint"><span data-rr-category-count aria-live="polite">3 of 3 selected</span> · These categories apply in every active city.</p>
         </fieldset>
+        <div class="rr-social-editor">
+          <div class="rr-social-editor-head"><span class="rr-label">Social links <span class="rr-label-note">optional</span></span><button class="rr-mini-add" type="button" data-rr-add-social>+ Add</button></div>
+          <div class="rr-social-editor-list" data-rr-social-editor-list>
+            <div class="rr-social-editor-row" data-rr-social-row><select class="rr-select" aria-label="Social platform"><option value="instagram" selected>Instagram</option><option value="facebook">Facebook</option><option value="linkedin">LinkedIn</option><option value="x">X</option><option value="youtube">YouTube</option></select><input class="rr-input" aria-label="Social handle or URL" value="@aarambhrealty" placeholder="Handle or profile URL"><button class="rr-icon-button rr-social-remove" type="button" aria-label="Remove social link" data-rr-remove-social>×</button></div>
+          </div>
+          <p class="rr-field-hint">Shown as compact links on the public profile.</p>
+        </div>
         <div><label class="rr-label" for="rr-public-phone">Public WhatsApp number</label><input class="rr-input" id="rr-public-phone" type="tel" inputmode="numeric" value="9876543210" maxlength="10" data-rr-public-phone></div>
         <div class="rr-public-phone-verification" data-rr-public-phone-verification hidden><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg><span>Verify the new number before publishing it.</span></div>
         <div><label class="rr-label" for="rr-profile-url">Website</label><input class="rr-input" id="rr-profile-url" type="url" value="https://aarambhrealty.in" autocomplete="url"></div>
@@ -168,30 +164,13 @@
         <div class="rr-composer-photo-field"><span class="rr-label">Photos <span class="rr-label-note">optional</span></span><label class="rr-composer-photo" for="rr-item-image"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/><path d="M12 8v6M9 11h6"/></svg><span><strong data-rr-item-file-name>Add photos</strong><small>Up to 10 JPG, PNG or WebP files</small></span></label><input class="rr-sr-only" id="rr-item-image" type="file" accept="image/png,image/jpeg,image/webp" multiple data-rr-item-file></div>
 
         <div><label class="rr-label" for="rr-item-title">Title</label><input class="rr-input" id="rr-item-title" maxlength="90" placeholder="For example, 3 BHK apartment in Vijay Nagar" required></div>
-        <div><label class="rr-label" for="rr-item-description">Description <span class="rr-label-note">optional</span></label><textarea class="rr-textarea" id="rr-item-description" maxlength="500" rows="3" placeholder="Share the most useful details."></textarea></div>
 
         <div class="rr-grid-two rr-composer-essentials">
           <div><label class="rr-label" for="rr-item-price" data-rr-price-label>Price <span class="rr-label-note">optional</span></label><div class="rr-money-input"><span>₹</span><input id="rr-item-price" type="number" inputmode="numeric" min="0" step="1" placeholder="Amount" data-rr-price></div></div>
           <div><label class="rr-label" for="rr-item-city">City</label><select class="rr-select" id="rr-item-city" required data-rr-item-primary-city><option value="Bhopal">Bhopal</option><option value="Indore">Indore</option></select></div>
         </div>
         <div><label class="rr-label" for="rr-item-locality">Locality <span class="rr-label-note">optional</span></label><input class="rr-input" id="rr-item-locality" maxlength="80" placeholder="For example, Vijay Nagar"></div>
-
-        <fieldset class="rr-fieldset">
-          <legend class="rr-label">Helpful tags <span class="rr-label-note">optional</span></legend>
-          <div class="rr-quick-tag-rail" data-rr-quick-tags aria-label="Suggested property tags">
-            <button type="button" aria-pressed="false" data-rr-quick-tag="sale" data-rr-tag-dimension="purpose">For sale</button>
-            <button type="button" aria-pressed="false" data-rr-quick-tag="rent" data-rr-tag-dimension="purpose">For rent</button>
-            <button type="button" aria-pressed="false" data-rr-quick-tag="lease" data-rr-tag-dimension="purpose">For lease</button>
-            <button type="button" aria-pressed="false" data-rr-quick-tag="apartment" data-rr-tag-dimension="type">Apartment</button>
-            <button type="button" aria-pressed="false" data-rr-quick-tag="office" data-rr-tag-dimension="type">Office</button>
-            <button type="button" aria-pressed="false" data-rr-quick-tag="plot" data-rr-tag-dimension="type">Plot</button>
-            <button type="button" aria-pressed="false" data-rr-quick-tag="2bhk" data-rr-tag-dimension="configuration">2 BHK</button>
-            <button type="button" aria-pressed="false" data-rr-quick-tag="3bhk" data-rr-tag-dimension="configuration">3 BHK</button>
-            <button type="button" aria-pressed="false" data-rr-quick-tag="furnished" data-rr-tag-dimension="furnishing">Furnished</button>
-            <button type="button" aria-pressed="false" data-rr-quick-tag="industrial" data-rr-tag-dimension="specialisation">Industrial</button>
-          </div>
-          <p class="rr-field-hint">Tags improve search and filters without making publishing slower.</p>
-        </fieldset>
+        <div><label class="rr-label" for="rr-item-description">Description <span class="rr-label-note">optional</span></label><textarea class="rr-textarea" id="rr-item-description" maxlength="500" rows="3" placeholder="Share the most useful details."></textarea></div>
 
         <details class="rr-more-details" data-rr-more-details>
           <summary><span>Add more details</span><small>Optional</small></summary>
@@ -239,8 +218,7 @@
           </div>
         </details>
 
-        <p class="rr-editor-note">Only the title and city are required. Structured details can be completed later to improve discovery.</p>
-        <div class="rr-owner-dialog-actions"><button class="rr-text-button rr-portfolio-delete" type="button" data-rr-delete-item hidden>Delete item</button><button class="rr-button rr-button-quiet" type="button" data-rr-save-draft>Save draft</button><button class="rr-button rr-button-primary" type="submit">Publish item</button></div>
+        <div class="rr-owner-dialog-actions"><button class="rr-text-button rr-portfolio-delete" type="button" data-rr-delete-item hidden>Delete item</button><button class="rr-button rr-button-primary" type="submit">Publish</button></div>
       </form>
     </div>
   </dialog>
@@ -264,16 +242,15 @@
       window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
     }
     const rrFlowLinks = [...document.querySelectorAll('[data-rr-flow-link]')];
-    rrFlowLinks.forEach((rrLink) => rrLink.addEventListener('click', () => {
+    const rrFlowTargets = { home: '#rr-owner-home', portfolio: '#rr-owner-portfolio', rank: '#rr-owner-rank' };
+    function rrScrollOwnerFlow(rrDestination) {
       rrFlowLinks.forEach((rrOther) => rrOther.removeAttribute('aria-current'));
-      rrLink.setAttribute('aria-current', 'page');
-    }));
-    const rrFlowObserver = new IntersectionObserver((rrEntries) => {
-      const rrVisible = rrEntries.filter((rrEntry) => rrEntry.isIntersecting).sort((rrA, rrB) => rrB.intersectionRatio - rrA.intersectionRatio)[0];
-      if (!rrVisible) return;
-      rrFlowLinks.forEach((rrLink) => rrLink.toggleAttribute('aria-current', rrLink.dataset.rrFlowLink === rrVisible.target.dataset.rrFlowSection));
-    }, { rootMargin: '-18% 0px -62% 0px', threshold: [0, .25, .6] });
-    document.querySelectorAll('[data-rr-flow-section]').forEach((rrSection) => rrFlowObserver.observe(rrSection));
+      const rrActiveLink = rrFlowLinks.find((rrLink) => rrLink.dataset.rrFlowLink === rrDestination);
+      rrActiveLink?.setAttribute('aria-current', 'page');
+      window.requestAnimationFrame(() => document.querySelector(rrFlowTargets[rrDestination])?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
+    }
+    rrFlowLinks.forEach((rrLink) => rrLink.addEventListener('click', (rrEvent) => { rrEvent.preventDefault(); rrScrollOwnerFlow(rrLink.dataset.rrFlowLink); }));
+    document.querySelector('[data-rr-open-rank]').addEventListener('click', () => rrScrollOwnerFlow('rank'));
     const rrHelpButton = document.querySelector('[data-rr-help-button]');
     const rrHelpMenu = document.querySelector('[data-rr-help-menu]');
     function rrCloseHelp() { rrHelpMenu.hidden = true; rrHelpButton.setAttribute('aria-expanded', 'false'); }
@@ -293,6 +270,16 @@
     const rrEntityCategoryButtons = [...document.querySelectorAll('[data-rr-entity-categories] .rr-option-chip')];
     let rrSavedEntityCategories = ['Residential', 'Commercial', 'New Projects'];
     const rrEntityCategoryCount = document.querySelector('[data-rr-category-count]');
+    const rrSocialEditorList = document.querySelector('[data-rr-social-editor-list]');
+    const rrSocialPreview = document.querySelector('[data-rr-social-preview]');
+    const rrSocialPlatforms = {
+      instagram: { label: 'Instagram', mark: 'IG', base: 'https://instagram.com/' },
+      facebook: { label: 'Facebook', mark: 'f', base: 'https://facebook.com/' },
+      linkedin: { label: 'LinkedIn', mark: 'in', base: 'https://linkedin.com/company/' },
+      x: { label: 'X', mark: 'X', base: 'https://x.com/' },
+      youtube: { label: 'YouTube', mark: '▶', base: 'https://youtube.com/@' }
+    };
+    let rrSavedSocialLinks = [{ platform: 'instagram', value: '@aarambhrealty' }];
     function rrSelectedEntityCategories() {
       return rrEntityCategoryButtons.filter((rrButton) => rrButton.getAttribute('aria-pressed') === 'true').map((rrButton) => rrButton.textContent.trim());
     }
@@ -302,11 +289,49 @@
     }
     function rrUpdateEntityCategoryCount() { rrEntityCategoryCount.textContent = rrSelectedEntityCategories().length + ' of 3 selected'; }
     function rrRenderEntityCategories(rrCategories) {
-      const rrContainer = document.querySelector('.rr-public-identity-copy > .rr-profile-categories');
+      const rrContainer = document.querySelector('.rr-public-identity-copy > .rr-profile-category-line');
       rrContainer.replaceChildren();
       rrCategories.forEach((rrCategory) => {
-        const rrTag = document.createElement('span'); rrTag.className = 'rr-category-tag'; rrTag.textContent = rrCategory; rrContainer.append(rrTag);
+        const rrTag = document.createElement('span'); rrTag.textContent = rrCategory; rrContainer.append(rrTag);
       });
+    }
+    function rrSocialHref(rrPlatform, rrValue) {
+      const rrTrimmed = rrValue.trim();
+      if (/^https?:\/\//i.test(rrTrimmed)) return rrTrimmed;
+      return (rrSocialPlatforms[rrPlatform]?.base || 'https://') + rrTrimmed.replace(/^@/, '').replace(/^\/+/, '');
+    }
+    function rrAddSocialEditorRow(rrPlatform = 'instagram', rrValue = '', rrFocus = false) {
+      if (rrSocialEditorList.children.length >= 5) { rrShowToast('You can add up to 5 social links.'); return; }
+      const rrRow = document.createElement('div'); rrRow.className = 'rr-social-editor-row'; rrRow.dataset.rrSocialRow = '';
+      const rrSelect = document.createElement('select'); rrSelect.className = 'rr-select'; rrSelect.setAttribute('aria-label', 'Social platform');
+      Object.entries(rrSocialPlatforms).forEach(([rrKey, rrMeta]) => { const rrOption = document.createElement('option'); rrOption.value = rrKey; rrOption.textContent = rrMeta.label; rrSelect.append(rrOption); });
+      rrSelect.value = rrPlatform;
+      const rrInput = document.createElement('input'); rrInput.className = 'rr-input'; rrInput.setAttribute('aria-label', 'Social handle or URL'); rrInput.placeholder = 'Handle or profile URL'; rrInput.value = rrValue;
+      const rrRemove = document.createElement('button'); rrRemove.className = 'rr-icon-button rr-social-remove'; rrRemove.type = 'button'; rrRemove.dataset.rrRemoveSocial = ''; rrRemove.setAttribute('aria-label', 'Remove social link'); rrRemove.textContent = '×';
+      rrRow.append(rrSelect, rrInput, rrRemove); rrSocialEditorList.append(rrRow);
+      if (rrFocus) window.requestAnimationFrame(() => rrInput.focus());
+    }
+    function rrResetSocialEditor() {
+      rrSocialEditorList.replaceChildren();
+      rrSavedSocialLinks.forEach((rrLink) => rrAddSocialEditorRow(rrLink.platform, rrLink.value));
+    }
+    function rrReadSocialLinks() {
+      return [...rrSocialEditorList.querySelectorAll('[data-rr-social-row]')].map((rrRow) => ({ platform: rrRow.querySelector('select').value, value: rrRow.querySelector('input').value.trim() })).filter((rrLink) => rrLink.value);
+    }
+    function rrRenderSocialPreview(rrLinks) {
+      rrSocialPreview.replaceChildren();
+      rrLinks.forEach((rrLink) => {
+        const rrMeta = rrSocialPlatforms[rrLink.platform];
+        const rrAnchor = document.createElement('a'); rrAnchor.className = 'rr-profile-social-link'; rrAnchor.href = rrSocialHref(rrLink.platform, rrLink.value); rrAnchor.target = '_blank'; rrAnchor.rel = 'noopener'; rrAnchor.setAttribute('aria-label', `${rrMeta.label} ${rrLink.value}`);
+        const rrMark = document.createElement('span'); rrMark.className = 'rr-social-platform-mark'; rrMark.setAttribute('aria-hidden', 'true'); rrMark.textContent = rrMeta.mark;
+        const rrText = document.createElement('span'); rrText.textContent = rrLink.value;
+        rrAnchor.append(rrMark, rrText); rrSocialPreview.append(rrAnchor);
+      });
+    }
+    function rrOpenProfileEditor(rrAddBlankSocial = false) {
+      rrSetEntityCategoryEditor(rrSavedEntityCategories); rrResetSocialEditor();
+      if (rrAddBlankSocial) rrAddSocialEditorRow('instagram', '', true);
+      rrProfileDialog.showModal();
     }
     function rrUpdateCount() { rrCharacterCount.textContent = rrDescription.value.length + ' / 240'; }
     rrDescription.addEventListener('input', rrUpdateCount);
@@ -318,7 +343,10 @@
       rrButton.setAttribute('aria-pressed', String(!rrIsSelected));
       rrUpdateEntityCategoryCount();
     }));
-    document.querySelectorAll('[data-rr-edit-profile]').forEach((rrButton) => rrButton.addEventListener('click', () => { rrSetEntityCategoryEditor(rrSavedEntityCategories); rrProfileDialog.showModal(); }));
+    document.querySelectorAll('[data-rr-edit-profile]').forEach((rrButton) => rrButton.addEventListener('click', () => rrOpenProfileEditor()));
+    document.querySelector('[data-rr-add-social-profile]').addEventListener('click', () => rrOpenProfileEditor(true));
+    document.querySelector('[data-rr-add-social]').addEventListener('click', () => rrAddSocialEditorRow('instagram', '', true));
+    rrSocialEditorList.addEventListener('click', (rrEvent) => { const rrRemove = rrEvent.target.closest('[data-rr-remove-social]'); if (rrRemove) rrRemove.closest('[data-rr-social-row]').remove(); });
     document.querySelectorAll('[data-rr-upload]').forEach((rrButton) => rrButton.addEventListener('click', () => rrShowToast('Logo upload chooser would open here.')));
     rrProfileForm.addEventListener('submit', (rrEvent) => {
       rrEvent.preventDefault();
@@ -326,13 +354,12 @@
       const rrCategories = rrSelectedEntityCategories();
       if (!rrCategories.length) { rrShowToast('Choose at least one category.'); return; }
       const rrName = document.querySelector('#rr-profile-name').value.trim();
-      const rrUrl = document.querySelector('#rr-profile-url').value.replace(/^https?:\/\//, '').replace(/\/$/, '');
       document.querySelector('[data-rr-profile-preview-name]').textContent = rrName;
       document.querySelector('[data-rr-profile-preview-description]').textContent = rrDescription.value.trim();
       rrSavedEntityCategories = rrCategories;
       rrRenderEntityCategories(rrSavedEntityCategories);
-      document.querySelector('[data-rr-profile-preview-phone]').title = 'Public contact: +91 ' + rrPublicPhone.value.slice(0, 5) + ' ' + rrPublicPhone.value.slice(5);
-      document.querySelector('[data-rr-profile-preview-url]').textContent = rrUrl;
+      rrSavedSocialLinks = rrReadSocialLinks();
+      rrRenderSocialPreview(rrSavedSocialLinks);
       rrProfileDialog.close();
       rrShowToast('Profile changes saved.');
     });
@@ -363,10 +390,6 @@
     let rrCityMatches = [];
     let rrActiveCityIndex = -1;
     let rrConfirmCityRemoval = false;
-    document.querySelectorAll('[data-rr-edit-cities]').forEach((rrButton) => rrButton.addEventListener('click', () => {
-      document.querySelector('#rr-owner-cities').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      window.setTimeout(() => document.querySelector('[data-rr-city-row]').focus(), 320);
-    }));
     const rrNormaliseCity = (rrValue) => rrValue.toLocaleLowerCase('en-IN').replace(/[,\s]+/g, ' ').trim();
     function rrUpdateCityCount() { document.querySelector('[data-rr-city-count]').textContent = document.querySelectorAll('[data-rr-city-row][data-rr-city-id]').length + ' of 3 used'; }
     function rrCloseCityResults() { rrCityResults.hidden = true; rrCitySearch.setAttribute('aria-expanded', 'false'); rrCitySearch.removeAttribute('aria-activedescendant'); rrActiveCityIndex = -1; }
@@ -463,7 +486,6 @@
     const rrPrimaryCity = document.querySelector('[data-rr-item-primary-city]');
     const rrAdditionalCityInputs = [...document.querySelectorAll('[data-rr-item-cities] input')];
     const rrFurnishing = document.querySelector('[data-rr-item-furnishing]');
-    const rrQuickTagButtons = [...document.querySelectorAll('[data-rr-quick-tag]')];
     const rrMoreDetails = document.querySelector('[data-rr-more-details]');
     const rrPortfolioFile = document.querySelector('[data-rr-item-file]');
     const rrPortfolioFileName = document.querySelector('[data-rr-item-file-name]');
@@ -481,7 +503,6 @@
     const rrAreaFactors = { sqft: 0.09290304, sqm: 1, sqyd: 0.83612736, acre: 4046.8564224, hectare: 10000 };
     const rrAreaLabels = { sqft: 'sq. ft.', sqm: 'sq. m.', sqyd: 'sq. yd.', acre: 'acre', hectare: 'hectare' };
     const rrConfigTypes = new Set(['apartment', 'independent-house', 'villa', 'builder-floor', 'row-house', 'penthouse', 'serviced-apartment']);
-    const rrConfigLabels = { '1rk': '1 RK', '1bhk': '1 BHK', '2bhk': '2 BHK', '3bhk': '3 BHK', '4bhk': '4 BHK', '4plus': '4 BHK+' };
     let rrEditingPortfolioItem = null;
     let rrAreaSqm = null;
     let rrSelectedSpecialisations = new Set();
@@ -499,7 +520,6 @@
       if (rrPurpose === 'rent') rrDisplay += '/mo';
       return rrDisplay;
     }
-    function rrTypeLabel(rrCategory, rrType) { return rrTaxonomy[rrCategory]?.types.find(([rrValue]) => rrValue === rrType)?.[1] || ''; }
     function rrSetAreaUnits(rrCategory, rrPreferredUnit) {
       const rrUnits = rrCategory === 'land-plot' ? ['sqft', 'sqm', 'sqyd', 'acre', 'hectare'] : ['sqft', 'sqm'];
       const rrPreviousUnit = rrAreaUnit.value;
@@ -538,7 +558,7 @@
         const rrOption = document.createElement('label'); rrOption.className = 'rr-radio-option';
         const rrInput = document.createElement('input'); rrInput.type = 'radio'; rrInput.name = 'rr-listing-purpose'; rrInput.value = rrValue;
         const rrText = document.createElement('span'); rrText.textContent = rrLabel;
-        rrInput.addEventListener('change', () => { rrRenderPriceLabel(); rrSyncQuickTagsFromFields(); });
+        rrInput.addEventListener('change', rrRenderPriceLabel);
         rrOption.append(rrInput, rrText); return rrOption;
       }));
       if (rrPurposes.some(([rrValue]) => rrValue === rrCurrentPurpose)) rrSetRadioValue(rrListingPurpose, rrCurrentPurpose);
@@ -557,60 +577,14 @@
       rrUpdateLandUseField(); rrUpdateConfiguration(); rrRenderPriceLabel(); rrRenderAreaConversion();
     }
     function rrSyncCityChoices() { rrAdditionalCityInputs.forEach((rrInput) => { const rrIsPrimary = rrInput.value === rrPrimaryCity.value; rrInput.disabled = rrIsPrimary; if (rrIsPrimary) rrInput.checked = false; }); }
-    function rrSyncQuickTagsFromFields() {
-      const rrPurpose = rrSelectedRadioValue(rrListingPurpose);
-      const rrType = rrPropertyType.value;
-      const rrConfiguration = rrSelectedButtonValue(document.querySelector('[data-rr-residential-config]'));
-      rrQuickTagButtons.forEach((rrButton) => {
-        const rrTag = rrButton.dataset.rrQuickTag;
-        const rrDimension = rrButton.dataset.rrTagDimension;
-        let rrActive = rrDimension === 'purpose' ? rrTag === rrPurpose : rrDimension === 'type' ? rrTag === rrType : rrDimension === 'configuration' ? rrTag === rrConfiguration : rrDimension === 'furnishing' ? rrTag === rrFurnishing.value : rrSelectedSpecialisations.has(rrTag);
-        rrButton.setAttribute('aria-pressed', String(rrActive));
-      });
-    }
-    function rrApplyQuickTag(rrButton) {
-      const rrTag = rrButton.dataset.rrQuickTag;
-      const rrDimension = rrButton.dataset.rrTagDimension;
-      const rrWillActivate = rrButton.getAttribute('aria-pressed') !== 'true';
-      if (rrDimension === 'specialisation') {
-        rrWillActivate ? rrSelectedSpecialisations.add(rrTag) : rrSelectedSpecialisations.delete(rrTag);
-        if (rrWillActivate && rrTag === 'industrial' && !rrSelectedRadioValue(rrPropertyCategory)) { rrSetRadioValue(rrPropertyCategory, 'commercial'); rrRenderPortfolioDependencies('', 'industrial-building'); }
-      } else if (!rrWillActivate) {
-        if (rrDimension === 'purpose') rrSetRadioValue(rrListingPurpose, '');
-        if (rrDimension === 'type') { rrPropertyType.value = ''; rrUpdateConfiguration(); rrUpdateLandUseField(); }
-        if (rrDimension === 'configuration') rrSetButtonValue(document.querySelector('[data-rr-residential-config]'), '');
-        if (rrDimension === 'furnishing') rrFurnishing.value = '';
-      } else if (rrDimension === 'purpose') {
-        rrSetRadioValue(rrListingPurpose, rrTag);
-      } else if (rrDimension === 'type') {
-        const rrCategory = rrTag === 'apartment' ? 'residential' : rrTag === 'office' ? 'commercial' : 'land-plot';
-        const rrPurpose = rrSelectedRadioValue(rrListingPurpose);
-        rrSetRadioValue(rrPropertyCategory, rrCategory); rrRenderPortfolioDependencies(rrPurpose, rrTag);
-      } else if (rrDimension === 'configuration') {
-        if (rrSelectedRadioValue(rrPropertyCategory) !== 'residential') { rrSetRadioValue(rrPropertyCategory, 'residential'); rrRenderPortfolioDependencies(rrSelectedRadioValue(rrListingPurpose), 'apartment'); }
-        else if (!rrPropertyType.value) { rrPropertyType.value = 'apartment'; rrUpdateConfiguration(); }
-        rrSetButtonValue(document.querySelector('[data-rr-residential-config]'), rrTag);
-      } else if (rrDimension === 'furnishing') rrFurnishing.value = rrTag;
-      rrRenderPriceLabel(); rrSyncQuickTagsFromFields();
-    }
-    function rrSelectedTagLabels() { return rrQuickTagButtons.filter((rrButton) => rrButton.getAttribute('aria-pressed') === 'true').map((rrButton) => rrButton.textContent.trim()); }
-    function rrPortfolioDisplayTags(rrItem) {
-      const rrTags = [];
-      if (rrConfigLabels[rrItem.dataset.rrItemConfiguration]) rrTags.push(rrConfigLabels[rrItem.dataset.rrItemConfiguration]);
-      const rrType = rrTypeLabel(rrItem.dataset.rrItemCategory, rrItem.dataset.rrItemType); if (rrType) rrTags.push(rrType.replace('Flat / ', ''));
-      if (rrItem.dataset.rrItemPurpose) rrTags.push(`For ${rrItem.dataset.rrItemPurpose}`);
-      (rrItem.dataset.rrItemTags || '').split('|').filter(Boolean).forEach((rrTag) => { if (!rrTags.some((rrExisting) => rrExisting.toLowerCase() === rrTag.toLowerCase())) rrTags.push(rrTag); });
-      return rrTags.slice(0, 3);
-    }
     function rrRenderPortfolioCard(rrItem) {
       rrItem.querySelector('.rr-public-portfolio-copy strong').textContent = rrItem.dataset.rrItemTitle;
       const rrCities = (rrItem.dataset.rrItemCities || '').split('|').filter(Boolean);
       const rrLocality = rrItem.dataset.rrItemLocality;
-      rrItem.querySelector('.rr-portfolio-card-location').textContent = rrLocality ? `${rrLocality}, ${rrCities[0]}` : rrCities.length > 1 ? rrCities.join(' + ') : rrCities[0] || 'Location not added';
-      const rrTagsWrap = rrItem.querySelector('.rr-portfolio-card-tags'); rrTagsWrap.replaceChildren(...rrPortfolioDisplayTags(rrItem).map((rrTag) => { const rrSpan = document.createElement('span'); rrSpan.textContent = rrTag; return rrSpan; }));
-      rrItem.querySelector('.rr-public-portfolio-copy small').textContent = 'Updated just now';
+      const rrLocation = rrLocality ? `${rrLocality}, ${rrCities[0]}` : rrCities.length > 1 ? rrCities.join(' + ') : rrCities[0] || 'Location not added';
+      rrItem.querySelector('.rr-portfolio-card-meta').textContent = rrLocation + ' · Updated now';
       const rrPriceTag = rrItem.querySelector('.rr-portfolio-price-tag'); const rrPriceText = rrFormatPrice(rrItem.dataset.rrItemPrice, rrItem.dataset.rrItemPurpose); rrPriceTag.textContent = rrPriceText; rrPriceTag.hidden = !rrPriceText;
-      rrItem.querySelector('[data-rr-edit-item]').setAttribute('aria-label', `Edit ${rrItem.dataset.rrItemTitle}`);
+      rrItem.setAttribute('aria-label', `Edit ${rrItem.dataset.rrItemTitle}`);
     }
     function rrApplyPortfolioFilter(rrValue) {
       rrPortfolioFilters.forEach((rrButton) => rrButton.setAttribute('aria-pressed', String(rrButton.dataset.rrPortfolioFilter === rrValue)));
@@ -621,7 +595,7 @@
     function rrResetPortfolioForm() {
       rrPortfolioForm.reset(); rrEditingPortfolioItem = null; rrAreaSqm = null; rrSelectedSpecialisations = new Set();
       rrSetRadioValue(rrPropertyCategory, ''); rrSetButtonValue(document.querySelector('[data-rr-residential-config]'), '');
-      rrLandUseInputs.forEach((rrInput) => { rrInput.checked = false; }); rrQuickTagButtons.forEach((rrButton) => rrButton.setAttribute('aria-pressed', 'false'));
+      rrLandUseInputs.forEach((rrInput) => { rrInput.checked = false; });
       rrPortfolioFileName.textContent = 'Add photos'; rrDeleteItem.hidden = true; rrMoreDetails.open = false;
       document.querySelector('[data-rr-portfolio-dialog-title]').textContent = 'New portfolio item';
       rrRenderPortfolioDependencies('', '', 'sqft'); rrSyncCityChoices();
@@ -641,16 +615,14 @@
         rrAdditionalCityInputs.forEach((rrInput) => { rrInput.checked = rrCities.slice(1).includes(rrInput.value); }); rrSyncCityChoices();
         rrFurnishing.value = rrItem.dataset.rrItemFurnishing || ''; rrSelectedSpecialisations = new Set((rrItem.dataset.rrItemSpecialisations || '').split('|').filter(Boolean));
         rrPortfolioFileName.textContent = rrItem.dataset.rrItemPhotoCount ? `${rrItem.dataset.rrItemPhotoCount} photos` : 'Add photos';
-        rrRenderAreaConversion(); rrSyncQuickTagsFromFields();
+        rrRenderAreaConversion();
       }
       rrPortfolioDialog.showModal();
     }
 
-    rrPropertyCategory.querySelectorAll('input').forEach((rrInput) => rrInput.addEventListener('change', () => { rrAreaSqm = rrArea.value ? Number(rrArea.value) * rrAreaFactors[rrAreaUnit.value] : null; rrRenderPortfolioDependencies(); rrSyncQuickTagsFromFields(); }));
-    rrPropertyType.addEventListener('change', () => { rrUpdateConfiguration(); rrUpdateLandUseField(); rrSyncQuickTagsFromFields(); });
-    rrConfigurationButtons.forEach((rrButton) => rrButton.addEventListener('click', () => { rrPressSingle(document.querySelector('[data-rr-residential-config]'), rrButton); rrSyncQuickTagsFromFields(); }));
-    rrFurnishing.addEventListener('change', rrSyncQuickTagsFromFields);
-    rrQuickTagButtons.forEach((rrButton) => rrButton.addEventListener('click', () => rrApplyQuickTag(rrButton)));
+    rrPropertyCategory.querySelectorAll('input').forEach((rrInput) => rrInput.addEventListener('change', () => { rrAreaSqm = rrArea.value ? Number(rrArea.value) * rrAreaFactors[rrAreaUnit.value] : null; rrRenderPortfolioDependencies(); }));
+    rrPropertyType.addEventListener('change', () => { rrUpdateConfiguration(); rrUpdateLandUseField(); });
+    rrConfigurationButtons.forEach((rrButton) => rrButton.addEventListener('click', () => rrPressSingle(document.querySelector('[data-rr-residential-config]'), rrButton)));
     rrPrimaryCity.addEventListener('change', rrSyncCityChoices);
     rrArea.addEventListener('input', () => { rrAreaSqm = rrArea.value ? Number(rrArea.value) * rrAreaFactors[rrAreaUnit.value] : null; rrRenderAreaConversion(); });
     rrAreaUnit.addEventListener('change', () => { if (rrAreaSqm) rrArea.value = rrFormatArea(rrAreaSqm / rrAreaFactors[rrAreaUnit.value]); rrRenderAreaConversion(); });
@@ -661,8 +633,11 @@
     });
     rrPortfolioFilters.forEach((rrButton) => rrButton.addEventListener('click', () => rrApplyPortfolioFilter(rrButton.dataset.rrPortfolioFilter)));
     document.querySelector('[data-rr-add-item]').addEventListener('click', () => rrOpenPortfolioEditor());
-    document.querySelectorAll('[data-rr-edit-item]').forEach((rrButton) => rrButton.addEventListener('click', () => rrOpenPortfolioEditor(rrButton.closest('[data-rr-item-title]'))));
-    document.querySelector('[data-rr-save-draft]').addEventListener('click', () => { rrPortfolioDialog.close(); rrShowToast('Portfolio item saved as a draft.'); });
+    document.querySelectorAll('[data-rr-edit-item]').forEach((rrItem) => {
+      rrItem.setAttribute('role', 'button');
+      rrItem.addEventListener('click', () => rrOpenPortfolioEditor(rrItem.closest('[data-rr-item-title]')));
+      rrItem.addEventListener('keydown', (rrEvent) => { if (rrEvent.key === 'Enter' || rrEvent.key === ' ') { rrEvent.preventDefault(); rrOpenPortfolioEditor(rrItem); } });
+    });
     rrDeleteItem.addEventListener('click', () => rrShowToast('Delete confirmation would appear before removing this item.'));
     rrPortfolioForm.addEventListener('submit', (rrEvent) => {
       rrEvent.preventDefault(); if (!rrPortfolioForm.reportValidity()) return;
@@ -671,14 +646,16 @@
       const rrLandUses = rrLandUseField.hidden ? [] : rrLandUseInputs.filter((rrInput) => rrInput.checked).map((rrInput) => rrInput.value);
       const rrWasEditing = Boolean(rrEditingPortfolioItem);
       if (!rrEditingPortfolioItem) {
-        rrEditingPortfolioItem = document.createElement('article'); rrEditingPortfolioItem.className = 'rr-public-portfolio-item rr-owner-portfolio-item';
-        rrEditingPortfolioItem.innerHTML = '<span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg><span class="rr-portfolio-price-tag" hidden></span></span><span class="rr-public-portfolio-copy"><strong></strong><span class="rr-portfolio-card-location"></span><span class="rr-portfolio-card-tags"></span><small></small></span><button class="rr-icon-button rr-owner-portfolio-edit" type="button" aria-label="Edit portfolio item" data-rr-edit-item><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg></button>';
-        rrEditingPortfolioItem.querySelector('[data-rr-edit-item]').addEventListener('click', () => rrOpenPortfolioEditor(rrEditingPortfolioItem)); rrPortfolioList.prepend(rrEditingPortfolioItem);
+        rrEditingPortfolioItem = document.createElement('article'); rrEditingPortfolioItem.className = 'rr-public-portfolio-item rr-owner-portfolio-item'; rrEditingPortfolioItem.tabIndex = 0; rrEditingPortfolioItem.setAttribute('role', 'button'); rrEditingPortfolioItem.dataset.rrEditItem = '';
+        rrEditingPortfolioItem.innerHTML = '<span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg><span class="rr-portfolio-price-tag" hidden></span></span><span class="rr-public-portfolio-copy"><strong></strong><span class="rr-portfolio-card-meta"></span></span>';
+        rrEditingPortfolioItem.addEventListener('click', () => rrOpenPortfolioEditor(rrEditingPortfolioItem));
+        rrEditingPortfolioItem.addEventListener('keydown', (rrEvent) => { if (rrEvent.key === 'Enter' || rrEvent.key === ' ') { rrEvent.preventDefault(); rrOpenPortfolioEditor(rrEditingPortfolioItem); } });
+        rrPortfolioList.prepend(rrEditingPortfolioItem);
       }
       Object.assign(rrEditingPortfolioItem.dataset, {
         rrItemTitle: rrPortfolioTitle.value.trim(), rrItemDescription: rrPortfolioDescription.value.trim(), rrItemCategory: rrCategory, rrItemPurpose: rrPurpose,
         rrItemType: rrPropertyType.value, rrItemLandUses: rrLandUses.join('|'), rrItemConfiguration: rrSelectedButtonValue(document.querySelector('[data-rr-residential-config]')),
-        rrItemFurnishing: rrFurnishing.value, rrItemSpecialisations: [...rrSelectedSpecialisations].join('|'), rrItemTags: rrSelectedTagLabels().join('|'),
+        rrItemFurnishing: rrFurnishing.value, rrItemSpecialisations: [...rrSelectedSpecialisations].join('|'), rrItemTags: rrEditingPortfolioItem.dataset.rrItemTags || '',
         rrItemArea: rrArea.value, rrItemUnit: rrAreaUnit.value, rrItemAreaType: document.querySelector('#rr-item-area-type').value,
         rrItemPrice: rrPrice.value, rrItemLocality: document.querySelector('#rr-item-locality').value.trim(), rrItemCities: rrCities.join('|'), rrItemPhotoCount: rrPortfolioFile.files.length || rrEditingPortfolioItem.dataset.rrItemPhotoCount || ''
       });
@@ -686,16 +663,15 @@
       const rrActiveFilter = rrPortfolioFilters.find((rrButton) => rrButton.getAttribute('aria-pressed') === 'true')?.dataset.rrPortfolioFilter || 'all'; rrApplyPortfolioFilter(rrActiveFilter);
       rrShowToast(rrWasEditing ? 'Portfolio item updated.' : 'Portfolio item published.');
     });
-    document.querySelector('[data-rr-owner-contact]').addEventListener('click', () => rrShowToast('This is the visitor Contact action shown on the public profile.'));
-    let rrTopupAmount = 100;
+    let rrTopupAmount = 10;
     function rrRenderTopup() {
       const rrFormattedTopup = '₹' + rrTopupAmount.toLocaleString('en-IN');
       document.querySelector('[data-rr-topup-value]').textContent = rrFormattedTopup;
-      document.querySelector('[data-rr-new-total]').textContent = '₹' + (1260 + rrTopupAmount).toLocaleString('en-IN');
       document.querySelector('[data-rr-topup]').textContent = 'Add ' + rrFormattedTopup + ' to Rank total';
     }
-    document.querySelector('[data-rr-minus]').addEventListener('click', () => { rrTopupAmount = Math.max(10, rrTopupAmount - 10); rrRenderTopup(); });
-    document.querySelector('[data-rr-plus]').addEventListener('click', () => { rrTopupAmount += 10; rrRenderTopup(); });
+    document.querySelector('[data-rr-claim-first]').addEventListener('click', (rrEvent) => { rrTopupAmount = Number(rrEvent.currentTarget.dataset.rrClaimAmount); rrRenderTopup(); document.querySelector('[data-rr-topup-minus]').focus(); });
+    document.querySelector('[data-rr-topup-minus]').addEventListener('click', () => { rrTopupAmount = Math.max(10, rrTopupAmount - 10); rrRenderTopup(); });
+    document.querySelector('[data-rr-topup-plus]').addEventListener('click', () => { rrTopupAmount += 10; rrRenderTopup(); });
     document.querySelector('[data-rr-topup]').addEventListener('click', () => rrShowToast('Continue to pay ₹' + rrTopupAmount.toLocaleString('en-IN') + '.'));
   </script>
 </body>
