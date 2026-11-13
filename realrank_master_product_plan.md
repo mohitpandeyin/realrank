@@ -6,7 +6,7 @@
 > **Public headline:** The Real Estate Discovery Index of Companies & Marketers.
 > **Locked brand kit:** [`docs/brand/final`](docs/brand/final/README.md)
 > **Locked landing wireframe:** [`docs/wireframes/realrank-locked-terracotta.html`](docs/wireframes/realrank-locked-terracotta.html)
-> **Flow wireframes:** [payment states](docs/wireframes/realrank-payment-states.html) · [payment success + phone OTP](docs/wireframes/realrank-payment-success-otp.html) · [owner access](docs/wireframes/realrank-owner-access.html) · [owner dashboard](docs/wireframes/realrank-owner-dashboard.html) · [public entity profile](docs/wireframes/realrank-entity-profile.html) · [portfolio item](docs/wireframes/realrank-portfolio-item.html) · [help and issue reporting](docs/wireframes/realrank-help-support.html) · [admin moderation](docs/wireframes/realrank-admin-moderation.html) · [system states](docs/wireframes/realrank-system-states.html)
+> **Flow wireframes:** [payment states](docs/wireframes/realrank-payment-states.html) · [payment success + phone OTP](docs/wireframes/realrank-payment-success-otp.html) · [owner access](docs/wireframes/realrank-owner-access.html) · [owner dashboard](docs/wireframes/realrank-owner-dashboard.html) · [public entity profile](docs/wireframes/realrank-entity-profile.html) · [project-aware portfolio item](docs/wireframes/realrank-portfolio-item.html) · [owner portfolio insights](docs/wireframes/realrank-portfolio-insights.html) · [help and issue reporting](docs/wireframes/realrank-help-support.html) · [admin moderation](docs/wireframes/realrank-admin-moderation.html) · [system states](docs/wireframes/realrank-system-states.html)
 
 ---
 
@@ -458,6 +458,12 @@ Even without formal verification, publication needs basic protections:
 - payment fraud and chargeback handling; and
 - an audit trail for administrative changes.
 
+### Internal operations and staff access
+
+Use one work-first internal panel with five operational destinations: **Queue**, **Entities**, **Payments**, **Cities** and **Support**. Add **Team access** as a separated administrator-only utility rather than mixing staff administration into the operational queue navigation. Queue is the landing view and includes city reviews, suspected duplicates, content reports, payment exceptions and pending staff-access requests. Entities exposes publication, owner access, coverage and moderation history; do not duplicate customer owners into a generic Users screen. Payments exposes gateway state, immutable allocations and reversals; Cities keeps canonical catalogue state separate from Realrank publication state; Support retains the originating route, entity and order context. Team access lists pending, active and disabled staff and supports least-privilege role assignment. Audit history belongs inside every record and high-risk decisions require an internal reason. Actions use domain language rather than one generic approval set: support offers **Escalate**, **Reply** and **Mark resolved**, and requires a resolution note before closure; payment, entity and city records expose only actions valid for those domains. Reserve **Approve** for eligible content, city-opening and staff-access decisions. Do not build a chart-heavy admin overview or expose a direct Rank-total/position editor.
+
+Admin access is separate from owner phone access. The internal access page offers login for active staff and **Request access** for new staff. A request stores the verified work email, name, stated reason, status and timestamps but creates no usable admin session. Only an already-active administrator with the access-management permission may approve a request and assign Reviewer, Finance or Administrator access. Provision the first administrator through a secure deployment/bootstrap procedure; no requester may approve their own initial access. Approval sends a short-lived password-and-MFA setup link; every later privileged login requires an MFA challenge. Rejected and disabled staff remain visible for audit but cannot authenticate. Approval, rejection, role changes, MFA resets, password resets and deactivation are audited with actor and timestamp. Production must use verified work email, strong passwords, rate limiting and MFA; the wireframe's local interaction is only a flow reference. Never expose owner, payment or support data to a pending requester.
+
 All public activity and social-proof metrics must be genuine, reproducible and clearly labelled. Never seed fabricated visitor counts, concurrent-viewer counts, contact clicks, entity totals or ranking activity. When real analytics become meaningful, prefer precisely defined metrics such as profile visits or contact clicks and exclude bots and internal testing.
 
 Formal business-document, RERA or authorization checks may be introduced later as separate, precisely named trust signals.
@@ -489,6 +495,49 @@ The portfolio is optional and belongs to the entity profile, not to a temporary 
 - At the initial three-item scale, omit portfolio filters. Introduce the stable order All, Residential, Commercial and Land & Plot only when the profile has enough published inventory to benefit, roughly seven or more items. Unclassified items appear only in All. Filters never rewrite URLs or create indexable thin combinations on the entity profile.
 - The entity profile may expose every published portfolio post, but an individual portfolio-item URL becomes search-indexable only after it has a useful title, original description, primary city, at least one approved image and sufficient confirmed classification for truthful metadata. Generate structured data from canonical fields rather than repeating display tags as keywords. Thin or unclassified item pages remain accessible to users but use `noindex` until the quality threshold is met.
 
+### Portfolio content kinds and project presentation
+
+Keep one portfolio publishing and routing system. **Project**, **Property**, **Collection** and **Auction** are optional portfolio-item kinds, not separate products, ranking pools or duplicate content tables. An owner who does not classify an item may still publish it as a generic portfolio post; Realrank must not infer a kind from ambiguous title or description text. Store kinds in a lookup table so future types can be added or retired without rewriting historical items.
+
+The profile remains a lightweight visual index rather than a second project-detail surface. Let an owner feature up to three published items. Featured order affects only that entity's profile grid; it never affects Realrank Index position, category order or search relevance. Show featured items first, followed by the ordinary publication order. Keep the existing grid hierarchy—approved cover image, optional price, title, location and freshness—and do not add descriptions, amenity lists, performance numbers or carousels to profile cards. Pinning and reordering live inside the item editor so the public and signed-in grids retain the same clean geometry.
+
+Use the existing canonical route `/entity/{entity-slug}/portfolio/{item-slug}` for every kind. When the kind is **Project**, render a richer project-aware detail template on that route rather than creating a second `/project/...` URL. The page order is:
+
+1. shared sticky header and a return link to the entity;
+2. swipeable media gallery with reserved dimensions;
+3. entity attribution, item title, location and precise project status;
+4. price/configuration summary plus the primary Contact action;
+5. concise overview and kind-dependent key facts;
+6. configurations and amenities only when supplied;
+7. location or map using exact or approximate coordinates according to the owner's publication choice;
+8. developer, RERA/source, last-confirmed and correction-reporting trust details; and
+9. no more than three related published items from the same entity.
+
+Use progressive disclosure and omit empty sections. Website, brochure and share actions are quiet secondary utilities. The page must distinguish entity-supplied claims from Realrank-authored facts and must not label a project, property or marketer as verified unless the corresponding narrowly defined check exists. Multiple marketers may publish separate, attributed pages for the same real-world project in the MVP. Do not merge them automatically or transfer engagement between entities.
+
+If genuine duplicate-project discovery becomes valuable later, add a canonical `projects` record and explicit entity-to-project links as an additive layer. Do not make that future catalogue a prerequisite for the MVP portfolio, and do not move entity-owned URLs when it is introduced.
+
+Realrank Index continues to rank entities, never projects or individual portfolio items. The public journey is **city/category index → entity profile → portfolio item → contact or return to entity**. Project views, contacts or completeness never change Rank total or ordering.
+
+### Owner Insights
+
+Instrument portfolio performance from the beginning, but keep performance data out of the public profile and out of Realrank Index. Give an authenticated owner one lean **Insights** screen as its own persistent-navigation destination. Do not place charts between profile content and the portfolio grid.
+
+Default to 28 days and offer **7 days**, **28 days**, **3 months** and a custom range capped at 90 days. Show only four decision-useful measures:
+
+- Profile views;
+- Listing views;
+- Contact clicks; and
+- Contact rate, defined as Contact clicks divided by Listing views.
+
+Count a profile or listing view at most once per anonymous session within a 30-minute activity window and suppress rapid duplicate Contact activations. Profile-level Contact clicks remain separate from listing Contact clicks and do not enter listing Contact rate.
+
+Let the owner select one metric at a time for one restrained interactive trend. Use a stock-style line-and-area treatment only as an interaction pattern: a subtle Realrank terracotta gradient, minimal value axis, crosshair, exact-value tooltip, change from the previous plotted point and mouse/touch scrubbing. Do not introduce candlesticks, volume bars, red/green trading signals, live-ticker language, zoom controls or financial-price semantics. Provide an **All listings** filter and individual listing options, followed by a compact listing-performance table containing listing title, views, Contact clicks and Contact rate. Selecting a row filters the trend to that listing. Defer source, city and audience breakdowns until enough genuine data and a clear owner decision justify their space. Empty and low-volume states explain what will appear after genuine traffic instead of rendering zero-filled charts. Never call a click a lead, claim an enquiry was completed, predict revenue or expose visitor identities.
+
+Use one allowlisted event contract across the product. Useful public-performance events are `entity profile viewed`, `portfolio card viewed`, `portfolio item viewed`, `contact clicked` and `portfolio item shared`. Attach stable internal entity/item/city identifiers and a controlled source value, never names, phone numbers, URLs containing secrets or payment data. A card impression requires at least 50% visibility for one second; a detail view requires a successful public page render; owner previews, known internal traffic and obvious bots are excluded. Use a short-lived anonymous visitor/session identifier only for deduplication.
+
+PostHog remains the event and insight system for MVP analytics. Send validated, privacy-safe events through one Realrank ingestion boundary, then expose owner metrics through named server-side PostHog endpoints or saved queries with server caching and authorization. Never put a PostHog personal API key in browser code. Introduce PostgreSQL daily aggregates later only if measured latency, retention, cost or contractual requirements justify them; do not maintain two analytics calculation pipelines pre-emptively. PostgreSQL remains authoritative for payments, ownership, publication and ranking, and analytics outages must never affect those flows.
+
 ### Suggested optional portfolio fields
 
 - title;
@@ -508,7 +557,7 @@ The public entity route remains city-independent because one entity may be activ
 
 The public profile uses neutral entity language for companies and marketers without an extra profile-type eyebrow above the entity name. Reuse the owner Home view's identity-first visual language so editing closely resembles the published result, but expose no owner navigation or editing controls. Keep the public layout flat and sequential: logo, name with verification, description, plain category line, optional social links, actions, compact Index strip, then a three-column desktop / two-column mobile Portfolio grid. Social links are compact accessible handle links rather than a separate card or large icon rail. Contact is the primary public action and Website is a quiet secondary action. Avoid nested cards, side panels, repeated divider rules, standalone About/Details sections and a floating conversion bar; use whitespace, typography and alignment to establish groups. Follow and notification controls are deferred from MVP because they require visitor accounts, preference management and a notification-consent model that the core discovery journey does not yet need. Show the monetary Rank total once in the Index strip and include a quiet information link to Ranking Policy. Do not repeat sponsored or paid wording in details or the footer. The Ranking Policy carries the full explanation that position is determined by Rank total and is not a quality score or business verification. Use the familiar social-profile convention for trust: verification marks sit immediately beside the entity name as clean icons rather than pills or detached status rows. A precise **Phone verified** mark may appear only after OTP confirmation; it means control of that number and nothing more. Preserve the full meaning in its accessible label. Portfolio cards show applicable location and meaningful last-updated context on one line; longer copy and structured facts belong to the item page.
 
-The authenticated experience is phone-first, but private owner identity must not compete with entity-management tasks. Keep a persistent four-item bottom navigation—**Home**, **Portfolio**, **Rank** and **Account**—across responsive and desktop layouts. Home reuses the public identity and portfolio structures exactly, replacing public actions with neutral **Edit profile** and **View public** utilities; neither is a terracotta primary CTA. Secondary profile controls use one restrained outlined style: white or near-white surface, soft neutral border, normal-weight dark text and a faint hover fill. Apply it consistently to public Website, owner Edit profile/View public and Portfolio **+ Add**, while public Contact remains primary. A small **+ Add** beside social links opens the existing profile editor with a blank social row. That editor supports up to five platform/handle entries and is the single place to add, edit or remove them. The signed-in profile is one continuous flow—Profile, Portfolio, Realrank Index, then Cities. Home, Portfolio and Rank are anchors that scroll to those sections; the compact Index strip also scrolls to Realrank Index. Do not swap to a hidden Rank view or maintain a separate management page.
+The authenticated experience is phone-first, but private owner identity must not compete with entity-management tasks. Keep a persistent five-item bottom navigation—**Home**, **Profile**, **Position**, **Insights** and **Account**—across responsive and desktop layouts. Home returns to the public Realrank discovery page rather than duplicating the owner overview. Profile reuses the public identity and portfolio structures exactly, replacing public actions with neutral **Edit profile** and **View public** utilities; neither is a terracotta primary CTA. Secondary profile controls use one restrained outlined style: white or near-white surface, soft neutral border, normal-weight dark text and a faint hover fill. Apply it consistently to public Website, owner Edit profile/View public and Portfolio **+ Add**, while public Contact remains primary. A small **+ Add** beside social links opens the existing profile editor with a blank social row. That editor supports up to five platform/handle entries and is the single place to add, edit or remove them. The signed-in profile is one continuous flow—identity, Portfolio, Realrank Index, then Cities. Profile opens the start of that flow, while Position jumps to the inline Realrank Index controls. “Position” is clearer for owners than the ambiguous navigation label “Index”; the section and product retain the name **Realrank Index**. Insights is the only separate performance destination. Do not swap to a hidden Position view or maintain a separate management page.
 
 The profile editor places Categories directly after Description as an independent, selectable entity field. Require at least one and allow any three from the complete 13-option listing-page discovery set, with a visible selected count. The same selection applies in every active city. Never duplicate category controls inside the city flow. The grid itself has one quiet **+ Add** action. Selecting an existing signed-in portfolio card opens its focused editor instead of placing Edit icons on every card. The header contains only the brand and a lightweight Help dropdown with Get help, Report an issue and policy access. Owner verification, public-profile access and sign-out live under Account at the far right of the bottom navigation. Use flat app sections instead of stacking dashboard cards, omit the marketing footer while signed in, keep one clear action per task and avoid duplicate links. Do not describe one city position as the entity's global rank. Keep the verified owner number separate from the public contact number, and require OTP verification before publishing a changed public number. Portfolio items retain their own canonical category and applicable cities. Ranking top-ups increase the shared total and then recalculate every active city's position; do not promise email alerts when email is not part of MVP onboarding.
 
@@ -516,15 +565,21 @@ The profile editor places Categories directly after Description as an independen
 
 Use one combined **Help & Support** route with separate in-page sections for finding an answer and reporting an issue. Help-menu entry points use `/help`; report entry points use `/help?intent=report` and may include a safe issue-type or entity reference so the relevant form is focused and preselected. Do not create separate Get Help and Report Issue pages, a tabbed support dashboard or a searchable help centre for the MVP. Present a short list of native expandable questions covering payments, Rank totals and positions, profile management, cities and categories, account access and contacting entities. Public context hides owner-only topics and private navigation while preserving the entity/listing context in every report link. Keep Ranking Policy separate and authoritative; FAQ copy may summarise it but must not replace it.
 
-The issue form contains issue type, description, optional screenshot and reply phone. Ask for an order ID and show **Do not pay again if money may have been deducted** only when Payment is selected. Signed-in flows prefill the verified owner number; public flows start with an empty reply number. The server attaches the current URL plus available entity, city and account identifiers; do not require users to re-enter known context. Accept only PNG, JPG or WebP screenshots up to 5 MB. Never request passwords, OTPs, UPI PINs or card data. Submit inline and replace the form with a compact success state and support reference; do not add a dedicated success page. Owner success returns to Home, while public success returns to the listing. Preserve the signed-in bottom navigation on the support route and omit private navigation for public visitors.
+The issue form contains issue type, description, optional screenshot and reply phone. Ask for an order ID and show **Do not pay again if money may have been deducted** only when Payment is selected. Signed-in flows prefill the verified owner number; public flows start with an empty reply number. The server attaches the current URL plus available entity, city and account identifiers; do not require users to re-enter known context. Accept only PNG, JPG or WebP screenshots up to 5 MB. Never request passwords, OTPs, UPI PINs or card data. Submit inline and replace the form with a compact success state and support reference; do not add a dedicated success page. Owner success returns to Profile, while public success returns to the listing. Preserve the signed-in bottom navigation on the support route and omit private navigation for public visitors.
 
 On mobile, keep all owner content inside one consistent 14px page gutter. Left-align every section title and description to that grid, keep list rows and actions within the same edges, and separate major sections with 44px of whitespace rather than divider rules. The portfolio uses two visual columns and the persistent bottom navigation alone remains full-width.
 
 The public profile header contains Browse index and the same compact Help control used in the owner header. Do not show a city pill because the canonical profile is entity-wide and can cover multiple active cities. Its dropdown provides **Get help**, **Report an issue** and **Ranking policy**. Collapse only its visible text label on narrow screens; retain the icon, accessible name, keyboard focus and Escape/outside-click dismissal.
 
+### Cross-screen consistency lock
+
+Use one borderless sticky header on every non-home customer screen; the marketing home header remains non-sticky. Render the final Realrank logo at 47px high with automatic width instead of constraining both dimensions. Help must remain reachable in every non-home customer flow: public profile and portfolio pages use the compact Help menu, while focused phone-access and payment screens may use one direct Help icon to avoid adding transaction-time choices. Route public, access and payment requests into contextual variants of the same Help & Support page. Those variants omit private owner navigation, retain relevant FAQ topics and return to the correct originating screen.
+
+Keep OTP recovery behavior identical wherever verification appears: place **Change** inline beside the masked number, retain **Resend code** for the active channel, and present the other channel as an explicit did-not-receive fallback. The payment-success **Complete profile** action opens the owner profile editor directly with `?open=profile`. Treat this handoff, contextual Help destinations, 44px touch targets, 375px overflow checks, shared profile hierarchy and owner bottom-navigation clearance as required cross-screen acceptance criteria rather than page-specific polish.
+
 Implement the signed-in profile from the same structural components and CSS classes as the public entity profile; do not maintain a separate owner-preview layout. Identity, verification, description, categories, compact Index strip and portfolio grid stay structurally aligned with the published page. Editing is contextual: one **Edit profile** action for identity, the Index strip as an anchor to inline Rank controls, **+ Add** for a new item, and the whole existing card for item editing. Do not surround every public element with its own Edit button. Realrank Index and Cities are owner-only sections below Portfolio in the same page.
 
-Title the inline owner section **Realrank Index** while retaining **Rank** in bottom navigation. Place it directly below Portfolio and keep it visible in the same continuous page. Keep the display minimal: compact shared Rank total, city names and their current ranks. A city already at #1 has no prompt. For a lower-ranked city, centre one server-derived curved-arrow cue such as **₹640 to claim Indore #1** inside the amount-control parent rather than the city row. This keeps the cue bounded and visually tied to the counter it changes. Activating it sets the visible **− / +** amount stepper. Do not add a separate **Add to Rank total** label above the counter. The stepper moves in ₹10 increments with a ₹10 minimum and updates **Add ₹X to Rank total** live. Only that final commitment uses the primary terracotta treatment. Revalidate the amount before creating the Razorpay Order and never imply that the position is reserved. Do not repeat the goal in a separate Next opportunity panel or add new-total and estimated-position summaries. Do not use a separate Rank tab/page, preset or Custom modes, or a progress bar because ranking has no fixed finish line. Avoid vague **Add more**, subscription-like **Upgrade**, promotional **Boost visibility**, non-standard **Add rank-up amount** and process-oriented **Continue to payment**.
+Title the inline owner section **Realrank Index** while using **Position** in bottom navigation. Place it directly below Portfolio and keep it visible in the same continuous page. Keep the display minimal: compact shared Rank total, city names and their current ranks. A city already at #1 has no prompt. For a lower-ranked city, centre one server-derived curved-arrow cue such as **₹640 to claim Indore #1** inside the amount-control parent rather than the city row. This keeps the cue bounded and visually tied to the counter it changes. Activating it sets the visible **− / +** amount stepper. Do not add a separate **Add to Rank total** label above the counter. The stepper moves in ₹10 increments with a ₹10 minimum and updates **Add ₹X to Rank total** live. Only that final commitment uses the primary terracotta treatment. Revalidate the amount before creating the Razorpay Order and never imply that the position is reserved. Do not repeat the goal in a separate Next opportunity panel or add new-total and estimated-position summaries. Do not use a separate Position tab/page, preset or Custom modes, or a progress bar because ranking has no fixed finish line. Avoid vague **Add more**, subscription-like **Upgrade**, promotional **Boost visibility**, non-standard **Add rank-up amount** and process-oriented **Continue to payment**.
 
 ---
 
@@ -698,17 +753,28 @@ Treat GEO/AEO/LLMO as an extension of sound SEO, not a separate collection of ha
 
 Primary implementation references: [Google generative-search guidance](https://developers.google.com/search/docs/fundamentals/ai-optimization-guide), [Google URL guidance](https://developers.google.com/search/docs/crawling-indexing/url-structure), [Google JavaScript SEO](https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics), [Google pagination guidance](https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading), [Google sitemaps](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap), [Google LocalBusiness markup](https://developers.google.com/search/docs/appearance/structured-data/local-business), [Google ProfilePage limitations](https://developers.google.com/search/docs/appearance/structured-data/profile-page), [Bing webmaster guidelines](https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a), [Bing IndexNow](https://www.bing.com/webmasters/help/indexnow-0z209wby), and [OpenAI publisher guidance](https://help.openai.com/en/articles/12627856).
 
+### Representative fixtures and reusable states
+
+The authoritative development/test fixture set and cross-surface state matrix are defined in [`docs/representative-seed-data.md`](docs/representative-seed-data.md). It covers ledger-backed ranking totals and ties, multi-city positions, minimal and complete profiles, missing media, long content, every portfolio kind, zero/sparse/meaningful analytics and draft/withdrawn records. Fixture data must be visibly non-production and must never become public supply, payment evidence, verification or social proof.
+
+Loading preserves page structure and avoids layout shift; empty states state the truth without inventing activity; recoverable errors remain local to the affected region; validation preserves entered values; unavailable public content offers a route back to the entity. Insights failures never affect profile, portfolio, payment or ranking operations. The implementation must validate these states at 320–375px and desktop widths before a feature is considered complete.
+
+Authenticated owner navigation contains exactly five persistent items: **Home**, **Profile**, **Position**, **Insights** and **Account**. Home returns to public discovery; Profile groups entity identity, portfolio and city management; Position jumps to Realrank Index and the shared-total action; Insights contains performance monitoring; Account contains private access utilities. Help remains in the sticky header and Add Item remains contextual to Portfolio. Public routes do not render owner navigation.
+
 ---
 
 ## 11. Recommended data model
 
 Store money as integer paise and treat the payment ledger as immutable.
 
+The executable PostgreSQL contract is maintained in [`db/migrations`](db/migrations) with its ordered rollout and local verification instructions in [`db/README.md`](db/README.md). These additive migrations are the implementation companion to this model: identity and catalogues first, coverage/payment/Rank ledgers second, portfolio extensions third, then integrity functions, ranking views, indexes and secure-by-default RLS. [`db/seeds/development.sql`](db/seeds/development.sql) contains fictional deterministic fixtures only, and [`db/tests/schema_smoke.sql`](db/tests/schema_smoke.sql) verifies the critical invariants against a fresh PostgreSQL cluster.
+
 ### Core records
 
-**users**
+**owner_accounts**
 
 - id
+- authentication-provider user id, nullable until an identity is linked
 - verified owner phone in E.164 format
 - phone verified time
 - recovery email, nullable and deferred from MVP onboarding
@@ -869,11 +935,30 @@ An entity must have at least one and may have no more than three active rows. En
 - id
 - entity id
 - amount in paise
-- source: PAYMENT or PROMOTIONAL_CREDIT
+- source: PAYMENT, PROMOTIONAL_CREDIT or REVERSAL
 - payment line-item id, nullable for promotion
 - reason/code, nullable
 - created time
 - reversal reference, nullable
+
+**pending_checkouts**
+
+- id and idempotency key
+- entity id, nullable for first entry
+- requested entity/contact/city context
+- intent and lifecycle status
+- expiry and timestamps
+
+**pending_checkout_line_items**
+
+- pending checkout id
+- purpose: RANK_CONTRIBUTION or CITY_SLOT_PURCHASE
+- entity and requested city, nullable where the new entity does not yet exist
+- target discovery filter/position and quoted competitor total, nullable where not applicable
+- quoted amount and quote expiry
+- unique checkout + purpose
+
+Quoted checkout items are mutable only through a new server-side revalidation before gateway checkout. They preserve the exact user-visible quote while allowing more than one gateway payment attempt for the same checkout. They are not financial ledger entries and never change Rank total or city capacity.
 
 **payments**
 
@@ -885,7 +970,6 @@ An entity must have at least one and may have no more than three active rows. En
 - captured gross amount in paise
 - status
 - captured time
-- webhook idempotency key
 - refund/chargeback state
 
 **payment_line_items**
@@ -898,14 +982,16 @@ An entity must have at least one and may have no more than three active rows. En
 - amount in paise
 - unique allocation reference for idempotent fulfillment and reversal
 
-The three included city slots have no city-fee payment line item. When a checkout includes both a global top-up and an additional-city slot, show two separate line items and fulfil both only after capture. A slot-fee line item must never enter the ranking-contribution ledger. Reassigning an existing slot has no payment line item.
+Captured payment line items are immutable allocations created when fulfilment has an entity to credit. The three included city slots have no city-fee payment line item. When a checkout includes both a global top-up and an additional-city slot, show two separate items in the quote and captured allocation, then fulfil both only after capture. A slot-fee line item must never enter the ranking-contribution ledger. Reassigning an existing slot has no payment line item. Gateway webhook payloads and their unique gateway event identifiers are retained separately for idempotent processing and audit.
 
 **portfolio_items**
 
 - id
 - entity id
+- item kind id, nullable for an unclassified generic portfolio post
 - title
 - public slug
+- featured order, nullable and limited to unique values 1–3 within an entity
 - primary category id, nullable until classified
 - property type id, nullable until classified
 - listing purpose: SALE, RENT or LEASE, nullable until classified
@@ -930,6 +1016,77 @@ The three included city slots have no city-fee payment line item. When a checkou
 - auctioning authority, source URL, auction date, reserve-price display and last-confirmed time, all nullable and used only for auction opportunities
 
 Validate supplied dependencies on the server as well as in the interface. For example, BHK is invalid for a warehouse and Lease is invalid for a Residential MVP item. Missing optional classification does not block a portfolio post, but it prevents entry into filters that depend on the missing value. Every primary or additional city must already be active for the entity. Store both the owner's original area value/unit and canonical square metres whenever area is supplied. Use exact conversion constants—1 square foot equals 0.09290304 square metres—and always recalculate display conversions from the canonical value rather than repeatedly converting rounded display values.
+
+**portfolio_item_kinds**
+
+- id
+- stable code: PROJECT, PROPERTY, COLLECTION or AUCTION
+- public name
+- display order
+- active status
+
+Use lookup rows instead of a database enum. Kind is an optional presentation and data-extension choice; it does not replace primary property category, purpose, type or specialisation.
+
+**project_statuses**
+
+- id
+- stable code such as UPCOMING, UNDER_CONSTRUCTION or READY_TO_MOVE
+- public name
+- display order
+- active status
+
+**portfolio_project_details**
+
+- portfolio item id, primary and foreign key
+- developer entity id, nullable when the developer is another Realrank entity
+- developer display name, nullable
+- project status id, nullable
+- launch date and expected/actual possession date, nullable
+- minimum and maximum price in paise, nullable
+- configuration summary, nullable
+- public address, latitude and longitude, nullable
+- location precision: EXACT or APPROXIMATE
+- brochure object key or external URL, nullable
+- facts last confirmed time, nullable
+
+Create this row only for PROJECT items. Server validation rejects project-only fields on other kinds. Do not use this extension as proof that the developer, RERA record or availability has been independently verified.
+
+**amenities**
+
+- id
+- stable code
+- public name
+- display order
+- active status
+
+**portfolio_project_amenities**
+
+- portfolio item id
+- amenity id
+- unique portfolio item + amenity
+
+**portfolio_project_configurations**
+
+- id
+- portfolio item id
+- public label such as 2 BHK or Office 850 sq. ft.
+- minimum and maximum canonical area in square metres, nullable
+- preferred display area unit, nullable
+- minimum and maximum price in paise, nullable
+- display order
+
+**portfolio_project_registrations**
+
+- id
+- portfolio item id
+- authority/state code
+- registration number
+- phase label, nullable
+- public source URL, nullable
+- facts last confirmed time, nullable
+- unique portfolio item + authority/state + registration number
+
+Registrations are repeatable because one marketed project may contain separately registered phases. Display only values the entity supplied or Realrank sourced, always label the source, and do not convert presence of a number into a verification badge.
 
 **portfolio_item_media**
 
@@ -975,6 +1132,8 @@ Rows are valid only when the portfolio item's primary category is LAND_PLOT and 
 - city id
 - is primary, with exactly one primary city per published item
 - unique portfolio item + city
+
+Owner-facing analytics uses PostHog named endpoints during the MVP rather than duplicating event calculations in PostgreSQL. Keep the Realrank event names, required properties, visibility thresholds, bot/internal exclusions and metric definitions in a versioned analytics contract alongside application validation schemas. If first-party aggregates are introduced later, derive them from that same contract and backfill them idempotently; do not make analytics tables part of ranking or payment transactions.
 
 ### Derived ranking
 
@@ -1038,14 +1197,18 @@ Vercel Hobby must not serve the commercial version of Realrank. Upgrade before e
 
 PostHog is the primary source for product and conversion-funnel analysis. Cloudflare Web Analytics may provide an independent aggregate traffic view, but it is not the source of truth for product behavior.
 
-Begin with an explicit event allowlist rather than automatic capture. Useful MVP events include category selection, entity-profile view, portfolio-item view, Contact click, Claim click, listing start, checkout start, captured payment, phone-OTP completion and profile completion.
+Begin with an explicit event allowlist rather than automatic capture. Useful MVP events include category selection, entity-profile view, portfolio-card impression, portfolio-item view, Contact click, portfolio-item share, Claim click, listing start, checkout start, captured payment, phone-OTP completion and profile completion. Use stable object-and-action names and a versioned property schema so owner-facing Insights and internal product funnels read the same underlying events.
 
 - Never send phone numbers, email addresses, names, payment IDs, gateway payloads, contact messages or other sensitive fields to PostHog.
 - Use a random internal identifier only after an owner authenticates; keep public visitors anonymous.
 - Emit captured-payment and refund events from verified server-side processing, not from browser callbacks.
 - Keep session replay disabled at launch. If introduced later, mask all text inputs and verify that payment and authentication surfaces are excluded before enabling it for real traffic.
 - Do not expose PostHog or Cloudflare estimates as a public live-viewer count.
+- Query owner-facing Insights through authorized server-side named endpoints or saved queries, with conservative caching; never expose private analytics credentials or unrestricted queries to the browser.
+- Exclude owner previews, known staff/test activity and obvious bots from owner-facing counts. Define impression, view, Contact click and conversion-rate denominators once and keep those definitions visible in the product.
 - Analytics must never become the financial or ranking source of truth; PostgreSQL remains authoritative.
+
+Implementation references: [PostHog event capture and schema guidance](https://posthog.com/docs/product-analytics/capture-events), [PostHog insights](https://posthog.com/docs/product-analytics/insights) and [PostHog named endpoints for customer-facing analytics](https://posthog.com/docs/endpoints).
 
 ### Cloudflare responsibilities
 
@@ -1095,6 +1258,7 @@ The server is authoritative for rank. Client-side optimistic movement must not i
 - Auction Properties as a secondary specialisation inside More, with no auction conducted by Realrank;
 - balanced entity cards with name, description, categories, compact Contact action, rank, top-right Rank total and compact Claim badge;
 - entity profile with optional portfolio;
+- optional featured portfolio items, project-aware item details and privacy-safe owner Insights;
 - direct-to-Razorpay checkout from the validated listing or Claim action, plus responsive delayed-confirmation and failure exception states;
 - Razorpay captured-payment processing;
 - post-payment one-owner account setup;

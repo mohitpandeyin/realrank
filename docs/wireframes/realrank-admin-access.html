@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#20201E">
+  <title>Admin access — Realrank</title>
+  <link rel="icon" href="../brand/final/favicon/favicon.ico" sizes="any"><link rel="stylesheet" href="./realrank-flow.css?v=20261112-admin">
+</head>
+<body class="rr-admin-page rr-admin-access-page">
+  <header class="rr-site-header"><nav class="rr-container rr-nav" aria-label="Admin access"><a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" height="47" alt="Realrank"></a><span class="rr-admin-label">Internal operations</span></nav></header>
+  <main class="rr-admin-access-main">
+    <section class="rr-admin-access-card" aria-labelledby="rr-admin-access-title">
+      <div class="rr-admin-access-intro"><span class="rr-eyebrow">Restricted access</span><h1 id="rr-admin-access-title">Realrank operations</h1><p>Only approved team members can access entity, payment and moderation records.</p></div>
+      <div class="rr-admin-access-tabs" role="tablist" aria-label="Admin access options"><button type="button" role="tab" aria-selected="true" data-rr-admin-access-tab="login">Log in</button><button type="button" role="tab" aria-selected="false" data-rr-admin-access-tab="signup">Request access</button></div>
+      <form class="rr-admin-access-form" data-rr-admin-login>
+        <label for="rr-admin-email">Work email</label><input id="rr-admin-email" type="email" autocomplete="email" placeholder="name@company.com" required>
+        <label for="rr-admin-password">Password</label><input id="rr-admin-password" type="password" autocomplete="current-password" minlength="8" required>
+        <button class="rr-button rr-button-primary" type="submit">Log in</button><button class="rr-text-button" type="button" data-rr-admin-forgot>Forgot password?</button>
+      </form>
+      <form class="rr-admin-access-form" data-rr-admin-mfa hidden>
+        <div class="rr-admin-access-step"><span aria-hidden="true">2</span><div><strong>Security check</strong><small>Enter the 6-digit code from your authenticator app.</small></div></div>
+        <label for="rr-admin-mfa-code">Authenticator code</label><input id="rr-admin-mfa-code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required>
+        <button class="rr-button rr-button-primary" type="submit">Verify and continue</button><button class="rr-text-button" type="button" data-rr-admin-back-credentials>Use another account</button>
+      </form>
+      <form class="rr-admin-access-form" data-rr-admin-signup hidden>
+        <label for="rr-admin-name">Full name</label><input id="rr-admin-name" autocomplete="name" required>
+        <label for="rr-admin-signup-email">Work email</label><input id="rr-admin-signup-email" type="email" autocomplete="email" placeholder="name@company.com" required>
+        <label for="rr-admin-reason">Why do you need access?</label><textarea id="rr-admin-reason" rows="3" maxlength="300" placeholder="Your role and the operations you will handle" required></textarea>
+        <button class="rr-button rr-button-primary" type="submit">Submit access request</button>
+        <p class="rr-admin-access-note">Submitting a request does not create admin access. An existing administrator must review and approve it.</p>
+      </form>
+      <div class="rr-admin-access-pending" data-rr-admin-pending hidden tabindex="-1"><span aria-hidden="true">✓</span><h2>Verify your work email</h2><p>We sent a verification link. After verification, the request enters the admin approval queue. Approval then sends a secure password and MFA setup link.</p><button class="rr-button rr-button-quiet" type="button" data-rr-admin-back-login>Back to log in</button></div>
+    </section>
+  </main>
+  <div class="rr-toast" role="status" hidden></div>
+  <script>
+    const rrTabs = [...document.querySelectorAll('[data-rr-admin-access-tab]')];
+    const rrLogin = document.querySelector('[data-rr-admin-login]');
+    const rrSignup = document.querySelector('[data-rr-admin-signup]');
+    const rrMfa = document.querySelector('[data-rr-admin-mfa]');
+    const rrPending = document.querySelector('[data-rr-admin-pending]');
+    const rrToast = document.querySelector('.rr-toast');
+    function rrShowTab(rrName) { rrPending.hidden = true; rrMfa.hidden = true; rrLogin.hidden = rrName !== 'login'; rrSignup.hidden = rrName !== 'signup'; rrTabs.forEach((rrTab) => rrTab.setAttribute('aria-selected', String(rrTab.dataset.rrAdminAccessTab === rrName))); }
+    rrTabs.forEach((rrTab) => rrTab.addEventListener('click', () => rrShowTab(rrTab.dataset.rrAdminAccessTab)));
+    rrLogin.addEventListener('submit', (rrEvent) => { rrEvent.preventDefault(); if (!rrLogin.reportValidity()) return; rrLogin.hidden = true; rrMfa.hidden = false; document.querySelector('#rr-admin-mfa-code').focus(); });
+    rrMfa.addEventListener('submit', (rrEvent) => { rrEvent.preventDefault(); if (!rrMfa.reportValidity()) return; window.location.href = './realrank-admin-moderation.html'; });
+    rrSignup.addEventListener('submit', (rrEvent) => { rrEvent.preventDefault(); if (!rrSignup.reportValidity()) return; rrSignup.hidden = true; rrTabs.forEach((rrTab) => rrTab.setAttribute('aria-selected', 'false')); rrPending.hidden = false; rrPending.focus(); });
+    document.querySelector('[data-rr-admin-back-login]').addEventListener('click', () => rrShowTab('login'));
+    document.querySelector('[data-rr-admin-back-credentials]').addEventListener('click', () => rrShowTab('login'));
+    document.querySelector('[data-rr-admin-forgot]').addEventListener('click', () => { rrToast.textContent = 'Password reset instructions would be sent to the approved admin email.'; rrToast.hidden = false; window.setTimeout(() => { rrToast.hidden = true; }, 2800); });
+  </script>
+</body>
+</html>

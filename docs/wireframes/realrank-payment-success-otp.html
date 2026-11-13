@@ -10,17 +10,18 @@
   <link rel="icon" type="image/svg+xml" href="../brand/final/svg/realrank-icon-micro.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="../brand/final/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../brand/final/favicon/apple-touch-icon.png">
-  <link rel="stylesheet" href="./realrank-flow.css">
+  <link rel="stylesheet" href="./realrank-flow.css?v=20261110-cross-screen-qa">
 </head>
 <body>
   <header class="rr-site-header">
     <nav class="rr-container rr-nav" aria-label="Account setup navigation">
-      <a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" width="188" height="47" alt="Realrank"></a>
+      <a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" height="47" alt="Realrank"></a>
       <div class="rr-nav-actions">
         <span class="rr-city-pill">
           <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
           Bhopal
         </span>
+        <a class="rr-account-pill" href="./realrank-help-support.html?context=access" aria-label="Open Help and Support"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.4 2.4 0 1 1 3.5 2.1c-.9.5-1.3 1-1.3 2M12 17h.01"/></svg><span>Help</span></a>
       </div>
     </nav>
   </header>
@@ -38,7 +39,7 @@
         <div class="rr-card-head">
           <div>
             <h1 class="rr-section-title">Complete your profile</h1>
-            <p class="rr-section-copy">Verify the listing number to manage its details, portfolio and ranking.</p>
+            <p class="rr-section-copy">Verify your mobile number to manage the listing, portfolio and ranking.</p>
           </div>
         </div>
         <form class="rr-card-body rr-stack" data-rr-phone-form>
@@ -55,9 +56,8 @@
         <div class="rr-card-head">
           <div>
             <h1 class="rr-section-title">Verify your number</h1>
-            <p class="rr-section-copy">Enter the six-digit code sent <span data-rr-channel-copy>on WhatsApp</span> to <strong data-rr-phone-label>+91 98••• ••210</strong>.</p>
+            <p class="rr-section-copy">Enter the six-digit code sent <span data-rr-channel-copy>on WhatsApp</span> to <strong data-rr-phone-label>+91 98••• ••210</strong>. <button class="rr-text-button rr-inline-change" type="button" data-rr-change-from-otp>Change</button></p>
           </div>
-          <button class="rr-text-button" type="button" data-rr-change-from-otp>Change number</button>
         </div>
         <form class="rr-card-body" data-rr-otp-form>
           <label class="rr-label" for="rr-otp-1">Verification code</label>
@@ -70,7 +70,8 @@
             <input class="rr-otp-input" inputmode="numeric" maxlength="1" aria-label="Digit 6" value="9">
           </div>
           <button class="rr-button rr-button-primary rr-button-block" type="submit" data-rr-verify-button>Verify number</button>
-          <div class="rr-button-row"><button class="rr-text-button" type="button" data-rr-resend>Resend code</button><button class="rr-text-button" type="button" data-rr-switch-channel>Send by SMS instead</button></div>
+          <div class="rr-auth-links rr-auth-links-single"><button class="rr-text-button" type="button" data-rr-resend>Resend code</button></div>
+          <p class="rr-auth-channel-fallback"><span data-rr-fallback-question>Didn’t receive it on WhatsApp?</span> <button class="rr-text-button" type="button" data-rr-switch-channel>Send by SMS</button></p>
           <span class="rr-sr-only" role="status" aria-live="polite" data-rr-verification-status></span>
         </form>
       </section>
@@ -83,7 +84,7 @@
           <h1 class="rr-status-title" tabindex="-1" data-rr-verified-heading>Number verified</h1>
           <p class="rr-status-copy">You can now manage Aarambh Realty and complete its public profile.</p>
           <div class="rr-status-actions">
-            <a class="rr-button rr-button-primary" href="./realrank-owner-dashboard.html?tab=profile">Complete profile</a>
+            <a class="rr-button rr-button-primary" href="./realrank-owner-dashboard.html?open=profile">Complete profile</a>
             <a class="rr-button rr-button-quiet" href="./realrank-entity-profile.html" target="_blank" rel="noopener">View public listing</a>
           </div>
         </div>
@@ -94,7 +95,7 @@
   <footer class="rr-site-footer">
     <div class="rr-container rr-footer-inner">
       <div class="rr-footer-brand"><strong>Realrank</strong> Real estate discovery index.</div>
-      <nav class="rr-footer-links" aria-label="Legal"><a href="#">Ranking Policy</a><a href="#">Refund Policy</a><a href="#">Terms</a><a href="#">Privacy</a><a href="./realrank-help-support.html?context=public">Support</a></nav>
+      <nav class="rr-footer-links" aria-label="Legal"><a href="#">Ranking Policy</a><a href="#">Refund Policy</a><a href="#">Terms</a><a href="#">Privacy</a><a href="./realrank-help-support.html?context=access">Support</a></nav>
     </div>
   </footer>
 
@@ -106,6 +107,7 @@
     const rrPhoneLabel = document.querySelector('[data-rr-phone-label]');
     const rrChannelCopy = document.querySelector('[data-rr-channel-copy]');
     const rrSwitchChannel = document.querySelector('[data-rr-switch-channel]');
+    const rrFallbackQuestion = document.querySelector('[data-rr-fallback-question]');
     const rrVerifyButton = document.querySelector('[data-rr-verify-button]');
     const rrVerificationStatus = document.querySelector('[data-rr-verification-status]');
     let rrChannel = 'whatsapp';
@@ -118,7 +120,8 @@
       rrChannel = rrNextChannel;
       const rrWhatsApp = rrChannel === 'whatsapp';
       rrChannelCopy.textContent = rrWhatsApp ? 'on WhatsApp' : 'by SMS';
-      rrSwitchChannel.textContent = rrWhatsApp ? 'Send by SMS instead' : 'Send on WhatsApp instead';
+      rrFallbackQuestion.textContent = rrWhatsApp ? 'Didn’t receive it on WhatsApp?' : 'Didn’t receive it by SMS?';
+      rrSwitchChannel.textContent = rrWhatsApp ? 'Send by SMS' : 'Send by WhatsApp';
     }
     function rrShowState(rrState) {
       rrPanels.forEach((rrPanel) => { rrPanel.hidden = rrPanel.dataset.rrPanel !== rrState; });

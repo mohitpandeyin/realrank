@@ -10,16 +10,16 @@
   <link rel="icon" type="image/svg+xml" href="../brand/final/svg/realrank-icon-micro.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="../brand/final/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../brand/final/favicon/apple-touch-icon.png">
-  <link rel="stylesheet" href="./realrank-flow.css?v=20261109-rank-cue-center">
+  <link rel="stylesheet" href="./realrank-flow.css?v=20261110-cross-screen-qa">
 </head>
 <body class="rr-owner-app">
   <header class="rr-site-header">
     <nav class="rr-container rr-nav" aria-label="Owner navigation">
-      <a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" width="188" height="47" alt="Realrank"></a>
+      <a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" height="47" alt="Realrank"></a>
       <div class="rr-nav-actions">
         <div class="rr-help-menu-wrap">
-          <button class="rr-account-pill" type="button" aria-label="Open help menu" aria-expanded="false" data-rr-help-button><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.4 2.4 0 1 1 3.5 2.1c-.9.5-1.3 1-1.3 2M12 17h.01"/></svg><span>Help</span></button>
-          <div class="rr-help-menu" role="menu" data-rr-help-menu hidden><a href="./realrank-help-support.html" role="menuitem" data-rr-get-help>Get help <span>→</span></a><a href="./realrank-help-support.html?intent=report#rr-report-issue" role="menuitem" data-rr-report-issue>Report an issue <span>→</span></a><button type="button" role="menuitem" data-rr-ranking-policy>Ranking policy <span>→</span></button></div>
+          <button class="rr-account-pill" type="button" aria-label="Open help menu" aria-expanded="false" aria-controls="rr-owner-help-menu" data-rr-help-button><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.4 2.4 0 1 1 3.5 2.1c-.9.5-1.3 1-1.3 2M12 17h.01"/></svg><span>Help</span></button>
+          <div class="rr-help-menu" id="rr-owner-help-menu" role="menu" data-rr-help-menu hidden><a href="./realrank-help-support.html" role="menuitem" data-rr-get-help>Get help <span>→</span></a><a href="./realrank-help-support.html?intent=report#rr-report-issue" role="menuitem" data-rr-report-issue>Report an issue <span>→</span></a><button type="button" role="menuitem" data-rr-ranking-policy>Ranking policy <span>→</span></button></div>
         </div>
       </div>
     </nav>
@@ -29,18 +29,19 @@
     <div class="rr-container rr-dashboard">
       <aside class="rr-sidebar" aria-label="Owner navigation">
         <nav class="rr-sidebar-nav" aria-label="Manage entity">
-          <a class="rr-sidebar-link" href="#rr-owner-home" aria-current="page" data-rr-flow-link="home">
+          <a class="rr-sidebar-link" href="./realrank-locked-terracotta.html">
             <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>
             Home
           </a>
-          <a class="rr-sidebar-link" href="#rr-owner-portfolio" data-rr-flow-link="portfolio">
-            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 5V3h8v2M3 11h18"/></svg>
-            Portfolio
+          <a class="rr-sidebar-link" href="#rr-owner-home" aria-current="page" data-rr-flow-link="home">
+            <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M6 16c.7-2 5.3-2 6 0M14 9h4M14 13h4"/></svg>
+            Profile
           </a>
           <a class="rr-sidebar-link" href="#rr-owner-rank" data-rr-flow-link="rank">
             <svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7"/></svg>
-            Rank
+            Position
           </a>
+          <a class="rr-sidebar-link" href="./realrank-portfolio-insights.html"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>Insights</a>
           <button class="rr-sidebar-link" type="button" data-rr-account-menu><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</button>
         </nav>
       </aside>
@@ -64,7 +65,7 @@
         </section>
 
         <section class="rr-owner-flow-section rr-public-flow-section" id="rr-owner-portfolio" data-rr-flow-section="portfolio">
-          <div class="rr-public-section-head"><div><h2>Portfolio</h2></div><button class="rr-profile-action rr-profile-action-secondary" type="button" data-rr-add-item>+ Add</button></div>
+          <div class="rr-public-section-head"><div><h2>Portfolio</h2></div><div class="rr-public-section-actions"><button class="rr-profile-action rr-profile-action-secondary" type="button" data-rr-add-item>+ Add</button></div></div>
           <div class="rr-public-portfolio-list" data-rr-portfolio-list>
             <article class="rr-public-portfolio-item rr-owner-portfolio-item" tabindex="0" data-rr-edit-item data-rr-item-title="MP Nagar office collection" data-rr-item-category="commercial" data-rr-item-purpose="lease" data-rr-item-type="office" data-rr-item-area="1800" data-rr-item-unit="sqft" data-rr-item-price="85000" data-rr-item-locality="MP Nagar" data-rr-item-cities="Bhopal" data-rr-item-description="Selected commercial office opportunities for growing teams and investors." data-rr-item-tags="Office|For lease"><span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/></svg><span class="rr-portfolio-price-tag">₹85,000/mo</span></span><span class="rr-public-portfolio-copy"><strong>MP Nagar office collection</strong><span class="rr-portfolio-card-meta">MP Nagar, Bhopal · Updated 2d</span></span></article>
             <article class="rr-public-portfolio-item rr-owner-portfolio-item" tabindex="0" data-rr-edit-item data-rr-item-title="Current launch opportunities" data-rr-item-category="residential" data-rr-item-purpose="sale" data-rr-item-type="apartment" data-rr-item-configuration="3bhk" data-rr-item-area="1450" data-rr-item-unit="sqft" data-rr-item-price="7800000" data-rr-item-locality="" data-rr-item-cities="Bhopal|Indore" data-rr-item-description="Residential project options from Aarambh Realty's current portfolio." data-rr-item-tags="3 BHK|Apartment|For sale"><span class="rr-public-portfolio-thumb"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V9l9-6 9 6v12M9 21v-6h6v6"/><path d="M7 11h2M15 11h2"/></svg><span class="rr-portfolio-price-tag">₹78 lakh</span></span><span class="rr-public-portfolio-copy"><strong>Current launch opportunities</strong><span class="rr-portfolio-card-meta">Bhopal + Indore · Updated today</span></span></article>
@@ -242,7 +243,7 @@
       window.rrToastTimer = window.setTimeout(() => { rrToast.hidden = true; }, 2600);
     }
     const rrFlowLinks = [...document.querySelectorAll('[data-rr-flow-link]')];
-    const rrFlowTargets = { home: '#rr-owner-home', portfolio: '#rr-owner-portfolio', rank: '#rr-owner-rank' };
+    const rrFlowTargets = { home: '#rr-owner-home', rank: '#rr-owner-rank' };
     function rrScrollOwnerFlow(rrDestination) {
       rrFlowLinks.forEach((rrOther) => rrOther.removeAttribute('aria-current'));
       const rrActiveLink = rrFlowLinks.find((rrLink) => rrLink.dataset.rrFlowLink === rrDestination);
@@ -344,6 +345,7 @@
       rrUpdateEntityCategoryCount();
     }));
     document.querySelectorAll('[data-rr-edit-profile]').forEach((rrButton) => rrButton.addEventListener('click', () => rrOpenProfileEditor()));
+    if (new URLSearchParams(window.location.search).get('open') === 'profile') rrOpenProfileEditor();
     document.querySelector('[data-rr-add-social-profile]').addEventListener('click', () => rrOpenProfileEditor(true));
     document.querySelector('[data-rr-add-social]').addEventListener('click', () => rrAddSocialEditorRow('instagram', '', true));
     rrSocialEditorList.addEventListener('click', (rrEvent) => { const rrRemove = rrEvent.target.closest('[data-rr-remove-social]'); if (rrRemove) rrRemove.closest('[data-rr-social-row]').remove(); });

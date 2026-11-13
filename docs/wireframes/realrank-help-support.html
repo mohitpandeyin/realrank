@@ -10,12 +10,12 @@
   <link rel="icon" type="image/svg+xml" href="../brand/final/svg/realrank-icon-micro.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="../brand/final/favicon/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="../brand/final/favicon/apple-touch-icon.png">
-  <link rel="stylesheet" href="./realrank-flow.css?v=20261110-support-qa">
+  <link rel="stylesheet" href="./realrank-flow.css?v=20261110-cross-screen-qa">
 </head>
 <body class="rr-owner-app rr-help-page">
   <header class="rr-site-header">
     <nav class="rr-container rr-nav" aria-label="Support navigation">
-      <a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" width="188" height="47" alt="Realrank"></a>
+      <a class="rr-wordmark" href="./realrank-locked-terracotta.html" aria-label="Realrank home"><img class="rr-brand-logo" src="../brand/final/svg/realrank-logo-horizontal.svg" height="47" alt="Realrank"></a>
       <div class="rr-nav-actions">
         <div class="rr-help-menu-wrap">
           <button class="rr-account-pill" type="button" aria-label="Open help menu" aria-expanded="false" aria-controls="rr-help-page-menu" data-rr-help-button><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.8 9a2.4 2.4 0 1 1 3.5 2.1c-.9.5-1.3 1-1.3 2M12 17h.01"/></svg><span>Help</span></button>
@@ -27,7 +27,7 @@
 
   <main class="rr-page rr-help-main">
     <div class="rr-container rr-help-shell">
-      <a class="rr-public-back" href="./realrank-owner-dashboard.html" data-rr-help-back><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span>Back to Home</span></a>
+      <a class="rr-public-back" href="./realrank-owner-dashboard.html" data-rr-help-back><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg><span>Back to Profile</span></a>
 
       <header class="rr-help-intro">
         <h1>Help &amp; Support</h1>
@@ -44,27 +44,27 @@
           <p>Choose the topic closest to what you need.</p>
         </div>
         <div class="rr-help-questions">
-          <details class="rr-help-question" data-rr-owner-help>
+          <details class="rr-help-question" data-rr-help-contexts="owner payment">
             <summary>Payment is pending or not confirmed <span aria-hidden="true">+</span></summary>
             <div><p>If money may have been deducted, do not pay again. Keep the order ID and allow the payment status to update. Report the payment below if it remains pending.</p><a href="?intent=report&amp;type=payment#rr-report-issue">Report this payment</a></div>
           </details>
-          <details class="rr-help-question">
+          <details class="rr-help-question" data-rr-help-contexts="all">
             <summary>How Rank total and positions work <span aria-hidden="true">+</span></summary>
             <div><p>An entity has one Rank total shared across its active cities. Within each city, a higher Rank total appears above a lower one. Position is not a quality score or business verification.</p><button type="button" data-rr-ranking-policy>Read the Ranking Policy</button></div>
           </details>
-          <details class="rr-help-question" data-rr-owner-help>
+          <details class="rr-help-question" data-rr-help-contexts="owner">
             <summary>Manage a listing or public profile <span aria-hidden="true">+</span></summary>
             <div><p>Use Home to update public details, cities and portfolio items. A changed public contact number must be verified before it is published.</p><a href="./realrank-owner-dashboard.html">Open entity Home</a></div>
           </details>
-          <details class="rr-help-question" data-rr-owner-help>
+          <details class="rr-help-question" data-rr-help-contexts="owner">
             <summary>Change cities or categories <span aria-hidden="true">+</span></summary>
             <div><p>Each entity includes up to three active city slots. Manage city coverage in Cities. Update profile categories separately through Edit profile; the same categories apply in every active city.</p><a href="./realrank-owner-dashboard.html#rr-owner-cities">Manage cities</a></div>
           </details>
-          <details class="rr-help-question" data-rr-owner-help>
+          <details class="rr-help-question" data-rr-help-contexts="owner access">
             <summary>Phone verification or account access <span aria-hidden="true">+</span></summary>
             <div><p>Realrank uses the verified owner number for account access. WhatsApp is the primary OTP channel and SMS is available as a fallback.</p><a href="?intent=report&amp;type=account#rr-report-issue">Get account help</a></div>
           </details>
-          <details class="rr-help-question">
+          <details class="rr-help-question" data-rr-help-contexts="all">
             <summary>Contact an entity <span aria-hidden="true">+</span></summary>
             <div><p>Use Contact on the public profile to reach the entity through its published number. Realrank does not confirm availability, pricing or property details.</p><a href="./realrank-entity-profile.html">View a public profile</a></div>
           </details>
@@ -131,7 +131,7 @@
         <div class="rr-issue-success" role="status" tabindex="-1" data-rr-issue-success hidden>
           <span class="rr-status-icon rr-success"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span>
           <div><h3>Issue submitted</h3><p>We received your report. Keep reference <strong>RR-10428</strong> if you contact support again.</p></div>
-          <a class="rr-button rr-button-secondary" href="./realrank-owner-dashboard.html" data-rr-success-back>Back to Home</a>
+          <a class="rr-button rr-button-secondary" href="./realrank-owner-dashboard.html" data-rr-success-back>Back to Profile</a>
         </div>
       </section>
     </div>
@@ -139,9 +139,10 @@
 
   <aside class="rr-sidebar" aria-label="Owner navigation" data-rr-help-owner-nav>
     <nav class="rr-sidebar-nav" aria-label="Manage entity">
-      <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html#rr-owner-home"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>Home</a>
-      <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html#rr-owner-portfolio"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 5V3h8v2M3 11h18"/></svg>Portfolio</a>
-      <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html#rr-owner-rank"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7"/></svg>Rank</a>
+      <a class="rr-sidebar-link" href="./realrank-locked-terracotta.html"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>Home</a>
+      <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html#rr-owner-home"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M6 16c.7-2 5.3-2 6 0M14 9h4M14 13h4"/></svg>Profile</a>
+      <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html#rr-owner-rank"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V9M12 19V5M19 19v-7"/></svg>Position</a>
+      <a class="rr-sidebar-link" href="./realrank-portfolio-insights.html"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/></svg>Insights</a>
       <a class="rr-sidebar-link" href="./realrank-owner-dashboard.html?open=account"><svg class="rr-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>Account</a>
     </nav>
   </aside>
@@ -210,24 +211,51 @@
     });
 
     const rrParams = new URLSearchParams(window.location.search);
-    const rrIsPublicContext = rrParams.get('context') === 'public';
-    if (rrIsPublicContext) {
+    const rrHelpContext = rrParams.get('context') || 'owner';
+    const rrContextConfig = {
+      public: {
+        backHref: './realrank-entity-profile.html',
+        backLabel: 'Back to listing',
+        reportCopy: 'Tell us what happened. We will include the current page and listing context automatically.',
+        phoneHint: 'Enter a number where support can reply about this issue.',
+        successLabel: 'Back to listing'
+      },
+      payment: {
+        backHref: './realrank-payment-states.html',
+        backLabel: 'Back to payment status',
+        reportCopy: 'Tell us what happened. We will include the current payment status and order context automatically.',
+        phoneHint: 'Enter a number where support can reply about this payment.',
+        successLabel: 'Back to payment status'
+      },
+      access: {
+        backHref: './realrank-owner-access.html',
+        backLabel: 'Back to verification',
+        reportCopy: 'Tell us what happened. We will include the current verification step automatically.',
+        phoneHint: 'Enter the mobile number connected with this access issue.',
+        successLabel: 'Back to verification'
+      }
+    };
+    const rrExternalContext = rrContextConfig[rrHelpContext];
+    if (rrExternalContext) {
       document.body.classList.remove('rr-owner-app');
       document.body.classList.add('rr-help-public-context');
       document.querySelector('[data-rr-help-owner-nav]').hidden = true;
-      document.querySelectorAll('[data-rr-owner-help]').forEach((rrTopic) => { rrTopic.hidden = true; });
+      document.querySelectorAll('[data-rr-help-contexts]').forEach((rrTopic) => {
+        const rrContexts = rrTopic.dataset.rrHelpContexts.split(' ');
+        rrTopic.hidden = !rrContexts.includes('all') && !rrContexts.includes(rrHelpContext);
+      });
       const rrBack = document.querySelector('[data-rr-help-back]');
-      rrBack.href = './realrank-entity-profile.html';
-      rrBack.querySelector('span').textContent = 'Back to listing';
-      document.querySelector('[data-rr-report-context-copy]').textContent = 'Tell us what happened. We will include the current page and listing context automatically.';
+      rrBack.href = rrExternalContext.backHref;
+      rrBack.querySelector('span').textContent = rrExternalContext.backLabel;
+      document.querySelector('[data-rr-report-context-copy]').textContent = rrExternalContext.reportCopy;
       rrSupportPhone.value = '';
-      document.querySelector('[data-rr-support-phone-hint]').textContent = 'Enter a number where support can reply about this issue.';
+      document.querySelector('[data-rr-support-phone-hint]').textContent = rrExternalContext.phoneHint;
       const rrSuccessBack = document.querySelector('[data-rr-success-back]');
-      rrSuccessBack.href = './realrank-entity-profile.html';
-      rrSuccessBack.textContent = 'Back to listing';
+      rrSuccessBack.href = rrExternalContext.backHref;
+      rrSuccessBack.textContent = rrExternalContext.successLabel;
       document.querySelectorAll('a[href*="intent=report"]').forEach((rrLink) => {
         const rrReportUrl = new URL(rrLink.href, window.location.href);
-        rrReportUrl.searchParams.set('context', 'public');
+        rrReportUrl.searchParams.set('context', rrHelpContext);
         const rrEntity = rrParams.get('entity');
         if (rrEntity) rrReportUrl.searchParams.set('entity', rrEntity);
         rrLink.href = rrReportUrl.href;
