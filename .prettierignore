@@ -1,0 +1,10 @@
+.next
+coverage
+dist
+node_modules
+pnpm-lock.yaml
+docs
+realrank_master_product_plan.md
+db/migrations
+db/seeds
+db/tests

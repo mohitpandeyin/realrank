@@ -4,6 +4,11 @@ node_modules/
 out/
 dist/
 coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+db/drizzle-inspection/
+next-env.d.ts
 
 # Local configuration and secrets
 .env

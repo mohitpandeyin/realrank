@@ -1,7 +1,7 @@
 # Realrank final implementation blueprint
 
 **Prepared:** 13 November 2026  
-**Status:** Approved implementation contract; Milestone 0 in progress.
+**Status:** Approved implementation contract; Milestone 0 implemented and ready for review.
 
 ## 1. Readiness decision
 
