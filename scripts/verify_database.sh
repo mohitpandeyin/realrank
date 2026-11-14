@@ -5,6 +5,7 @@ RR_REPO_ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 RR_DB_VERIFY_DIR=$(mktemp -d "${TMPDIR:-/tmp}/realrank-db-verify.XXXXXX")
 RR_DB_VERIFY_PORT=55439
 RR_DB_VERIFY_STARTED=0
+RR_DB_VERIFY_MODE=${RR_DB_VERIFY_MODE:-fresh}
 
 rr_cleanup() {
   if [ "$RR_DB_VERIFY_STARTED" -eq 1 ]; then
@@ -23,9 +24,28 @@ pg_ctl -D "$RR_DB_VERIFY_DIR/data" -o "-h 127.0.0.1 -p $RR_DB_VERIFY_PORT -F" -w
 RR_DB_VERIFY_STARTED=1
 createdb -h 127.0.0.1 -p "$RR_DB_VERIFY_PORT" -U postgres realrank_verify
 
-for RR_MIGRATION in "$RR_REPO_ROOT"/db/migrations/*.sql; do
-  psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p "$RR_DB_VERIFY_PORT" -U postgres -d realrank_verify -f "$RR_MIGRATION" >/dev/null
-done
+if [ "$RR_DB_VERIFY_MODE" = "upgrade" ]; then
+  for RR_MIGRATION in "$RR_REPO_ROOT"/db/migrations/000[1-4]_*.sql; do
+    psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p "$RR_DB_VERIFY_PORT" -U postgres -d realrank_verify -f "$RR_MIGRATION" >/dev/null
+  done
 
-psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p "$RR_DB_VERIFY_PORT" -U postgres -d realrank_verify -f "$RR_REPO_ROOT/db/seeds/development.sql" >/dev/null
+  psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p "$RR_DB_VERIFY_PORT" -U postgres -d realrank_verify -f "$RR_REPO_ROOT/db/seeds/development.sql" >/dev/null
+
+  for RR_MIGRATION in "$RR_REPO_ROOT"/db/migrations/0005_*.sql; do
+    psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p "$RR_DB_VERIFY_PORT" -U postgres -d realrank_verify -f "$RR_MIGRATION" >/dev/null
+  done
+elif [ "$RR_DB_VERIFY_MODE" = "fresh" ]; then
+  for RR_MIGRATION in "$RR_REPO_ROOT"/db/migrations/*.sql; do
+    psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p "$RR_DB_VERIFY_PORT" -U postgres -d realrank_verify -f "$RR_MIGRATION" >/dev/null
+  done
+
+  psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p "$RR_DB_VERIFY_PORT" -U postgres -d realrank_verify -f "$RR_REPO_ROOT/db/seeds/development.sql" >/dev/null
+else
+  echo "Unknown RR_DB_VERIFY_MODE: $RR_DB_VERIFY_MODE" >&2
+  exit 2
+fi
+
+PGHOST=127.0.0.1 PGPORT=$RR_DB_VERIFY_PORT PGUSER=postgres PGDATABASE=realrank_verify \
+  "$RR_REPO_ROOT/db/tests/concurrency.sh"
+
 psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p "$RR_DB_VERIFY_PORT" -U postgres -d realrank_verify -f "$RR_REPO_ROOT/db/tests/schema_smoke.sql"

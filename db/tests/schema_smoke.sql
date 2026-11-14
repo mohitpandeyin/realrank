@@ -59,6 +59,73 @@ BEGIN
   WHERE relname IN ('owner_accounts', 'entities', 'payments', 'ranking_contributions', 'portfolio_items')
     AND relrowsecurity;
   IF actual <> 5 THEN RAISE EXCEPTION 'Expected RLS on core private tables'; END IF;
+
+  SELECT count(*) INTO actual FROM pg_class
+  WHERE relname = 'payment_success_sessions' AND relrowsecurity;
+  IF actual <> 1 THEN RAISE EXCEPTION 'Expected RLS on payment-success sessions'; END IF;
+
+  SELECT count(*) INTO actual
+  FROM information_schema.columns
+  WHERE table_schema = 'public'
+    AND table_name = 'public_portfolio_items'
+    AND column_name IN ('legacy_category_values', 'legacy_source_key', 'moderation_status');
+  IF actual <> 0 THEN RAISE EXCEPTION 'Private portfolio columns leaked into the public view'; END IF;
+
+  SELECT count(*) INTO actual
+  FROM pg_indexes
+  WHERE schemaname = 'public'
+    AND indexname IN (
+      'ranking_contributions_payment_line_unique',
+      'payment_line_items_payment_purpose_unique',
+      'cities_normalized_identity_unique'
+    );
+  IF actual <> 3 THEN RAISE EXCEPTION 'Expected Milestone 0 integrity indexes'; END IF;
+END;
+$$;
+
+DO $$
+DECLARE
+  verified_at timestamptz;
+BEGIN
+  UPDATE entities
+  SET contact_phone_e164 = '+919111111111'
+  WHERE id = '20000000-0000-4000-8000-000000000001';
+
+  SELECT contact_phone_verified_at INTO verified_at
+  FROM entities WHERE id = '20000000-0000-4000-8000-000000000001';
+
+  IF verified_at IS NOT NULL THEN
+    RAISE EXCEPTION 'Changing a public contact number retained stale verification';
+  END IF;
+END;
+$$;
+
+DO $$
+BEGIN
+  BEGIN
+    INSERT INTO gateway_webhook_events (
+      gateway, gateway_event_id, event_type, signature_valid, payload
+    ) VALUES
+      ('RAZORPAY', 'evt_milestone_0_idempotency', 'payment.captured', true, '{}'::jsonb),
+      ('RAZORPAY', 'evt_milestone_0_idempotency', 'payment.captured', true, '{}'::jsonb);
+    RAISE EXCEPTION 'TEST_EXPECTED_WEBHOOK_IDEMPOTENCY_FAILURE';
+  EXCEPTION WHEN unique_violation THEN
+    NULL;
+  END;
+END;
+$$;
+
+DO $$
+BEGIN
+  BEGIN
+    UPDATE pending_checkouts
+    SET status = 'CREATED'
+    WHERE id = md5('checkout:20000000-0000-4000-8000-000000000001')::uuid;
+    RAISE EXCEPTION 'TEST_EXPECTED_CHECKOUT_TRANSITION_FAILURE';
+  EXCEPTION WHEN others THEN
+    IF SQLERRM = 'TEST_EXPECTED_CHECKOUT_TRANSITION_FAILURE' THEN RAISE; END IF;
+    IF SQLERRM NOT LIKE 'Invalid pending checkout status transition%' THEN RAISE; END IF;
+  END;
 END;
 $$;
 
