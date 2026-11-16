@@ -1,17 +1,20 @@
 export type ListingEntryField = "entityName" | "contactNumber" | "rankAmount";
 
-export type ListingQuote = Readonly<{
-  amountRupees: string;
+export type ListingCheckout = Readonly<{
+  checkoutId: string;
+  orderId: string;
+  publicKeyId: string;
+  amountPaise: number;
+  currency: "INR";
   estimatedPosition: number;
-  firstPlaceAmountRupees: string;
   expiresAt: string;
 }>;
 
 export type ListingEntryState = Readonly<{
-  status: "idle" | "error" | "quoted";
+  status: "idle" | "error" | "checkout";
   fieldErrors?: Partial<Record<ListingEntryField, readonly string[]>>;
   message?: string;
-  quote?: ListingQuote;
+  checkout?: ListingCheckout;
 }>;
 
 export const initialListingEntryState: ListingEntryState = { status: "idle" };

@@ -10,6 +10,9 @@ export const serverEnvironmentSchema = z.object({
   APP_URL: z.url().default("http://localhost:3000"),
   DATABASE_URL: z.string().min(1),
   DATABASE_SSL: booleanFromString,
+  RAZORPAY_KEY_ID: z.string().min(1).optional(),
+  RAZORPAY_KEY_SECRET: z.string().min(1).optional(),
+  RAZORPAY_WEBHOOK_SECRET: z.string().min(1).optional(),
 });
 
 export type ServerEnvironment = z.infer<typeof serverEnvironmentSchema>;

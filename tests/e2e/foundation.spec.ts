@@ -78,6 +78,14 @@ test("health endpoint exposes no operational detail", async ({ request }) => {
   expect(response.headers()["cache-control"]).toContain("no-store");
 });
 
+test("Razorpay webhook rejects unsigned requests", async ({ request }) => {
+  const response = await request.post("/api/webhooks/razorpay", {
+    data: { event: "payment.captured", payload: {} },
+  });
+  expect(response.status()).toBe(401);
+  expect(await response.json()).toEqual({ received: false });
+});
+
 test("canonical redirects use permanent redirect status", async ({ request }) => {
   const response = await request.get("/faq", { maxRedirects: 0 });
   expect(response.status()).toBe(308);

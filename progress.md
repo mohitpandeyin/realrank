@@ -2,11 +2,11 @@
 
 **Last updated:** 16 November 2026
 
-**Current branch:** `codex/milestone-1-listing-entry`
+**Current branch:** `codex/milestone-1-razorpay-test`
 
 **Current milestone:** Milestone 1 — Revenue and ownership vertical slice
 
-**Current slice:** Listing entry and server-calculated Rank quote
+**Current slice:** Razorpay Test order creation and verified webhook fulfilment
 
 ## Completed
 
@@ -23,10 +23,11 @@
 - [x] Floating List your Entity action after the hero leaves the viewport
 - [x] Empty, missing-description, long-name and tied-rank handling
 - [x] Discovery slice approved for incremental continuation
+- [x] Listing-entry and server-calculated Rank quote slice
 
 ## In progress
 
-- [ ] Listing-entry slice awaiting product review
+- [ ] Razorpay Test slice awaiting configured Test Mode checkout verification
 
 ## Listing-entry slice completed
 
@@ -36,6 +37,16 @@
 - [x] Calculated estimated position from fresh PostgreSQL ranking data
 - [x] Routed entity Claim actions back to the shared listing form
 - [x] Validated desktop, mobile, keyboard and error states
+
+## Razorpay Test slice completed
+
+- [x] Added server-only Razorpay Orders adapter with no browser secret exposure
+- [x] Revalidated current Rank position before creating every order
+- [x] Opened Razorpay Checkout directly from the homepage action without a review screen
+- [x] Added raw-body HMAC webhook verification and gateway-event idempotency
+- [x] Fulfilled captured payments atomically into entity, city listing and Rank ledgers
+- [x] Confirmed repeated delivery and different event IDs cannot credit Rank twice
+- [x] Added safe environment placeholders without committing credentials
 
 ## Locked implementation decisions
 
@@ -50,9 +61,9 @@
 
 ## Next slices after discovery approval
 
-1. Razorpay Test order creation and verified webhook fulfilment.
-2. Payment status and one-time ownership onboarding session.
-3. MSG91 test OTP adapter, verification limits and owner session.
+1. Payment status and one-time ownership onboarding session.
+2. MSG91 test OTP adapter, verification limits and owner session.
+3. Profile completion handoff for the verified owner.
 
 ## Deferred
 
@@ -75,3 +86,5 @@
 | 16 Nov 2026 | Listing-entry mobile and desktop journeys        | Passed |
 | 16 Nov 2026 | Seeded PostgreSQL Rank quote                     | Passed |
 | 16 Nov 2026 | Listing-entry production build and bundle scan   | Passed |
+| 16 Nov 2026 | Razorpay adapter and signature unit tests        | Passed |
+| 16 Nov 2026 | Signed capture and duplicate-webhook simulation  | Passed |

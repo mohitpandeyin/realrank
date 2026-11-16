@@ -1,11 +1,12 @@
 "use server";
 
-import { getNewEntityRankQuote } from "@/server/db/queries/ranking-quotes";
+import { createNewEntityCheckout } from "@/server/db/queries/payment-checkouts";
+import { getRazorpayGateway, PaymentConfigurationError } from "@/server/payments/razorpay";
 
 import type { ListingEntryState } from "./types";
 import { listingEntrySchema } from "./validation";
 
-export async function quoteListingEntry(
+export async function startListingCheckout(
   citySlug: string,
   _previousState: ListingEntryState,
   formData: FormData,
@@ -29,16 +30,33 @@ export async function quoteListingEntry(
     };
   }
 
-  let quote: Awaited<ReturnType<typeof getNewEntityRankQuote>>;
+  let checkout: Awaited<ReturnType<typeof createNewEntityCheckout>>;
+  let publicKeyId: string;
   try {
-    quote = await getNewEntityRankQuote(citySlug, BigInt(parsed.data.rankAmount));
-  } catch {
+    const razorpay = getRazorpayGateway();
+    publicKeyId = razorpay.publicKeyId;
+    checkout = await createNewEntityCheckout(
+      {
+        citySlug,
+        entityName: parsed.data.entityName,
+        contactPhoneE164: `+91${parsed.data.contactNumber}`,
+        amountRupees: BigInt(parsed.data.rankAmount),
+      },
+      razorpay.gateway,
+    );
+  } catch (error) {
+    if (error instanceof PaymentConfigurationError) {
+      return {
+        status: "error",
+        message: "Test payments are not configured on this environment yet.",
+      };
+    }
     return {
       status: "error",
-      message: "We could not check the position right now. Please try again.",
+      message: "We could not start the secure payment right now. Please try again.",
     };
   }
-  if (!quote) {
+  if (!checkout) {
     return {
       status: "error",
       message: "This city is not currently available for new listings.",
@@ -46,8 +64,8 @@ export async function quoteListingEntry(
   }
 
   return {
-    status: "quoted",
-    quote,
-    message: "Your estimated position is ready. It will be checked again before payment.",
+    status: "checkout",
+    checkout: { ...checkout, publicKeyId },
+    message: "Secure payment is ready.",
   };
 }
