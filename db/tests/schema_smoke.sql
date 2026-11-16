@@ -51,6 +51,14 @@ BEGIN
     AND entity_id = '20000000-0000-4000-8000-000000000007';
   IF actual <> 7 THEN RAISE EXCEPTION 'Later tied entity should be Indore #7, found #% ', actual; END IF;
 
+  SELECT rankings.position INTO actual
+  FROM public_city_filter_rankings rankings
+  JOIN discovery_filters filters ON filters.id = rankings.discovery_filter_id
+  WHERE rankings.city_id = '10000000-0000-4000-8000-000000000001'
+    AND rankings.entity_id = '20000000-0000-4000-8000-000000000001'
+    AND filters.code = 'COMMERCIAL';
+  IF actual <> 2 THEN RAISE EXCEPTION 'Aarambh should be Indore Commercial #2, found #% ', actual; END IF;
+
   SELECT count(*) INTO actual FROM portfolio_item_media
   WHERE portfolio_item_id = '40000000-0000-4000-8000-000000000003';
   IF actual <> 0 THEN RAISE EXCEPTION 'Long-title fixture must retain its missing-media state'; END IF;

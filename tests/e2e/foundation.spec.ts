@@ -14,6 +14,37 @@ test("home foundation renders without horizontal overflow", async ({ page }) => 
   expect(hasOverflow).toBe(false);
 });
 
+test("discovery filters stay stable and expose their selected state", async ({ page }) => {
+  await page.goto("/");
+
+  const filters = page.locator('[aria-label="Filter the Realrank Index by category"]');
+  await expect(filters.getByRole("link", { name: "All" })).toHaveAttribute("aria-current", "page");
+  await expect(filters.getByRole("link")).toHaveText([
+    "All",
+    "Residential",
+    "Commercial",
+    "Land & Plot",
+  ]);
+
+  await filters.getByRole("link", { name: "Commercial" }).click();
+  await expect(page).toHaveURL(/category=commercial/);
+  await expect(
+    page
+      .locator('[aria-label="Filter the Realrank Index by category"]')
+      .getByRole("link", { name: "Commercial" }),
+  ).toHaveAttribute("aria-current", "page");
+});
+
+test("floating listing action appears only after the hero", async ({ page }) => {
+  await page.goto("/");
+
+  const floatingAction = page.getByTestId("floating-list-entity");
+  await expect(floatingAction).toHaveAttribute("aria-hidden", "true");
+
+  await page.locator("#realrank-index").scrollIntoViewIfNeeded();
+  await expect(floatingAction).toHaveAttribute("aria-hidden", "false");
+});
+
 test("health endpoint exposes no operational detail", async ({ request }) => {
   const response = await request.get("/api/health");
   expect(response.ok()).toBe(true);

@@ -39,7 +39,8 @@
 .rrHeaderActions a,
 .rrFooter a,
 .rrHelpLink,
-.rrIconLink {
+.rrIconLink,
+.rrCityLink {
   color: var(--rr-color-muted);
   text-decoration: none;
 }
@@ -58,6 +59,11 @@
 
 .rrHelpLink {
   padding-inline: var(--rr-space-4);
+}
+
+.rrCityLink {
+  padding-inline: var(--rr-space-4);
+  color: var(--rr-color-text);
 }
 
 .rrIconLink {
@@ -149,9 +155,13 @@
     min-height: 66px;
   }
 
-  .rrHeaderActions > a:first-child,
+  .rrHomeHeader .rrHeaderActions > a:not(.rrCityLink),
   .rrHelpLink span {
     display: none;
+  }
+
+  .rrCityLink {
+    padding-inline: var(--rr-space-3);
   }
 
   .rrHelpLink {

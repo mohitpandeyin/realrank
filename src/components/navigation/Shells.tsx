@@ -1,4 +1,12 @@
-import { BarChart3, CircleUserRound, HelpCircle, Home, MapPin, UserRound } from "lucide-react";
+import {
+  BarChart3,
+  ChevronDown,
+  CircleUserRound,
+  HelpCircle,
+  Home,
+  MapPin,
+  UserRound,
+} from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -15,11 +23,27 @@ export function PublicShell({ children, home = false }: ShellProps & { home?: bo
         <nav className={styles.rrHeaderInner} aria-label="Public navigation">
           <BrandLogo />
           <div className={styles.rrHeaderActions}>
+            {home ? <Link href="#realrank-index">Categories</Link> : null}
             <Link href="/how-it-works">How it works</Link>
-            <Link className={styles.rrHelpLink} href="/help">
-              <HelpCircle aria-hidden="true" size={18} />
-              <span>Help</span>
-            </Link>
+            {home ? (
+              <>
+                <Link href="/access">Login</Link>
+                <Link
+                  className={styles.rrCityLink}
+                  href="#realrank-index"
+                  aria-label="Current city: Indore"
+                >
+                  <MapPin aria-hidden="true" size={17} />
+                  <span>Indore</span>
+                  <ChevronDown aria-hidden="true" size={15} />
+                </Link>
+              </>
+            ) : (
+              <Link className={styles.rrHelpLink} href="/help">
+                <HelpCircle aria-hidden="true" size={18} />
+                <span>Help</span>
+              </Link>
+            )}
           </div>
         </nav>
       </header>
