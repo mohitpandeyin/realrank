@@ -1,9 +1,12 @@
 # Realrank implementation progress
 
-**Last updated:** 16 November 2026  
-**Current branch:** `codex/milestone-1-discovery`  
-**Current milestone:** Milestone 1 — Revenue and ownership vertical slice  
-**Current slice:** Public Indore discovery page
+**Last updated:** 16 November 2026
+
+**Current branch:** `codex/milestone-1-listing-entry`
+
+**Current milestone:** Milestone 1 — Revenue and ownership vertical slice
+
+**Current slice:** Listing entry and server-calculated Rank quote
 
 ## Completed
 
@@ -19,10 +22,20 @@
 - [x] Responsive entity cards, quiet Contact action and compact Claim action
 - [x] Floating List your Entity action after the hero leaves the viewport
 - [x] Empty, missing-description, long-name and tied-rank handling
+- [x] Discovery slice approved for incremental continuation
 
 ## In progress
 
-- [ ] Discovery slice awaiting product review
+- [ ] Listing-entry slice awaiting product review
+
+## Listing-entry slice completed
+
+- [x] Restored the locked listing form inside the homepage hero
+- [x] Validated entity name, Indian mobile number and whole-rupee Rank Amount on the server
+- [x] Kept free-form amount entry while stepping `+ / −` to adjacent ₹10 values
+- [x] Calculated estimated position from fresh PostgreSQL ranking data
+- [x] Routed entity Claim actions back to the shared listing form
+- [x] Validated desktop, mobile, keyboard and error states
 
 ## Locked implementation decisions
 
@@ -37,10 +50,9 @@
 
 ## Next slices after discovery approval
 
-1. Listing-entry validation and server-calculated Rank quote.
-2. Razorpay Test order creation and verified webhook fulfilment.
-3. Payment status and one-time ownership onboarding session.
-4. MSG91 test OTP adapter, verification limits and owner session.
+1. Razorpay Test order creation and verified webhook fulfilment.
+2. Payment status and one-time ownership onboarding session.
+3. MSG91 test OTP adapter, verification limits and owner session.
 
 ## Deferred
 
@@ -59,3 +71,7 @@
 | 16 Nov 2026 | Mobile and desktop browser journeys (16 checks)  | Passed |
 | 16 Nov 2026 | Production build and client-bundle scan          | Passed |
 | 16 Nov 2026 | Seeded visual review at 320px, 375px and desktop | Passed |
+| 16 Nov 2026 | Listing-entry unit tests                         | Passed |
+| 16 Nov 2026 | Listing-entry mobile and desktop journeys        | Passed |
+| 16 Nov 2026 | Seeded PostgreSQL Rank quote                     | Passed |
+| 16 Nov 2026 | Listing-entry production build and bundle scan   | Passed |

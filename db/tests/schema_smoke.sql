@@ -59,6 +59,12 @@ BEGIN
     AND filters.code = 'COMMERCIAL';
   IF actual <> 2 THEN RAISE EXCEPTION 'Aarambh should be Indore Commercial #2, found #% ', actual; END IF;
 
+  SELECT 1 + count(*) INTO actual
+  FROM public_city_rankings
+  WHERE city_id = '10000000-0000-4000-8000-000000000001'
+    AND shared_total_ranking_credit_paise >= 151000;
+  IF actual <> 2 THEN RAISE EXCEPTION 'A new ₹1,510 total should estimate Indore #2, found #% ', actual; END IF;
+
   SELECT count(*) INTO actual FROM portfolio_item_media
   WHERE portfolio_item_id = '40000000-0000-4000-8000-000000000003';
   IF actual <> 0 THEN RAISE EXCEPTION 'Long-title fixture must retain its missing-media state'; END IF;

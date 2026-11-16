@@ -11,17 +11,28 @@ export const metadata: Metadata = {
 };
 
 type HomePageProps = {
-  searchParams: Promise<{ category?: string | string[] }>;
+  searchParams: Promise<{
+    amount?: string | string[];
+    category?: string | string[];
+  }>;
 };
 
+function initialRankAmount(value: string | string[] | undefined): string {
+  const candidate = Array.isArray(value) ? value[0] : value;
+  if (!candidate || !/^[0-9]{1,9}$/.test(candidate)) return "10";
+
+  const amount = BigInt(candidate);
+  return amount >= 10n ? amount.toString() : "10";
+}
+
 export default async function HomePage({ searchParams }: HomePageProps) {
-  const { category } = await searchParams;
+  const { amount, category } = await searchParams;
   const requestedFilter = Array.isArray(category) ? category[0] : category;
   const discovery = await getPublicDiscovery("indore", requestedFilter ?? null);
 
   return (
     <PublicShell home>
-      <DiscoveryHome discovery={discovery} />
+      <DiscoveryHome discovery={discovery} initialAmountRupees={initialRankAmount(amount)} />
     </PublicShell>
   );
 }

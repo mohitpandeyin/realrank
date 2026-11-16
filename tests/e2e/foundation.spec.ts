@@ -45,6 +45,32 @@ test("floating listing action appears only after the hero", async ({ page }) => 
   await expect(floatingAction).toHaveAttribute("aria-hidden", "false");
 });
 
+test("listing amount accepts free entry and buttons step to adjacent tens", async ({ page }) => {
+  await page.goto("/?amount=151#rr-entry-form");
+
+  const amount = page.getByLabel("Rank Amount, minimum 10 rupees");
+  await expect(amount).toHaveValue("151");
+
+  await page.getByRole("button", { name: "Move to the next 10-rupee amount" }).click();
+  await expect(amount).toHaveValue("160");
+
+  await page.getByRole("button", { name: "Move to the previous 10-rupee amount" }).click();
+  await expect(amount).toHaveValue("150");
+});
+
+test("listing entry reports server validation without reaching checkout", async ({ page }) => {
+  await page.goto("/#rr-entry-form");
+
+  await page.getByLabel("Entity name").fill("A");
+  await page.getByLabel("Contact or WhatsApp number").fill("123");
+  await page.getByLabel("Rank Amount, minimum 10 rupees").fill("9");
+  await page.getByRole("button", { name: "List your Entity" }).click();
+
+  await expect(page.getByText("Enter an entity name with at least 2 characters.")).toBeVisible();
+  await expect(page.getByText("Enter a valid 10-digit Indian mobile number.")).toBeVisible();
+  await expect(page.getByText("Rank Amount must be at least ₹10.")).toBeVisible();
+});
+
 test("health endpoint exposes no operational detail", async ({ request }) => {
   const response = await request.get("/api/health");
   expect(response.ok()).toBe(true);

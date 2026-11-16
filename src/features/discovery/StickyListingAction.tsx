@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import styles from "./DiscoveryHome.module.css";
 
-export function StickyListingAction({ citySlug }: { citySlug: string }) {
+export function StickyListingAction() {
   const [heroPassed, setHeroPassed] = useState(false);
   const [footerVisible, setFooterVisible] = useState(false);
   const visible = heroPassed && !footerVisible;
@@ -39,7 +39,7 @@ export function StickyListingAction({ citySlug }: { citySlug: string }) {
   return (
     <Link
       className={`${styles.rrFloatingAction} ${visible ? styles.rrFloatingActionVisible : ""}`}
-      href={`/access?intent=list&city=${encodeURIComponent(citySlug)}`}
+      href="#rr-entry-form"
       data-testid="floating-list-entity"
       tabIndex={visible ? 0 : -1}
       aria-hidden={!visible}

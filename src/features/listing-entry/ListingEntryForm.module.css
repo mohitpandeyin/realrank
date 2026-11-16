@@ -1,0 +1,259 @@
+.rrEntry {
+  width: min(100%, 1120px);
+  margin: 32px auto 0;
+  padding: 14px;
+  border: 1px solid var(--rr-color-line);
+  border-radius: var(--rr-radius-4);
+  background: color-mix(in srgb, var(--rr-color-surface) 94%, transparent);
+  box-shadow: var(--rr-shadow-soft);
+  text-align: left;
+}
+
+.rrEntryGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 230px minmax(220px, 0.9fr);
+  align-items: stretch;
+}
+
+.rrFieldGroup {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 82px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 16px;
+  border-right: 1px solid var(--rr-color-line);
+}
+
+.rrField {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  color: var(--rr-color-text);
+  background: transparent;
+}
+
+.rrField::placeholder {
+  color: var(--rr-color-muted);
+}
+
+.rrField[aria-invalid="true"],
+.rrAmountValue input[aria-invalid="true"] {
+  color: var(--rr-color-danger);
+}
+
+.rrAmountGroup {
+  padding-top: 22px;
+}
+
+.rrClaimFirst {
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  color: var(--rr-color-action-strong);
+  background: transparent;
+  font-size: 0.68rem;
+  cursor: pointer;
+}
+
+.rrAmountControls {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 4px;
+}
+
+.rrAmountControls > button {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  color: var(--rr-color-text);
+  background: var(--rr-color-quiet);
+  cursor: pointer;
+}
+
+.rrAmountValue {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.rrAmountValue > span {
+  color: var(--rr-color-muted);
+  font-size: var(--rr-font-size-2);
+}
+
+.rrAmountValue input {
+  width: min(100%, 110px);
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  color: var(--rr-color-text);
+  background: transparent;
+  font-weight: 700;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+.rrAmountValue input::-webkit-inner-spin-button,
+.rrAmountValue input::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.rrSubmit {
+  align-self: end;
+  display: inline-flex;
+  min-height: 82px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0;
+  border-radius: var(--rr-radius-3);
+  color: #fff;
+  background: var(--rr-color-action);
+  font-weight: 680;
+  cursor: pointer;
+}
+
+.rrSubmit:hover {
+  background: var(--rr-color-action-strong);
+}
+
+.rrSubmit:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.rrEntryFooter {
+  display: flex;
+  min-height: 30px;
+  padding: 10px 6px 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  color: var(--rr-color-muted);
+  font-size: var(--rr-font-size-1);
+}
+
+.rrEntryFooter p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.rrEntryFooter a {
+  color: var(--rr-color-text);
+  font-weight: 620;
+  text-underline-offset: 2px;
+}
+
+.rrFormStatus {
+  max-width: 400px;
+  text-align: right;
+}
+
+.rrQuoteSuccess {
+  color: var(--rr-color-success);
+}
+
+.rrFormError,
+.rrFieldError {
+  color: var(--rr-color-danger);
+}
+
+.rrFieldError {
+  margin-top: 2px;
+  font-size: 0.62rem;
+  line-height: 1.25;
+}
+
+.rrSrOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .rrEntryGrid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .rrFieldGroup:nth-child(2) {
+    border-right: 0;
+  }
+
+  .rrAmountGroup {
+    border-top: 1px solid var(--rr-color-line);
+  }
+
+  .rrSubmit {
+    min-height: 70px;
+    margin: 8px 0 0 8px;
+  }
+}
+
+@media (max-width: 620px) {
+  .rrEntry {
+    padding: 8px;
+    border-radius: var(--rr-radius-3);
+  }
+
+  .rrEntryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .rrFieldGroup,
+  .rrFieldGroup:nth-child(2) {
+    min-height: 64px;
+    padding-inline: 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--rr-color-line);
+  }
+
+  .rrAmountGroup {
+    min-height: 78px;
+    border-top: 0;
+  }
+
+  .rrClaimFirst {
+    top: 5px;
+  }
+
+  .rrSubmit {
+    min-height: 52px;
+    margin: 8px 0 0;
+  }
+
+  .rrEntryFooter {
+    padding: 10px 6px 4px;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .rrFormStatus {
+    text-align: left;
+  }
+}

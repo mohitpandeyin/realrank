@@ -1,5 +1,4 @@
 import {
-  ArrowRight,
   BedDouble,
   Building,
   Building2,
@@ -20,6 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { ListingEntryForm } from "@/features/listing-entry/ListingEntryForm.client";
 import type {
   DiscoveryEntity,
   DiscoveryFilter,
@@ -96,6 +96,7 @@ function EntityCard({ entity, citySlug }: { entity: DiscoveryEntity; citySlug: s
   const contactHref = isWhatsapp
     ? `https://wa.me/${normalizedPhone}`
     : `tel:${entity.contactPhoneE164}`;
+  const claimAmountRupees = entity.rankTotalPaise / 100n + 1n;
 
   return (
     <article
@@ -140,7 +141,8 @@ function EntityCard({ entity, citySlug }: { entity: DiscoveryEntity; citySlug: s
         </span>
         <Link
           className={styles.rrClaim}
-          href={`/access?intent=claim&entity=${encodeURIComponent(entity.slug)}&city=${encodeURIComponent(citySlug)}`}
+          href={`/?amount=${claimAmountRupees.toString()}#rr-entry-form`}
+          aria-label={`Set Rank Amount to claim position ${entity.position} in ${citySlug}`}
         >
           Claim #{entity.position}
         </Link>
@@ -149,12 +151,18 @@ function EntityCard({ entity, citySlug }: { entity: DiscoveryEntity; citySlug: s
   );
 }
 
-export function DiscoveryHome({ discovery }: { discovery: PublicDiscovery }) {
+export function DiscoveryHome({
+  discovery,
+  initialAmountRupees,
+}: {
+  discovery: PublicDiscovery;
+  initialAmountRupees: string;
+}) {
   const primaryFilters = discovery.filters.filter((filter) => filter.group === "PRIMARY");
   const moreFilters = discovery.filters.filter((filter) => filter.group === "MORE");
-  const topClaimAmount = discovery.entities[0]
-    ? formatRupees(discovery.entities[0].rankTotalPaise + 100n)
-    : null;
+  const firstPlaceAmountRupees = discovery.entities[0]
+    ? (discovery.entities[0].rankTotalPaise / 100n + 1n).toString()
+    : "10";
 
   return (
     <>
@@ -172,19 +180,14 @@ export function DiscoveryHome({ discovery }: { discovery: PublicDiscovery }) {
           property categories. Bid transparently, showcase live portfolios, and connect directly
           with high-intent property buyers—zero commission fees, zero middleman algorithms.
         </p>
-        <div className={styles.rrHeroActions}>
-          <Link className={styles.rrPrimaryAction} href="/access?intent=list&city=indore">
-            List your Entity
-            <ArrowRight aria-hidden="true" size={19} />
-          </Link>
-          <span>
-            Rank Amount starts at ₹10
-            {topClaimAmount ? ` · ${topClaimAmount} currently reaches #1` : ""}
-          </span>
-        </div>
+        <ListingEntryForm
+          citySlug={discovery.city.slug}
+          initialAmountRupees={initialAmountRupees}
+          firstPlaceAmountRupees={firstPlaceAmountRupees}
+        />
       </section>
 
-      <StickyListingAction citySlug={discovery.city.slug} />
+      <StickyListingAction />
 
       <section className={styles.rrIndex} id="realrank-index">
         <div className={styles.rrIndexInner}>
